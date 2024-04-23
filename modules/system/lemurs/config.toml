@@ -1,0 +1,7 @@
+[password_field]
+content_replacement_character = "*"
+
+[password_field.style]
+show_title = true
+title = "Wow a Password :)"
+title_color = "white"
