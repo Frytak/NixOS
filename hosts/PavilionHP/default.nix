@@ -11,6 +11,14 @@
     config = {
         system.stateVersion = "23.11";
 
+        security.rtkit.enable = true;
+        services.pipewire = {
+            enable = true;
+            alsa.enable = true;
+            alsa.support32Bit = true;
+            pulse.enable = true;
+        };
+
         # Allow unfree software
         nixpkgs.config.allowUnfree = true;	
 
@@ -86,12 +94,13 @@
 	    "wl-clipboard".enable = true;
 	    swaybg.enable = true;
 	    #steam.enable = true;
-	    #mgba.enable = true;
+	    mgba.enable = true;
 	    #lemurs.enable = true;
 	    #displayManagers.wayland.sway.enable = true;
 	};
 
 	# Testing stuff out
-	environment.systemPackages = [ pkgs.lshw ];
+	environment.systemPackages = [ pkgs.lshw pkgs.ungoogled-chromium ];
+	sound.enable = true;
     };
 }

@@ -9,7 +9,7 @@ in
     modules = {
         x11.enable = true;
         nvim.enable = true;
-        firefox.enable = true;
+        #firefox.enable = true;
         terminals.alacritty.enable = true;
         shells.fish.enable = true;
 	wayland.sway = {
