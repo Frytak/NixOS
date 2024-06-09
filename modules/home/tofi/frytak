@@ -1,0 +1,105 @@
+### Fonts
+	font = "Sans"
+	font-size = 14
+	font-features = ""
+	font-variations = ""
+	hint-font = true
+
+### Text theming
+	# Default text color
+	text-color = #FFFFFF
+
+	# Prompt text theme
+	prompt-color = #FFFFFF
+	prompt-background = #00000000
+	prompt-background-padding = 0
+	prompt-background-corner-radius = 0
+
+	# Placeholder text theme
+	placeholder-color = #FFFFFFA8
+	placeholder-background = #00000000
+	placeholder-background-padding = 0
+	placeholder-background-corner-radius = 0
+
+	# Input text theme
+	input-color = #FFFFFF
+	input-background = #00000000
+	input-background-padding = 0
+	input-background-corner-radius = 0
+
+	# Default result text theme
+	default-result-color = #FFFFFF
+	default-result-background = #00000000
+	default-result-background-padding = 0
+	default-result-background-corner-radius = 0
+
+	# Selection text
+	selection-color = #F92672
+	selection-background = #00000000
+	selection-background-padding = 0
+	selection-background-corner-radius = 0
+
+	# Matching portion of selection text
+	selection-match-color = #00000000
+
+### Text cursor theme
+	text-cursor-style = block
+	text-cursor-color = #FFFFFF
+	text-cursor-corner-radius = 0
+	text-cursor-thickness = 2
+
+### Text layout
+	prompt-text = ""
+	prompt-padding = 0
+	placeholder-text = "Search..."
+	num-results = 0
+	result-spacing = 10
+	horizontal = false
+	min-input-width = 0
+
+### Window theming
+	width = 15%
+	height = 26%
+
+	background-color = #1B1D1E
+	outline-width = 0
+	outline-color = #000000
+	border-width = 1
+	border-color = #33CCFF
+	corner-radius = 5
+
+	padding-top = 6
+	padding-bottom = 6
+	padding-left = 6
+	padding-right = 6
+
+	clip-to-padding = true
+
+	scale = true
+
+### Window positioning
+	output = ""
+	anchor = top
+	exclusive-zone = -1
+
+	margin-top = 5%
+	margin-bottom = 0
+	margin-left = 0
+	margin-right = 0
+
+### Behaviour
+	hide-cursor = false
+	text-cursor = false
+
+	history = true
+	#matching-algorithm = normal
+	require-match = true
+	auto-accept-single = false
+
+	hide-input = false
+	#physical-keybindings = true
+
+	#print-index = false
+	drun-launch = false
+	multi-instance = false
+	ascii-input = true

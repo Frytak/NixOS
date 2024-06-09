@@ -8,8 +8,8 @@
     config = lib.mkIf config.modules.home.git.enable {
         programs.git = {
             enable = true;
-	    userName = "Frytak";
-	    userEmail = "frytak2855@gmail.com";
-	};
+            userName = "Frytak";
+            userEmail = "frytak2855@gmail.com";
+        };
     };
 }

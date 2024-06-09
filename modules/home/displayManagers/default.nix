@@ -2,7 +2,7 @@
 
 {
     imports = [
+        ./wayland
         ./x11
-	./wayland
     ];
 }

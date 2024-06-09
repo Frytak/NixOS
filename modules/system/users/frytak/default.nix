@@ -12,13 +12,13 @@ in
     config = lib.mkIf moduleConfig.enable {
         # Define a user account.
         users.users.frytak = {
-	    description = "Frytak";
+            description = "Frytak";
             isNormalUser = true;
 
-            extraGroups = [ "wheel" "networkmanager" "seat" ];
+            extraGroups = [ "wheel" "networkmanager" "dialout" ];
 
-	    shell = pkgs.fish;
-	    ignoreShellProgramCheck = true;
+            shell = pkgs.fish;
+            ignoreShellProgramCheck = true;
         };
     };
 }

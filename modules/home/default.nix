@@ -2,14 +2,26 @@
 
 {
     imports = [
-	./displayManagers
+        ./displayManagers
 
         ./browsers
-	./editors
-	./terminals
-	./shells
+        ./editors
+        ./terminals
+        ./shells
+        ./games
 
-	./git
-	./hyfetch
+        ./git
+        ./hyfetch
+        ./wine
+        ./qbittorrent
+        ./ollama
+        ./ssh
+        ./obs
+        ./swaync
+        ./waybar
+        ./swww
+        ./direnv
+        ./tofi
+        ./vesktop
     ];
 }

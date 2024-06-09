@@ -1,29 +1,22 @@
-{ options, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-    moduleConfig = config.modules.x11;
+    moduleConfig = config.modules.home.displayManagers.x11;
 in
 
 {
-    options.modules.x11 = {
-        enable = lib.mkEnableOption "x11";
+    imports = [
+        ./i3
+    ];
+
+    options.modules.home.displayManagers.x11 = {
+        enable = lib.mkEnableOption "X11";
     };
     
     config = lib.mkIf moduleConfig.enable {
         xsession = {
-	    enable = true;
-            windowManager.i3.enable = true;
-	};
-
-        #services.xserver = {
-        #    enable = true;
-        #    windowManager.i3.enable = true;
-        #    
-        #    # Configure keymaps.
-        #    xkb = {
-        #        layout = "pl";
-        #        options = "eurosign:e,caps:escape";
-        #    };
-        #};
+            enable = true;
+            scriptPath = ".hm-xsession";
+        };
     };
 }

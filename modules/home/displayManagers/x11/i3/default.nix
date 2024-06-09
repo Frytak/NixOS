@@ -1,38 +1,19 @@
 { config, lib, pkgs, ... }:
 
 let
-    moduleConfig = config.modules.home.displayManagers.wayland.sway;
-    modifier = config.xsession.windowManager.sway.config.modifier;
+    moduleConfig = config.modules.home.displayManagers.x11.i3;
+    modifier = config.xsession.windowManager.i3.config.modifier;
 in
 
 {
-    options.modules.home.displayManagers.wayland.sway = {
-        enable = lib.mkEnableOption "sway";
-
-        additionalConfig = lib.mkOption {
-            type = lib.types.lines;
-            description = "Additional Sway configuration.";
-            default = "";
-            example = ''
-                output HDMI-A-1 mode 1920x1080@60Hz
-            '';
-        };
-
-        grimshot = {
-            enable = lib.mkEnableOption "GrimShot";
-        };
+    options.modules.home.displayManagers.x11.i3 = {
+        enable = lib.mkEnableOption "i3";
     };
     
     config = lib.mkIf moduleConfig.enable {
-        home.sessionVariables = {
-            XDG_SESSION_TYPE = "wayland";
-            XDG_CURRENT_DESKTOP = "sway"; 
-        };
-
-        wayland.windowManager.sway = {
+        xsession.windowManager.i3 = {
             enable = true;
-            systemd.enable = true;
-            config = rec {
+            config = {
                 modifier = "Mod4";
                 terminal = "alacritty";
                 window.border = 1;
@@ -90,21 +71,12 @@ in
                     j = "resize grow height 10 px";
                     k = "resize shrink height 10 px";
                     l = "resize grow width 10 px";
+                    "Shift+h" = "resize shrink width 100 px";
+                    "Shift+j" = "resize grow height 100 px";
+                    "Shift+k" = "resize shrink height 100 px";
+                    "Shift+l" = "resize grow width 100 px";
                 };
             };
-
-            extraConfig = ''
-                # Set Polish keyboard layout.
-                input "type:keyboard" {
-                    xkb_layout pl
-                }
-
-                # https://nixos.wiki/wiki/Firefox
-                exec systemctl --user import-environment
-
-            '' + moduleConfig.additionalConfig;
         };
-
-        home.packages = lib.mkIf moduleConfig.grimshot.enable [ pkgs.sway-contrib.grimshot ];
     };
 }

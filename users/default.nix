@@ -6,6 +6,7 @@ in
 
 {
     imports = [
+        ./root
         ./frytak
     ];
 
@@ -14,6 +15,9 @@ in
     };
 
     config = lib.mkIf moduleConfig.enableAll {
-        modules.home.users.frytak.enable = true;
+        modules.home.users = {
+            root.enable = true;
+            frytak.enable = true;
+        };
     };
 }
