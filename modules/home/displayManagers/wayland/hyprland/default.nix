@@ -167,12 +167,18 @@ in
                 );
 
                 workspace = [
-                    "name:1, monitor:HDMI-A-2, default:true"
-                    "name:2, monitor:HDMI-A-2"
-                    "name:3, monitor:HDMI-A-2"
-                    "name:4, monitor:HDMI-A-1, default:true"
-                    "name:5, monitor:HDMI-A-1"
-                    "name:6, monitor:HDMI-A-1"
+                    #"name:1, monitor:HDMI-A-2, default:true"
+                    #"name:2, monitor:HDMI-A-2"
+                    #"name:3, monitor:HDMI-A-2"
+                    #"name:4, monitor:HDMI-A-1, default:true"
+                    #"name:5, monitor:HDMI-A-1"
+                    #"name:6, monitor:HDMI-A-1"
+                    "name:1, monitor:eDP-1, default:true"
+                    "name:2, monitor:eDP-1"
+                    "name:3, monitor:eDP-1"
+                    "name:4, monitor:eDP-1, default:true"
+                    "name:5, monitor:eDP-1"
+                    "name:6, monitor:eDP-1"
                     "special:7, gapsin:5"
                     "special:8, gapsin:5"
                     "special:9, gapsin:5"
@@ -185,8 +191,9 @@ in
 
                 # TODO: Auto detect device
                 monitor = [
-                    "HDMI-A-2, 1920x1080@60, 0x0, 1"
-                    "HDMI-A-1, 1920x1080@60, 1920x0, 1"
+                    #"HDMI-A-2, 1920x1080@60, 0x0, 1"
+                    #"HDMI-A-1, 1920x1080@60, 1920x0, 1"
+		    "eDP-1, 1920x1080@60, 0x0, 1.2"
                 ];
 
                 general = {

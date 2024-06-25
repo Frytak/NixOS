@@ -10,6 +10,7 @@ in
     };
     
     config = lib.mkIf moduleConfig.enable {
+        home.packages = [ pkgs.fishPlugins.bass ];
         programs.fish = {
             enable = true;
         };

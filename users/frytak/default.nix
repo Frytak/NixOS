@@ -9,7 +9,7 @@ in
     imports = [ ../../modules/home ];
 
     home = {
-        stateVersion = "23.11";
+        stateVersion = "24.05";
         username = USER;
         homeDirectory = HOME;
     };
@@ -17,7 +17,10 @@ in
     home.packages = with pkgs; [
         cachix
         vesktop
+        webcord-vencord
         telegram-desktop
+        remmina
+        sshfs
     ];
     services.cachix-agent = {
         enable = true;
@@ -35,16 +38,16 @@ in
             configSource = "local";
             configLocalPath = "${HOME}/ProgrammingProjects/NvimConfig";
         };
-        browsers.firefox.enable = true;
+        #browsers.firefox.enable = true;
         terminals.alacritty.enable = true;
         shells.fish.enable = true;
-        obs.enable = true;
-        hyfetch = {
-            enable = true;
-            ascii = "bad_dragon";
-        };
+        #obs.enable = true;
+        #hyfetch = {
+        #    enable = true;
+        #    ascii = "bad_dragon";
+        #};
 
-        vesktop.enable = true;
+        #vesktop.enable = true;
         tofi = {
             enable = true;
             theme = "frytak";
@@ -54,15 +57,15 @@ in
             enable = true;
             #systemd.enable = true;
         };
-        swww.enable = true;
+        #swww.enable = true;
         displayManagers.wayland.hyprland = {
             enable = true;
             swaync.enable = true;
             grimblast.enable = true;
-            exec-once = [
-                # TODO: https://www.reddit.com/r/hyprland/comments/16r7ad9/comment/kcpkj3w/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-                "sleep 5 && swww img ${HOME}/Downloads/nature_overtake.png"
-            ];
+            #exec-once = [
+            #    # TODO: https://www.reddit.com/r/hyprland/comments/16r7ad9/comment/kcpkj3w/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+            #    "sleep 5 && swww img ${HOME}/Downloads/nature_overtake.png"
+            #];
         };
 
         direnv.enable = true;
@@ -76,20 +79,28 @@ in
         #    i3.enable = true;
         #};
 
-        games = {
-            enable = true;
-            prismlauncher.enable = true;
-        };
+        #games = {
+        #    enable = true;
+        #    prismlauncher.enable = true;
+        #};
 
-        wine.enable = true;
-        qbittorrent.enable = true;
-        ollama.enable = true;
+        #wine.enable = true;
+        #qbittorrent.enable = true;
+        #ollama.enable = true;
         ssh = {
             enable = true;
             extraConfig = ''Host frytak
   HostName github.com
   IdentityFile ~/.ssh/id_rsa
   User git
+
+host hetzner vps-hetzner
+    hostname 5.75.188.219
+    user frytak
+    identityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+    VisualHostKey yes
+
             '';
             ssh-agent.enable = true;
         };
@@ -101,6 +112,12 @@ in
             displayManagers.wayland.sway.additionalConfig = ''
                 output HDMI-A-1 bg ${HOME}/Downloads/nature_overtake.png fill #000000
                 output HDMI-A-2 bg ${HOME}/Downloads/nature_overtake.png fill #000000
+            '';
+        }
+    else if (systemName == "Pavilion") then
+        {
+            displayManagers.wayland.sway.additionalConfig = ''
+                output = eDP-1, 1920x1080, 0x0, 1
             '';
         }
     else
