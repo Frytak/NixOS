@@ -10,6 +10,11 @@
             enable = true;
             userName = "Frytak";
             userEmail = "frytak2855@gmail.com";
+
+            extraConfig = {
+                init.defaultBranch = "main";
+                safe.directory = [ "/etc/nixos" ];
+            };
         };
     };
 }
