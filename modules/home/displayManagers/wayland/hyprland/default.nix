@@ -1,16 +1,30 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, recursiveMerge, ... }:
 
 let
     moduleConfig = config.modules.home.displayManagers.wayland.hyprland;
+    # God bless them https://stackoverflow.com/a/54505212/16454500
+    recursiveMerge = attrList:
+    let f = attrPath:
+        lib.zipAttrsWith (n: values:
+            if lib.tail values == []
+                then lib.head values
+            else if lib.all lib.isList values
+                then lib.unique (lib.concatLists values)
+            else if lib.all lib.isAttrs values
+                then f (attrPath ++ [n]) values
+            else lib.last values
+        );
+    in f [] attrList;
 in
 
 {
     options.modules.home.displayManagers.wayland.hyprland = {
         enable = lib.mkEnableOption "Hyprland";
 
-        exec-once = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-            default = [];
+        config = lib.mkOption {
+            description = "Additional Hyprland config added to `wayland.windowManager.hyprland` with `lib.attrsets.recursiveUpdate`.";
+            type = lib.types.attrs;
+            default = {};
         };
 
         grimblast.enable = lib.mkOption {
@@ -42,15 +56,15 @@ in
     };
     
     config = lib.mkIf moduleConfig.enable {
-        home.packages = [ pkgs.xwaylandvideobridge ]
+        home.packages = with pkgs; [ xwaylandvideobridge pamixer playerctl ]
         ++ (if (moduleConfig.grimblast.enable) then ([ pkgs.grimblast ]) else ([]));
 
-        wayland.windowManager.hyprland = {
+        wayland.windowManager.hyprland = recursiveMerge [{
             enable = true;
             systemd.enable = true;
             xwayland.enable = true;
 
-            settings = lib.mkDefault {
+            settings = {
                 "$mod" = "SUPER";
 
                 exec-once = [
@@ -60,10 +74,11 @@ in
                     "waybar"
                     "swww-daemon"
                     "vencorddesktop"
-                ] ++ moduleConfig.exec-once;
+                ];
 
                 bindm = [
                     "$mod, mouse:272, movewindow"
+                    "$mod, mouse:273, resizewindow"
                 ];
 
                 bind = [
@@ -84,12 +99,20 @@ in
 
                     ", XF86AudioRaiseVolume, exec, pamixer -i 5"
                     ", XF86AudioLowerVolume, exec, pamixer -d 5"
-                    ", XF86AudioMicMute, exec, pamixer --default-source -m"
                     ", XF86AudioMute, exec, pamixer -t"
+                    ", XF86AudioMicMute, exec, pamixer --default-source -m"
                     ", XF86AudioPlay, exec, playerctl play-pause"
                     ", XF86AudioPause, exec, playerctl play-pause"
                     ", XF86AudioNext, exec, playerctl next"
                     ", XF86AudioPrev, exec, playerctl previous"
+
+                    "$mod, F3, exec, pamixer -i 5"
+                    "$mod, F2, exec, pamixer -d 5"
+                    "$mod, F1, exec, pamixer -t"
+                    "$mod, F4, exec, pamixer --default-source -t"
+                    "$mod, F6, exec, playerctl play-pause"
+                    "$mod, F7, exec, playerctl next"
+                    "$mod, F5, exec, playerctl previous"
 
                     # TODO
                     "$mod, N, exec, swaync-client -t"
@@ -126,8 +149,8 @@ in
                     "$mod SHIFT, code:85, movetoworkspace, name:6"
 
                     # Special workspaces
-                    "$mod, S, togglespecialworkspace, discord"
-                    "$mod SHIFT, S, movetoworkspace, special:discord"
+                    "$mod, S, togglespecialworkspace, S"
+                    "$mod SHIFT, S, movetoworkspace, special:S"
 
                     "$mod, 7, togglespecialworkspace, 7"
                     "$mod SHIFT, 7, movetoworkspace, special:7"
@@ -166,34 +189,15 @@ in
                     ) 6)
                 );
 
-                workspace = [
-                    #"name:1, monitor:HDMI-A-2, default:true"
-                    #"name:2, monitor:HDMI-A-2"
-                    #"name:3, monitor:HDMI-A-2"
-                    #"name:4, monitor:HDMI-A-1, default:true"
-                    #"name:5, monitor:HDMI-A-1"
-                    #"name:6, monitor:HDMI-A-1"
-                    "name:1, monitor:eDP-1, default:true"
-                    "name:2, monitor:eDP-1"
-                    "name:3, monitor:eDP-1"
-                    "name:4, monitor:eDP-1, default:true"
-                    "name:5, monitor:eDP-1"
-                    "name:6, monitor:eDP-1"
-                    "special:7, gapsin:5"
-                    "special:8, gapsin:5"
-                    "special:9, gapsin:5"
-                    "special:S, gapsin:5"
-                ];
-
                 windowrule = [
                     "workspace special:S, class:(VencordDesktop)"
                 ];
 
-                # TODO: Auto detect device
-                monitor = [
-                    #"HDMI-A-2, 1920x1080@60, 0x0, 1"
-                    #"HDMI-A-1, 1920x1080@60, 1920x0, 1"
-		    "eDP-1, 1920x1080@60, 0x0, 1.2"
+                workspace = [
+                    "special:7, gapsin:25, gapsout:50"
+                    "special:8, gapsin:25, gapsout:50"
+                    "special:9, gapsin:25, gapsout:50"
+                    "special:S, gapsin:25, gapsout:50"
                 ];
 
                 general = {
@@ -205,7 +209,7 @@ in
                     "col.inactive_border" = "rgba(595959aa)";
 
                     resize_on_border = true;
-                    extend_border_grab_area = 15;
+                    extend_border_grab_area = 30;
                 };
 
                 decoration = {
@@ -216,12 +220,16 @@ in
                     kb_layout = "pl";
                     numlock_by_default = true;
                     follow_mouse = 2;
+
+                    repeat_rate = 40;
+                    repeat_delay = 400;
                 };
 
                 misc = {
                     disable_splash_rendering = true;
+                    middle_click_paste = false;
                 };
             };
-        };
+        } moduleConfig.config];
     };
 }

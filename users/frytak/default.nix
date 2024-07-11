@@ -38,7 +38,7 @@ in
             configSource = "local";
             configLocalPath = "${HOME}/ProgrammingProjects/NvimConfig";
         };
-        #browsers.firefox.enable = true;
+        browsers.firefox.enable = true;
         terminals.alacritty.enable = true;
         shells.fish.enable = true;
         #obs.enable = true;
@@ -70,15 +70,6 @@ in
 
         direnv.enable = true;
 
-        #displayManagers.wayland.sway = {
-        #    enable = true;
-        #    grimshot.enable = true;
-        #};
-        #displayManagers.x11 = {
-        #    enable = true;
-        #    i3.enable = true;
-        #};
-
         #games = {
         #    enable = true;
         #    prismlauncher.enable = true;
@@ -109,16 +100,24 @@ host hetzner vps-hetzner
     # System specific user configuration.
     (if (systemName == "BBM") then
         {
-            displayManagers.wayland.sway.additionalConfig = ''
-                output HDMI-A-1 bg ${HOME}/Downloads/nature_overtake.png fill #000000
-                output HDMI-A-2 bg ${HOME}/Downloads/nature_overtake.png fill #000000
-            '';
         }
     else if (systemName == "Pavilion") then
         {
-            displayManagers.wayland.sway.additionalConfig = ''
-                output = eDP-1, 1920x1080, 0x0, 1
-            '';
+            # TODO: Move to Pavilion configuration
+            displayManagers.wayland.hyprland.config.settings = {
+                monitor = [
+                    "eDP-1, 1920x1080@60, 0x0, 1.2"
+                ];
+
+                workspace = [
+                    "name:1, monitor:eDP-1, default:true"
+                    "name:2, monitor:eDP-1"
+                    "name:3, monitor:eDP-1"
+                    "name:4, monitor:eDP-1"
+                    "name:5, monitor:eDP-1"
+                    "name:6, monitor:eDP-1"
+                ];
+            };
         }
     else
         lib.warn "User `${USER}` has no configuration for system `${systemName}`."
