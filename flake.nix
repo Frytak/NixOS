@@ -25,7 +25,10 @@
         nixosConfigurations = let
             system = systemName: {
                 ${systemName} = nixpkgs.lib.nixosSystem {
-                    modules = [ ./hosts/${systemName} ];
+                    modules = [
+                        ./modules/system/nixos_manager
+                        ./hosts/${systemName}
+                    ];
                     specialArgs = {
                         inherit inputs;
                         systemName = systemName;

@@ -9,13 +9,6 @@
     system.stateVersion = "24.05";
     networking.hostName = systemName;
 
-    systemd.tmpfiles.settings = {
-        "nixos_managers"."/etc/nixos"."Z" = {
-            user = "root";
-            group = "nixos";
-        };
-    };
-
     # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
@@ -114,10 +107,9 @@
         pulse.enable = true;
     };
 
-    users.groups."nixos" = {};
     users.users.frytak = {
         isNormalUser = true;
-        extraGroups = [ "nixos" "wheel" "networkmanager" "docker" ];
+        extraGroups = [ "nixos_manager" "wheel" "networkmanager" "docker" ];
     };
 
     home-manager = {
