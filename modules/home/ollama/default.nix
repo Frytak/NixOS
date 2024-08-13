@@ -6,11 +6,10 @@ in
 
 {
     options.modules.home.ollama = {
-        enable = lib.mkEnableOption "OLlama";
+        enable = lib.mkEnableOption "Ollama";
     };
     
     config = lib.mkIf moduleConfig.enable {
         home.packages = [ pkgs.ollama ];
-        #services.ollama.enable = true;
     };
 }

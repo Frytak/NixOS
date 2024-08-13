@@ -1,4 +1,4 @@
-{ lib, pkgs, systemName, ... }:
+{ lib, pkgs, systemName, inputs, ... }:
 
 let
     USER = "frytak";
@@ -6,7 +6,10 @@ let
 in
 
 {
-    imports = [ ../../modules/home ];
+    imports = [
+        ../../modules/home
+        ./themes
+    ];
 
     home = {
         stateVersion = "24.05";
@@ -14,13 +17,17 @@ in
         homeDirectory = HOME;
     };
 
-    home.packages = with pkgs; [
-        cachix
-        vesktop
-        webcord-vencord
-        telegram-desktop
-        remmina
-        sshfs
+    #home.sessionVariables.HYPRCURSOR_THEME = "McMojave";
+    home.packages = [
+        #inputs.mcmojave-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+        pkgs.cachix
+        pkgs.vesktop
+        pkgs.qbittorrent
+        pkgs.webcord-vencord
+        pkgs.telegram-desktop
+        pkgs.remmina
+        pkgs.sshfs
+        pkgs.fzf
     ];
     services.cachix-agent = {
         enable = true;
@@ -42,10 +49,10 @@ in
         terminals.alacritty.enable = true;
         shells.fish.enable = true;
         #obs.enable = true;
-        #hyfetch = {
-        #    enable = true;
-        #    ascii = "bad_dragon";
-        #};
+        hyfetch = {
+            enable = true;
+            ascii = "bad_dragon";
+        };
 
         #vesktop.enable = true;
         tofi = {
@@ -70,12 +77,13 @@ in
 
         direnv.enable = true;
 
-        #games = {
-        #    enable = true;
-        #    prismlauncher.enable = true;
-        #};
+        games = {
+            enable = true;
+            steam.enable = true;
+            prismlauncher.enable = true;
+        };
 
-        #wine.enable = true;
+        wine.enable = true;
         #qbittorrent.enable = true;
         #ollama.enable = true;
         ssh = {

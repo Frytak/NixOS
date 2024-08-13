@@ -1,8 +1,8 @@
-{ config, inputs, pkgs, systemName, lib, revursiveMerge, ... }@args:
+{ config, inputs, pkgs, systemName, lib, ... }@args:
 
 {
     imports = [
-        inputs.home-manager.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
         ./hardware-configuration.nix
     ];
 
@@ -12,23 +12,33 @@
     # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
+    boot.supportedFilesystems = [ "ntfs" ];
 
     nixpkgs.config.allowUnfree = true;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    nix.settings.trusted-public-keys = [
-        crane.cachix.org-1:8Scfpmn9w+hGdXH/Q9tTLiYAE/2dnJYRJP7kl80GuRk=
-        nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= 
-        kairos.cachix.org-1:1EqnyWXEbd4Dn1jCbiWOF1NLOc/bELx+wuqk0ZpbeqQ=
-    ];
-    nix.settings.trusted-substituters = [
-        https://crane.cachix.org
-        https://nix-community.cachix.org
-        https://kairos.cachix.org
+
+    #environment.variables.HYPRCURSOR_THEME = "McMojave";
+    environment.systemPackages = with pkgs; [
+        #inputs.mcmojave-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+        vim
+        neovim
+        git
+
+        xwayland
+        unar
+        zip
+        obs-studio
+        clapper
+
+        # Temporary
+        cliphist
+        wl-clipboard
+        lshw
     ];
 
-    virtualisation.docker.enable = true;
-
-    networking.networkmanager.enable = true;
+    # Enable the OpenSSH daemon.
+    services.openssh.enable = true;
+    services.input-remapper.enable = true;
 
     xdg.portal = {
         enable = true;
@@ -60,45 +70,40 @@
             LC_TELEPHONE = "pl_PL.UTF-8";
         };
     };
-    #console = {
-    #    font = "Lat2-Terminus16";
-    #    keyMap = "pl";
-    #};
 
     # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
-        opengl = {
+        graphics = {
             enable = true;
             #driSupport = true;
-            driSupport32Bit = true;
+            enable32Bit = true;
         };
 
         nvidia = {
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
+            package = config.boot.kernelPackages.nvidiaPackages.production;
             modesetting.enable = true;
             powerManagement.enable = false;
             powerManagement.finegrained = false;
             open = false;
             nvidiaSettings = true;
 
-            #prime = {
-            #    nvidiaBusId = "PCI:1:0:0";
-            #    amdgpuBusId = "PCI:5:0:0";
+            prime = {
+                nvidiaBusId = "PCI:1:0:0";
+                intelBusId = "PCI:0:2:0";
 
-            #    #sync.enable = true;
+                sync.enable = true;
 
-            #    offload = {
-            #        enable = true;
-            #        enableOffloadCmd = true;
-            #    };
-            #};
+                #offload = {
+                #    enable = true;
+                #    enableOffloadCmd = true;
+                #};
+            };
         };
     };
 
 
     # Enable sound.
-    sound.enable = true;
     security.rtkit.enable = true;
     services.pipewire = {
         enable = true;
@@ -106,6 +111,8 @@
         alsa.support32Bit = true;
         pulse.enable = true;
     };
+
+
 
     users.users.frytak = {
         isNormalUser = true;
@@ -140,19 +147,20 @@
         // (user "frytak");
     };
 
-    environment.systemPackages = with pkgs; [
-    vim
-    neovim
-    git
 
-    # Temporary
-    cliphist
-    wl-clipboard
 
-    lshw
-    #(pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true;}) {})
+    virtualisation.docker.enable = true;
+    networking.networkmanager.enable = true;
+
+    nix.settings.trusted-public-keys = [
+        crane.cachix.org-1:8Scfpmn9w+hGdXH/Q9tTLiYAE/2dnJYRJP7kl80GuRk=
+        nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= 
+        kairos.cachix.org-1:1EqnyWXEbd4Dn1jCbiWOF1NLOc/bELx+wuqk0ZpbeqQ=
     ];
 
-    # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
+    nix.settings.trusted-substituters = [
+        https://crane.cachix.org
+        https://nix-community.cachix.org
+        https://kairos.cachix.org
+    ];
 }
