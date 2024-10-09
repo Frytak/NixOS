@@ -4,10 +4,10 @@
 {
     imports = [ ../../modules/home ];
 
-    home.sessionVariables.HYPRCURSOR_THEME = "McMojaveTest";
-    home.packages = [
-        inputs.mcmojave-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+    #home.sessionVariables.HYPRCURSOR_THEME = "McMojaveTest";
+    #home.packages = [
+    #    inputs.mcmojave-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
+    #];
 
     modules.home.displayManagers.wayland.hyprland.config.settings = {
         input = {

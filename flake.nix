@@ -1,9 +1,8 @@
 {
-    description = "Configuration of Frytaks' NixOS.";
+    description = "Configuration of Frytak's NixOS.";
     
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # 24.05
-        nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         
         home-manager = {
             url = "github:nix-community/home-manager";
@@ -20,7 +19,7 @@
         };
     };
     
-    outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+    outputs = { nixpkgs, home-manager, ... }@inputs:
     let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -32,6 +31,7 @@
                     modules = [
                         ./modules/system/nixos_manager
                         ./hosts/${systemName}
+                        home-manager.nixosModules.home-manager
                     ];
                     specialArgs = {
                         inherit inputs;

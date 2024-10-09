@@ -6,29 +6,28 @@ let
 in
 
 {
-    imports = [
-        ../../modules/home
-        ./themes
-    ];
+    imports = [ ../../modules/home ];
 
     home = {
         stateVersion = "24.05";
-        username = USER;
-        homeDirectory = HOME;
+        username = "frytak";
+        homeDirectory = "/home/frytak";
     };
 
-    #home.sessionVariables.HYPRCURSOR_THEME = "McMojave";
-    home.packages = [
-        #inputs.mcmojave-hyprcursor.packages.${pkgs.stdenv.hostPlatform.system}.default
-        pkgs.cachix
-        pkgs.vesktop
-        pkgs.qbittorrent
-        pkgs.webcord-vencord
-        pkgs.telegram-desktop
-        pkgs.remmina
-        pkgs.sshfs
-        pkgs.fzf
+    home.packages = with pkgs; [
+        #cachix
+        webcord-vencord
+        qbittorrent
+        telegram-desktop
+        sshfs
+        fzf
+        figma-linux
+        btop
+        wineWowPackages.waylandFull
+        logmein-hamachi
+        gh
     ];
+
     services.cachix-agent = {
         enable = true;
         credentialsFile = "${HOME}/.cachix.token";
@@ -36,6 +35,32 @@ in
         name = "${USER}-cachix-agent";
     };
 
+    # Themes
+    home.pointerCursor = {
+        gtk.enable = true;
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Classic";
+        size = 11;
+    };
+
+    gtk = {
+        enable = true;
+
+        #theme = {
+        #    package = pkgs.yaru-remix-theme;
+        #    name = "Yaru-remix-dark";
+        #};
+
+        #theme = {
+        #    package = pkgs.flat-remix-gtk;
+        #    name = "Flat-Remix-GTK-Grey-Darkest";
+        #};
+
+        #iconTheme = {
+        #    package = pkgs.adwaita-icon-theme;
+        #    name = "Adwaita";
+        #};
+    };
 
     modules.home = lib.attrsets.recursiveUpdate
     {
@@ -48,18 +73,15 @@ in
         browsers.firefox.enable = true;
         terminals.alacritty.enable = true;
         shells.fish.enable = true;
-        #obs.enable = true;
         hyfetch = {
             enable = true;
             ascii = "bad_dragon";
         };
 
-        #vesktop.enable = true;
         tofi = {
             enable = true;
             theme = "frytak";
         };
-        swaync.enable = true;
         waybar = {
             enable = true;
             #systemd.enable = true;
@@ -75,17 +97,12 @@ in
             #];
         };
 
-        direnv.enable = true;
-
         games = {
             enable = true;
             steam.enable = true;
             prismlauncher.enable = true;
         };
 
-        wine.enable = true;
-        #qbittorrent.enable = true;
-        #ollama.enable = true;
         ssh = {
             enable = true;
             extraConfig = ''Host frytak

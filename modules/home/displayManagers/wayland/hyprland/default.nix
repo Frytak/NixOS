@@ -73,7 +73,9 @@ in
                     "swaync"
                     "waybar"
                     "swww-daemon"
-                    "vencorddesktop"
+                    "[workspace name:4 silent] firefox"
+                    "[workspace special:7 silent] webcord"
+                    "[workspace special:8 silent] telegram-desktop"
                 ];
 
                 bindm = [
@@ -168,26 +170,11 @@ in
                     "$mod SHIFT, code:81, movetoworkspace, special:9"
                 ]
                 ++ (if (moduleConfig.grimblast.enable) then ([
-                    "$mod, code:107, exec, grimblast copy screen"
-                    "$mod SHIFT, code:107, exec, grimblast copy output"
+                    "$mod, code:107, exec, grimblast copy output"
+                    "$mod SHIFT, code:107, exec, grimblast copy screen"
                     "$mod, F, exec, grimblast copy area"
                     "$mod SHIFT, F, exec, grimblast copy active"
-                ]) else ([]))
-                ++ (
-                # Workspaces
-                # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-                    builtins.concatLists (builtins.genList (
-                        x: let
-                            ws = let
-                                c = (x + 1) / 10;
-                            in
-                            builtins.toString (x + 1 - (c * 10));
-                        in [
-                            "$mod, ${ws}, workspace, name:${toString (x + 1)}"
-                            "$mod SHIFT, ${ws}, movetoworkspace, name:${toString (x + 1)}"
-                        ]
-                    ) 6)
-                );
+                ]) else ([]));
 
                 windowrule = [
                     "workspace special:S, class:(VencordDesktop)"
