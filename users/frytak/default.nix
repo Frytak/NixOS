@@ -16,7 +16,7 @@ in
 
     home.packages = with pkgs; [
         #cachix
-        webcord-vencord
+        vesktop
         qbittorrent
         telegram-desktop
         sshfs
@@ -26,6 +26,7 @@ in
         wineWowPackages.waylandFull
         logmein-hamachi
         gh
+        blender
     ];
 
     services.cachix-agent = {
@@ -33,6 +34,15 @@ in
         credentialsFile = "${HOME}/.cachix.token";
         profile = USER;
         name = "${USER}-cachix-agent";
+    };
+
+    # Wallpaper
+    services.hyprpaper = {
+        enable = true;
+        settings = {
+            preload = [ "/etc/nixos/wallpapers/old_car.png" ];
+            wallpaper = [ ", /etc/nixos/wallpapers/old_car.png" ];
+        };
     };
 
     # Themes

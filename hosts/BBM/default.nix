@@ -51,8 +51,8 @@
     networking.networkmanager.enable = true;
     networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 16261 8766 8767 ];
-        allowedUDPPorts = [ 16261 8766 8767 ];
+        allowedTCPPorts = [ 2855 ];
+        allowedUDPPorts = [ 2855 ];
     };
 
     # Enable sound.
@@ -78,9 +78,10 @@
     # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
-        graphics = {
+        opengl = {
             enable = true;
-            enable32Bit = true;
+            driSupport = true;
+            driSupport32Bit = true;
         };
 
         nvidia = {
@@ -105,9 +106,26 @@
         };
     };
 
+    programs.fish.enable = true;
     users.users.frytak = {
         isNormalUser = true;
+        shell = pkgs.fish;
         extraGroups = [ "nixos_manager" "wheel" "networkmanager" "docker" "jackaudio" ];
+    };
+
+    # Run lemurs, run!
+    systemd.services.lemurs = {
+        enable = true;
+        description = "A customizable TUI display/login manager written in Rust";
+        path = [ pkgs.lemurs ];
+        serviceConfig = {
+            ExecStart="${pkgs.lemurs}/bin/lemurs";
+            StandardInput="tty";
+            TTYPath="/dev/tty2";
+            TTYReset="yes";
+            TTYVHangup="yes";
+            Type="idle";
+        };
     };
 
     environment.systemPackages = with pkgs; [
@@ -123,6 +141,8 @@
         clapper
 
         # Temporary
+        lemurs
+        winetricks
         swaynotificationcenter
         cliphist
         wl-clipboard

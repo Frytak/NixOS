@@ -74,7 +74,7 @@ in
                     "waybar"
                     "swww-daemon"
                     "[workspace name:4 silent] firefox"
-                    "[workspace special:7 silent] webcord"
+                    "[workspace special:7 silent] vesktop"
                     "[workspace special:8 silent] telegram-desktop"
                 ];
 
@@ -97,7 +97,7 @@ in
                     # Others
                     "$mod SHIFT, Q, killactive"
                     "$mod SHIFT, SPACE, togglefloating"
-                    "$mod SHIFT, F, fullscreen, 0"
+                    "$mod SHIFT, F11, fullscreen, 0"
 
                     ", XF86AudioRaiseVolume, exec, pamixer -i 5"
                     ", XF86AudioLowerVolume, exec, pamixer -d 5"
@@ -176,8 +176,8 @@ in
                     "$mod SHIFT, F, exec, grimblast copy active"
                 ]) else ([]));
 
-                windowrule = [
-                    "workspace special:S, class:(VencordDesktop)"
+                windowrulev2 = [
+                    "workspace special:7 silent, initialClass:(vesktop)"
                 ];
 
                 workspace = [
