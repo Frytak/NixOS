@@ -73,7 +73,6 @@ in
                     "swaync"
                     "waybar"
                     "swww-daemon"
-                    "[workspace name:4 silent] firefox"
                     "[workspace special:7 silent] vesktop"
                     "[workspace special:8 silent] telegram-desktop"
                 ];
