@@ -24,7 +24,7 @@ in
                         "HDMI-A-2"
                     ];
 
-                    modules-left = [ "hyprland/workspaces" ];
+                    modules-left = [ "hyprland/workspaces" "tray" ];
                     modules-center = [ "clock" ];
                     modules-right = [ "pulseaudio" "keyboard-state" "network" "disk" ];
 
@@ -34,6 +34,10 @@ in
                             "HDMI-A-1" = [ 1 2 3 ];
                             "HDMI-A-2" = [ 4 5 6 ];
                         };
+                    };
+
+                    "tray" = {
+                        spacing = 4;
                     };
 
                     "clock" = {
@@ -101,7 +105,7 @@ in
                     background: initial;
                 }
 
-                tooltip {
+                tooltip, #tray menu {
                     background-color: rgba(26, 26, 26, 0.95);
                     border: solid;
                     border-color: rgba(10, 10, 10, 0.95);
@@ -110,6 +114,19 @@ in
                 }
 
                 window#waybar {
+                    background-color: rgba(26, 26, 26, 0.8);
+                }
+
+                #tray {
+                    margin: 3px;
+                    padding: 4px;
+
+                    border-top: solid;
+                    border-bottom: solid;
+                    border-color: rgba(10, 10, 10, 0.8);
+                    border-width: 2px;
+                    border-radius: 6px;
+
                     background-color: rgba(26, 26, 26, 0.8);
                 }
 

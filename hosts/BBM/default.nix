@@ -34,12 +34,12 @@
     services.postgresql.enable = true;
     services.logmein-hamachi.enable = true;
     services.openssh.enable = true;
-    services.printing.enable = true;
     services.avahi = {
         enable = true;
         nssmdns4 = true;
         openFirewall = true;
     };
+    services.printing.enable = true;
     services.printing.drivers = with pkgs; [ cnijfilter_4_00 ];
     #hardware.printers = {
     #    ensurePrinters = [
