@@ -1,71 +1,21 @@
 { config, inputs, pkgs, systemName, lib, ... }@args:
 
 {
-    imports = [ ./hardware-configuration.nix ];
+    imports = [
+        ./hardware-configuration.nix
+        ../../modules/system
+    ];
 
     system.stateVersion = "24.05";
-    networking.hostName = systemName;
+    modules.system = {
+        # Enable default system configuration
+        boot_loader.enable = true;
+        users.enable = true;
+        locales.enable = true;
+        fonts.enable = true;
+        sound.enable = true;
 
-    # Use the systemd-boot EFI boot loader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.supportedFilesystems = [ "ntfs" ];
-
-    # Remove unecessary preinstalled packages.
-    environment.defaultPackages = [ ];
-    services.xserver.desktopManager.xterm.enable = false;
-
-    nixpkgs.config.allowUnfree = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-    # Set up locales.
-    time.timeZone = "Europe/Warsaw";
-    i18n = {
-        defaultLocale = "en_US.UTF-8";
-        extraLocaleSettings = {
-            LC_TIME = "en_GB.UTF-8";
-            LC_MEASUREMENT = "en_GB.UTF-8";
-            LC_MONETARY = "pl_PL.UTF-8";
-            LC_NUMERIC = "pl_PL.UTF-8";
-            LC_TELEPHONE = "pl_PL.UTF-8";
-        };
-    };
-
-    services.postgresql.enable = true;
-    services.logmein-hamachi.enable = true;
-    services.openssh.enable = true;
-    services.avahi = {
-        enable = true;
-        nssmdns4 = true;
-        openFirewall = true;
-    };
-    services.printing.enable = true;
-    services.printing.drivers = with pkgs; [ cnijfilter_4_00 ];
-    networking.networkmanager.enable = true;
-    networking.firewall = {
-        enable = true;
-        allowedTCPPorts = [ 2855 ];
-        allowedUDPPorts = [ 2855 ];
-    };
-
-    # Enable sound.
-    security.rtkit.enable = true;
-    services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        jack.enable = true;
-        pulse.enable = true;
-    }; 
-
-    fonts = {
-        packages = with pkgs; [
-            (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-        ];
-
-        fontconfig.defaultFonts = {
-            monospace = [ "JetBrainsMono Nerd Font" ];
-        };
+        hyprland.enable = true;
     };
 
     # Graphic drivers
@@ -90,58 +40,33 @@
                 intelBusId = "PCI:0:2:0";
 
                 sync.enable = true;
-
-                #offload = {
-                #    enable = true;
-                #    enableOffloadCmd = true;
-                #};
             };
         };
     };
 
-    programs.fish.enable = true;
-    users.users.frytak = {
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = [ "nixos_manager" "wheel" "networkmanager" "docker" "jackaudio" ];
-    };
+    environment.systemPackages = with pkgs; [ ];
 
-    # Run lemurs, run!
-    systemd.services.lemurs = {
+    # Printer
+    services.printing.enable = true;
+    services.printing.drivers = with pkgs; [ cnijfilter_4_00 ];
+
+    # Network manager
+    networking.networkmanager.enable = true;
+    networking.firewall = {
         enable = true;
-        description = "A customizable TUI display/login manager written in Rust";
-        path = [ pkgs.lemurs ];
-        serviceConfig = {
-            ExecStart="${pkgs.lemurs}/bin/lemurs";
-            StandardInput="tty";
-            TTYPath="/dev/tty2";
-            TTYReset="yes";
-            TTYVHangup="yes";
-            Type="idle";
-        };
+        allowedTCPPorts = [ 2855 ];
+        allowedUDPPorts = [ 2855 ];
     };
 
-    environment.systemPackages = with pkgs; [
-        vim
-        neovim
-        git
-
-        wl-clipboard
-    ];
-
-    programs.hyprland.enable = true;
-
-    services.input-remapper.enable = true;
     virtualisation.docker.enable = true;
-
-    xdg.portal = {
+    services.input-remapper.enable = true;
+    services.postgresql.enable = true;
+    services.logmein-hamachi.enable = true;
+    services.openssh.enable = true;
+    services.avahi = {
         enable = true;
-        xdgOpenUsePortal = true;
-        config.common.default = "*";
-        extraPortals = with pkgs; [
-            xdg-desktop-portal-hyprland
-            xdg-desktop-portal-gtk
-        ];
+        nssmdns4 = true;
+        openFirewall = true;
     };
 
     home-manager = {
@@ -171,16 +96,4 @@
         in (user "root")
         // (user "frytak");
     };
-
-    #nix.settings.trusted-public-keys = [
-    #    crane.cachix.org-1:8Scfpmn9w+hGdXH/Q9tTLiYAE/2dnJYRJP7kl80GuRk=
-    #    nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= 
-    #    kairos.cachix.org-1:1EqnyWXEbd4Dn1jCbiWOF1NLOc/bELx+wuqk0ZpbeqQ=
-    #];
-
-    #nix.settings.trusted-substituters = [
-    #    https://crane.cachix.org
-    #    https://nix-community.cachix.org
-    #    https://kairos.cachix.org
-    #];
 }

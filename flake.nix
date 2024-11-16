@@ -29,7 +29,7 @@
             system = systemName: {
                 ${systemName} = nixpkgs.lib.nixosSystem {
                     modules = [
-                        ./modules/system/nixos_manager
+                        ./modules/system/nixos_manager.nix
                         ./hosts/${systemName}
                         home-manager.nixosModules.home-manager
                     ];

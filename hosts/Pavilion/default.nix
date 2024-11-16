@@ -1,73 +1,24 @@
 { config, inputs, pkgs, systemName, lib, ... }@args:
 
 {
-    imports = [ ./hardware-configuration.nix ];
+    imports = [
+        ./hardware-configuration.nix
+        ../../modules/system
+    ];
 
     system.stateVersion = "23.11";
-    networking.hostName = systemName;
+    modules.system = {
+        # Enable default system configuration
+        boot_loader.enable = true;
+        users.enable = true;
+        locales.enable = true;
+        fonts.enable = true;
+        sound.enable = true;
 
-    # Use the systemd-boot EFI boot loader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.supportedFilesystems = [ "ntfs" ];
-
-    # Remove unecessary preinstalled packages.
-    environment.defaultPackages = [ ];
-    services.xserver.desktopManager.xterm.enable = false;
-
-    nixpkgs.config.allowUnfree = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-    # Set up locales.
-    time.timeZone = "Europe/Warsaw";
-    i18n = {
-        defaultLocale = "en_US.UTF-8";
-        extraLocaleSettings = {
-            LC_TIME = "en_GB.UTF-8";
-            LC_MEASUREMENT = "en_GB.UTF-8";
-            LC_MONETARY = "pl_PL.UTF-8";
-            LC_NUMERIC = "pl_PL.UTF-8";
-            LC_TELEPHONE = "pl_PL.UTF-8";
-        };
+        hyprland.enable = true;
     };
 
-    services.postgresql.enable = true;
-    services.logmein-hamachi.enable = true;
-    services.openssh.enable = true;
-    services.printing.enable = true;
-    services.avahi = {
-        enable = true;
-        nssmdns4 = true;
-        openFirewall = true;
-    };
-    services.printing.drivers = with pkgs; [ cnijfilter_4_00 ];
-    networking.networkmanager.enable = true;
-    networking.firewall = {
-        enable = true;
-        allowedTCPPorts = [ 2855 ];
-        allowedUDPPorts = [ 2855 ];
-    };
-
-    # Enable sound.
-    security.rtkit.enable = true;
-    services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        jack.enable = true;
-        pulse.enable = true;
-    }; 
-
-    fonts = {
-        packages = with pkgs; [
-            (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-        ];
-
-        fontconfig.defaultFonts = {
-            monospace = [ "JetBrainsMono Nerd Font" ];
-        };
-    };
-
+    # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
         opengl = {
@@ -89,43 +40,34 @@
                 amdgpuBusId = "PCI:5:0:0";
 
                 sync.enable = true;
-
-                #offload = {
-                #    enable = true;
-                #    enableOffloadCmd = true;
-                #};
             };
         };
     };
 
-    programs.hyprland.enable = true;
-    services.input-remapper.enable = true;
-    virtualisation.docker.enable = true;
+    environment.systemPackages = with pkgs; [ ];
 
-    xdg.portal = {
+    # Printer
+    services.printing.enable = true;
+    services.printing.drivers = with pkgs; [ cnijfilter_4_00 ];
+
+    # Network manager
+    networking.networkmanager.enable = true;
+    networking.firewall = {
         enable = true;
-        xdgOpenUsePortal = true;
-        config.common.default = "*";
-        extraPortals = with pkgs; [
-            xdg-desktop-portal-hyprland
-            xdg-desktop-portal-gtk
-        ];
+        allowedTCPPorts = [ 2855 ];
+        allowedUDPPorts = [ 2855 ];
     };
 
-    programs.fish.enable = true;
-    users.users.frytak = {
-        isNormalUser = true;
-        shell = pkgs.fish;
-        extraGroups = [ "nixos_manager" "wheel" "networkmanager" "docker" "jackaudio" ];
+    virtualisation.docker.enable = true;
+    services.input-remapper.enable = true;
+    services.postgresql.enable = true;
+    services.logmein-hamachi.enable = true;
+    services.openssh.enable = true;
+    services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
     };
-
-    environment.systemPackages = with pkgs; [
-        vim
-        neovim
-        git
-
-        wl-clipboard
-    ];
 
     home-manager = {
         useGlobalPkgs = true;
