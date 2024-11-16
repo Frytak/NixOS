@@ -2,15 +2,34 @@
 
 let
     moduleConfig = config.modules.home.waybar;
+    # God bless them https://stackoverflow.com/a/54505212/16454500
+    recursiveMerge = attrList:
+    let f = attrPath:
+        lib.zipAttrsWith (n: values:
+            if lib.tail values == []
+                then lib.head values
+            else if lib.all lib.isList values
+                then lib.unique (lib.concatLists values)
+            else if lib.all lib.isAttrs values
+                then f (attrPath ++ [n]) values
+            else lib.last values
+        );
+    in f [] attrList;
 in
 
 {
     options.modules.home.waybar = {
         enable = lib.mkEnableOption "Waybar";
+
+        config = lib.mkOption {
+            description = "Additional Waybar config added to `wayland.windowManager.hyprland` with `lib.attrsets.recursiveUpdate`.";
+            type = lib.types.attrs;
+            default = {};
+        };
     };
     
     config = lib.mkIf moduleConfig.enable {
-        programs.waybar = {
+        programs.waybar = recursiveMerge [{
             enable = true;
 
             settings = {
@@ -19,21 +38,12 @@ in
                     position = "top";
                     height = 30;
 
-                    output = [
-                        "HDMI-A-1"
-                        "HDMI-A-2"
-                    ];
-
                     modules-left = [ "hyprland/workspaces" "tray" ];
                     modules-center = [ "clock" ];
                     modules-right = [ "pulseaudio" "keyboard-state" "network" "disk" ];
 
                     "hyprland/workspaces" = {
                         sort-by = "name";
-                        persistent-workspaces = {
-                            "HDMI-A-1" = [ 1 2 3 ];
-                            "HDMI-A-2" = [ 4 5 6 ];
-                        };
                     };
 
                     "tray" = {
@@ -195,6 +205,6 @@ in
                     border-radius: 6px;
                 }
             '';
-        };
+        } moduleConfig.config];
     };
 }

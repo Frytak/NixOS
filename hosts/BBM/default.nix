@@ -41,13 +41,6 @@
     };
     services.printing.enable = true;
     services.printing.drivers = with pkgs; [ cnijfilter_4_00 ];
-    #hardware.printers = {
-    #    ensurePrinters = [
-    #        {
-    #            name = ""
-    #        }
-    #    ];
-    #}
     networking.networkmanager.enable = true;
     networking.firewall = {
         enable = true;
@@ -132,23 +125,8 @@
         vim
         neovim
         git
-        # For apps to be able to interact with XDG
-        xdg-utils
 
-        unar
-        zip
-        obs-studio
-        clapper
-
-        # Temporary
-        lemurs
-        winetricks
-        swaynotificationcenter
-        cliphist
         wl-clipboard
-        lshw
-        coppwr
-        krita
     ];
 
     programs.hyprland.enable = true;

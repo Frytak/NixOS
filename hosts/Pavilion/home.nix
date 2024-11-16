@@ -11,14 +11,9 @@
 
     modules.home.waybar.config = {
         settings.mainBar = {
-            output = [
-                "HDMI-A-1"
-                "HDMI-A-2"
-            ];
-
+            output = [ "eDP-1" ];
             "hyprland/workspaces".persistent-workspaces = {
-                "HDMI-A-1" = [ 1 2 3 ];
-                "HDMI-A-2" = [ 4 5 6 ];
+                "eDP-1" = [ 1 2 3 4 5 6 ];
             };
         };
     };
@@ -28,22 +23,25 @@
             sensitivity = -0.8;
         };
 
+        xwayland = {
+            force_zero_scaling = true;
+        };
+
         monitor = [
-            "HDMI-A-2, 1920x1080@60, 0x0, 1"
-            "HDMI-A-1, 1920x1080@60, 1920x0, 1"
+            "eDP-1, 1920x1080@60, 0x0, 1"
         ];
 
         workspace = [
-            "name:1, monitor:HDMI-A-1, default:true"
-            "name:2, monitor:HDMI-A-1"
-            "name:3, monitor:HDMI-A-1"
-            "name:4, monitor:HDMI-A-2, default:true"
-            "name:5, monitor:HDMI-A-2"
-            "name:6, monitor:HDMI-A-2"
+            "name:1, monitor:eDP-1, default:true"
+            "name:2, monitor:eDP-1"
+            "name:3, monitor:eDP-1"
+            "name:4, monitor:eDP-1"
+            "name:5, monitor:eDP-1"
+            "name:6, monitor:eDP-1"
         ];
 
         exec-once = [
-            "[workspace name:4 silent] firefox"
+            "[workspace special:S silent] firefox"
         ];
     };
 }

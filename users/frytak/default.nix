@@ -15,17 +15,26 @@ in
     };
 
     home.packages = with pkgs; [
+        unar
+        zip
+
+        cliphist
         #cachix
+
+        fzf
+        sshfs
+        wineWowPackages.waylandFull
+
+        btop
         vesktop
         qbittorrent
         telegram-desktop
-        sshfs
-        fzf
         figma-linux
-        btop
-        wineWowPackages.waylandFull
         logmein-hamachi
-        gh
+        krita
+        obs-studio
+        clapper
+        coppwr
         blender
     ];
 
@@ -138,21 +147,6 @@ host hetzner vps-hetzner
         }
     else if (systemName == "Pavilion") then
         {
-            # TODO: Move to Pavilion configuration
-            displayManagers.wayland.hyprland.config.settings = {
-                monitor = [
-                    "eDP-1, 1920x1080@60, 0x0, 1.2"
-                ];
-
-                workspace = [
-                    "name:1, monitor:eDP-1, default:true"
-                    "name:2, monitor:eDP-1"
-                    "name:3, monitor:eDP-1"
-                    "name:4, monitor:eDP-1"
-                    "name:5, monitor:eDP-1"
-                    "name:6, monitor:eDP-1"
-                ];
-            };
         }
     else
         lib.warn "User `${USER}` has no configuration for system `${systemName}`."
