@@ -25,6 +25,9 @@ in
                     name = "Frytak";
 
                     settings = {
+                        # Open previous session on startup
+                        "browser.startup.page" = 3;
+
                         # Automatically enable extensions
                         "extensions.autoDisableScopes" = 0;
 
@@ -50,6 +53,7 @@ in
                         youtube-shorts-block
                         return-youtube-dislikes
                         web-archives
+                        tridactyl
                     ];
 
                     # All bookmarks should be on the toolbar
