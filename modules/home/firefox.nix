@@ -1,14 +1,14 @@
 { config, lib, pkgs, options, inputs, ... }:
 
 let
-    moduleConfig = config.modules.home.browsers.firefox;
+    moduleConfig = config.modules.home.firefox;
     icons = {
         nixos = "https://icon-icons.com/downloadimage.php?id=170910&root=2699/ICO/512/&file=nixos_logo_icon_170910.ico";
     };
 in
 
 {
-    options.modules.home.browsers.firefox = {
+    options.modules.home.firefox = {
         enable = lib.mkEnableOption "Firefox";
     };
     

@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-    moduleConfig = config.modules.home.shells.fish;
+    moduleConfig = config.modules.home.fish;
 in
 
 {
-    options.modules.home.shells.fish = {
+    options.modules.home.fish = {
         enable = lib.mkEnableOption "fish shell";
     };
     

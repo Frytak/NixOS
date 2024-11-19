@@ -36,6 +36,7 @@ in
         clapper
         coppwr
         blender
+        prismlauncher
     ];
 
     services.cachix-agent = {
@@ -84,27 +85,23 @@ in
     modules.home = lib.attrsets.recursiveUpdate
     {
         git.enable = true;
-        editors.nvim = {
+        fish.enable = true;
+        alacritty.enable = true;
+        nvim = {
             enable = true;
             configSource = "local";
             configLocalPath = "${HOME}/ProgrammingProjects/NvimConfig";
         };
-        browsers.firefox.enable = true;
-        terminals.alacritty.enable = true;
-        shells.fish.enable = true;
+        firefox.enable = true;
         hyfetch = {
             enable = true;
             ascii = "bad_dragon";
         };
-
         tofi = {
             enable = true;
             theme = "frytak";
         };
-        waybar = {
-            enable = true;
-            #systemd.enable = true;
-        };
+        waybar.enable = true;
         #swww.enable = true;
         displayManagers.wayland.hyprland = {
             enable = true;
@@ -119,7 +116,6 @@ in
         games = {
             enable = true;
             steam.enable = true;
-            prismlauncher.enable = true;
         };
 
         ssh = {

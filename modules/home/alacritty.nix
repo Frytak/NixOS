@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-    moduleConfig = config.modules.home.terminals.alacritty;
+    moduleConfig = config.modules.home.alacritty;
 in
 
 {
-    options.modules.home.terminals.alacritty = {
+    options.modules.home.alacritty = {
         enable = lib.mkEnableOption "alacritty";
     };
     

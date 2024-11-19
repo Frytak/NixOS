@@ -3,18 +3,16 @@
 {
     imports = [
         ./displayManagers
-
-        ./browsers
-        ./editors
-        ./terminals
-        ./shells
-        ./games
-
-        ./git
+        ./games.nix
         ./hyfetch
-        ./ssh
-        ./waybar
         ./swww
         ./tofi
+        ./ssh.nix
+        ./git.nix
+        ./waybar.nix
+        ./alacritty.nix
+        ./fish.nix
+        ./firefox.nix
+        ./nvim.nix
     ];
 }

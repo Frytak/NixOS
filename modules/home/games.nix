@@ -5,10 +5,6 @@ let
 in
 
 {
-    imports = [
-        ./prismlauncher
-    ];
-
     options.modules.home.games = {
         enable = lib.mkEnableOption "games";
         steam.enable = lib.mkEnableOption "steam";

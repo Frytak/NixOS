@@ -15,10 +15,10 @@ in
     };
 
     modules.home = {
-        shells.fish.enable = true;
+        fish.enable = true;
         git.enable = true;
         hyfetch.enable = true;
-        editors.nvim = {
+        nvim = {
             enable = true;
             configSource = "local";
             configLocalPath = "/home/frytak/ProgrammingProjects/NvimConfig";

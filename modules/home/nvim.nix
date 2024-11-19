@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-    moduleConfig = config.modules.home.editors.nvim;
+    moduleConfig = config.modules.home.nvim;
 in
 
 {
-    options.modules.home.editors.nvim = {
+    options.modules.home.nvim = {
         enable = lib.mkEnableOption "Neovim";
 
         configSource = lib.mkOption {
