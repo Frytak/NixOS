@@ -12,6 +12,8 @@
     modules.home.waybar.config = {
         settings.mainBar = {
             output = [ "eDP-1" ];
+            modules-right = [ "backlight" "battery" ];
+
             "hyprland/workspaces".persistent-workspaces = {
                 "eDP-1" = [ 1 2 3 4 5 6 ];
             };

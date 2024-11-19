@@ -22,7 +22,7 @@ in
         enable = lib.mkEnableOption "Waybar";
 
         config = lib.mkOption {
-            description = "Additional Waybar config added to `wayland.windowManager.hyprland` with `lib.attrsets.recursiveUpdate`.";
+            description = "Additional Waybar config added to `modules.home.waybar` using fully recursive merge.";
             type = lib.types.attrs;
             default = {};
         };
@@ -97,6 +97,23 @@ in
                         format = "{used} / {total}  ";
                         tooltip-format = "{percentage_used}% of the disk used.";
                     };
+
+                    "battery" = {
+                        interval = 60;
+                        states = {
+                            warning = 30;
+                            critical = 15;
+                        };
+                        format = "{capacity}% {icon} ";
+                        format-icons = ["" "" "" "" ""];
+                    };
+
+                    "backlight" = {
+                        scroll-step = 5;
+                        tooltip = false;
+                        format = "{percent}% {icon} ";
+                        format-icons = ["󰛩" "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨"];
+                    };
                 };
             };
 
@@ -116,6 +133,8 @@ in
                 }
 
                 tooltip, #tray menu {
+                    padding: 2px;
+
                     background-color: rgba(26, 26, 26, 0.95);
                     border: solid;
                     border-color: rgba(10, 10, 10, 0.95);
@@ -123,20 +142,21 @@ in
                     border-radius: 6px;
                 }
 
-                window#waybar {
-                    background-color: rgba(26, 26, 26, 0.8);
+                #tray menu *:hover {
+                    background-color: rgba(46, 46, 46, 0.95);
                 }
 
-                #tray {
-                    margin: 3px;
-                    padding: 4px;
+                #tray menu *:first-child {
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                }
 
-                    border-top: solid;
-                    border-bottom: solid;
-                    border-color: rgba(10, 10, 10, 0.8);
-                    border-width: 2px;
-                    border-radius: 6px;
+                #tray menu *:last-child {
+                    border-bottom-left-radius: 4px;
+                    border-bottom-right-radius: 4px;
+                }
 
+                window#waybar {
                     background-color: rgba(26, 26, 26, 0.8);
                 }
 
@@ -178,21 +198,7 @@ in
                     background-color: #21bfa7;
                 }
 
-                #clock {
-                    margin-top: 3px;
-                    margin-bottom: 3px;
-                    padding: 4px;
-
-                    background-color: rgba(26, 26, 26, 0.8);
-
-                    border-top: solid;
-                    border-bottom: solid;
-                    border-color: rgba(10, 10, 10, 0.8);
-                    border-width: 2px;
-                    border-radius: 6px;
-                }
-
-                #pulseaudio, #network, #disk {
+                #tray, #clock, #pulseaudio, #network, #disk, #battery, #backlight {
                     margin: 3px;
                     padding: 4px;
 
