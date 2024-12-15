@@ -6,7 +6,7 @@
         ../../modules/system
     ];
 
-    system.stateVersion = "24.05";
+    system.stateVersion = "23.11";
     modules.system = {
         # Enable default system configuration
         boot_loader.enable = true;
@@ -14,7 +14,6 @@
         locales.enable = true;
         fonts.enable = true;
         sound.enable = true;
-        bluetooth.enable = true;
 
         hyprland.enable = true;
     };
@@ -22,9 +21,10 @@
     # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
-        graphics = {
+        opengl = {
             enable = true;
-            enable32Bit = true;
+            driSupport = true;
+            driSupport32Bit = true;
         };
 
         nvidia = {
@@ -37,7 +37,7 @@
 
             prime = {
                 nvidiaBusId = "PCI:1:0:0";
-                intelBusId = "PCI:0:2:0";
+                amdgpuBusId = "PCI:5:0:0";
 
                 sync.enable = true;
             };

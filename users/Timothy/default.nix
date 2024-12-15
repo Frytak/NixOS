@@ -1,7 +1,7 @@
 { lib, pkgs, systemName, inputs, ... }:
 
 let
-    USER = "frytak";
+    USER = "Timothy";
     HOME = "/home/" + USER;
 in
 
@@ -10,11 +10,8 @@ in
 
     home = {
         stateVersion = "24.05";
-        username = USER;
-        homeDirectory = HOME;
-        sessionVariables = {
-            EDITOR = "nvim";
-        };
+        username = "Timothy";
+        homeDirectory = "/home/Timothy";
     };
 
     home.packages = with pkgs; [
@@ -24,31 +21,14 @@ in
         cliphist
         #cachix
 
-        fzf
         sshfs
         wineWowPackages.waylandFull
 
         btop
-        vesktop
-        qbittorrent
         telegram-desktop
-        figma-linux
-        logmein-hamachi
-        krita
-        obs-studio
         clapper
-        coppwr
-        blender
         prismlauncher
-        nautilus
     ];
-
-    services.cachix-agent = {
-        enable = true;
-        credentialsFile = "${HOME}/.cachix.token";
-        profile = USER;
-        name = "${USER}-cachix-agent";
-    };
 
     # Wallpaper
     services.hyprpaper = {
@@ -70,10 +50,10 @@ in
     gtk = {
         enable = true;
 
-        theme = {
-            package = pkgs.tokyonight-gtk-theme;
-            name = "Tokyonight-Dark";
-        };
+        #theme = {
+        #    package = pkgs.yaru-remix-theme;
+        #    name = "Yaru-remix-dark";
+        #};
 
         #theme = {
         #    package = pkgs.flat-remix-gtk;
@@ -90,7 +70,7 @@ in
     {
         git.enable = true;
         fish.enable = true;
-        foot.enable = true;
+        alacritty.enable = true;
         nvim = {
             enable = true;
             configSource = "local";
@@ -105,7 +85,6 @@ in
             enable = true;
             theme = "frytak";
         };
-        ranger.enable = true;
         waybar.enable = true;
         displayManagers.wayland.hyprland = {
             enable = true;
@@ -120,19 +99,6 @@ in
 
         ssh = {
             enable = true;
-            extraConfig = ''Host frytak
-  HostName github.com
-  IdentityFile ~/.ssh/id_rsa
-  User git
-
-host hetzner vps-hetzner
-    hostname 5.75.188.219
-    user frytak
-    identityFile ~/.ssh/id_rsa
-    IdentitiesOnly yes
-    VisualHostKey yes
-
-            '';
             ssh-agent.enable = true;
         };
     }

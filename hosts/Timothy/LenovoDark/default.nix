@@ -14,33 +14,17 @@
         locales.enable = true;
         fonts.enable = true;
         sound.enable = true;
-        bluetooth.enable = true;
 
         hyprland.enable = true;
     };
 
     # Graphic drivers
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = [ "modesetting" ];
     hardware = {
-        graphics = {
+        opengl = {
             enable = true;
-            enable32Bit = true;
-        };
-
-        nvidia = {
-            package = config.boot.kernelPackages.nvidiaPackages.production;
-            modesetting.enable = true;
-            powerManagement.enable = false;
-            powerManagement.finegrained = false;
-            open = false;
-            nvidiaSettings = true;
-
-            prime = {
-                nvidiaBusId = "PCI:1:0:0";
-                intelBusId = "PCI:0:2:0";
-
-                sync.enable = true;
-            };
+            driSupport = true;
+            driSupport32Bit = true;
         };
     };
 
@@ -48,20 +32,10 @@
 
     # Printer
     services.printing.enable = true;
-    services.printing.drivers = with pkgs; [ cnijfilter_4_00 ];
 
     # Network manager
     networking.networkmanager.enable = true;
-    networking.firewall = {
-        enable = true;
-        allowedTCPPorts = [ 2855 ];
-        allowedUDPPorts = [ 2855 ];
-    };
 
-    virtualisation.docker.enable = true;
-    services.input-remapper.enable = true;
-    services.postgresql.enable = true;
-    services.logmein-hamachi.enable = true;
     services.openssh.enable = true;
     services.avahi = {
         enable = true;

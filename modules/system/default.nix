@@ -8,6 +8,7 @@
         ./locales.nix
         ./sound.nix
         ./users.nix
+        ./bluetooth.nix
     ];
 
     networking.hostName = systemName;

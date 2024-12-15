@@ -85,7 +85,7 @@ in
                 bind = [
                     # Launching apps
                     "$mod, D, exec, tofi-run | xargs hyprctl dispatch exec --"
-                    "$mod, RETURN, exec, alacritty"
+                    "$mod, RETURN, exec, foot"
 
                     # Moving focus
                     "$mod, h, movefocus, l"
