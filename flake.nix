@@ -17,6 +17,11 @@
         mcmojave-hyprcursor = {
             url = "github:libadoxon/mcmojave-hyprcursor";
         };
+
+        tbsm = {
+            url = "/home/frytak/Work/tbsm";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
     outputs = { nixpkgs, home-manager, ... }@inputs:

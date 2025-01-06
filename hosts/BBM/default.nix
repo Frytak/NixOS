@@ -4,7 +4,10 @@
     imports = [
         ./hardware-configuration.nix
         ../../modules/system
+        inputs.tbsm.nixosModules.tbsm
     ];
+
+    tbsm.enable = true;
 
     system.stateVersion = "24.05";
     modules.system = {

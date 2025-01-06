@@ -212,6 +212,7 @@ in
                 };
 
                 misc = {
+                    initial_workspace_tracking = 2;
                     disable_splash_rendering = true;
                     middle_click_paste = false;
                 };
