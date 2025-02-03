@@ -6,7 +6,29 @@ let
 in
 
 {
-    imports = [ ../../modules/home ];
+    imports = [
+        ../../modules/home
+        inputs.tbsm.homeManagerModules.tbsm
+    ];
+
+    tbsm = {
+        enable = true;
+        config = ''
+            XserverArg="-quiet -nolisten tcp"
+            verboseLevel=1
+            theme=""
+        '';
+        sessions = [
+            {
+                Name="Hyprland";
+                Comment="Start the Hyprland Wayland Compositor";
+                Exec="${pkgs.hyprland}/bin/Hyprland";
+                Type="Application";
+                DesktopNames="Hyprland";
+                Keywords="wayland;compositor;hyprland;";
+            }
+        ];
+    };
 
     home = {
         stateVersion = "24.05";
@@ -14,6 +36,7 @@ in
         homeDirectory = HOME;
         sessionVariables = {
             EDITOR = "nvim";
+            QT_QPA_PLATFORM = "xcb";
         };
     };
 
@@ -41,6 +64,7 @@ in
         blender
         prismlauncher
         nautilus
+        android-studio
     ];
 
     services.cachix-agent = {
