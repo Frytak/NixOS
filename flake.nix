@@ -19,7 +19,7 @@
         };
 
         tbsm = {
-            url = "/home/frytak/Work/NixFlake-TBSM";
+            url = "github:Frytak/NixFlake-TBSM";
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.home-manager.follows = "nixpkgs";
         };

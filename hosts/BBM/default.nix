@@ -7,7 +7,13 @@
         inputs.tbsm.nixosModules.tbsm
     ];
 
-    tbsm.enable = true;
+    tbsm = {
+        enable = true;
+        autoStart = true;
+        allowedTtys = [ "all" ];
+    };
+
+    services.ollama.enable = true;
 
     system.stateVersion = "24.05";
     modules.system = {
@@ -21,6 +27,9 @@
 
         hyprland.enable = true;
     };
+    programs.adb.enable = true;
+
+    hardware.sane.enable = true; # enables support for SANE scanners
 
     # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -57,8 +66,8 @@
     networking.networkmanager.enable = true;
     networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 2855 ];
-        allowedUDPPorts = [ 2855 ];
+        allowedTCPPorts = [ 2855 2856 ];
+        allowedUDPPorts = [ 2855 2856 ];
     };
 
     virtualisation.docker.enable = true;

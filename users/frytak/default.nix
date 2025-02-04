@@ -52,6 +52,7 @@ in
         homeDirectory = HOME;
         sessionVariables = {
             EDITOR = "nvim";
+            QT_QPA_PLATFORM = "xcb";
         };
     };
 
@@ -79,6 +80,7 @@ in
         blender
         prismlauncher
         nautilus
+        android-studio
     ];
 
     services.cachix-agent = {
