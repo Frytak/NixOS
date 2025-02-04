@@ -6,7 +6,45 @@ let
 in
 
 {
-    imports = [ ../../modules/home ];
+    imports = [
+        ../../modules/home
+        inputs.tbsm.homeManagerModules.tbsm
+    ];
+
+    tbsm = {
+        enable = true;
+        config = ''
+            XserverArg="-quiet -nolisten tcp"
+            verboseLevel=1
+            theme=""
+        '';
+        sessions = [
+            {
+                Name = "Hyprland";
+                Comment = "Start the Hyprland Wayland Compositor";
+                Exec = "${pkgs.hyprland}/bin/Hyprland";
+                Type = "Application";
+                DesktopNames = "Hyprland";
+                Keywords = "wayland;compositor;hyprland;";
+            }
+        ];
+    };
+
+    programs.fish.shellInit = ''
+        # Launch TBSM on specific TTYs after login
+        if [ -z "$DISPLAY" ];
+            set allowed_ttys "all"
+            set current_tty $(tty)
+
+            # If "all" is in the allowed_ttys list, launch on any TTY
+            if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "all"
+                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+            # If the current TTY is in the allowed list
+            else if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "$current_tty"
+                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+            end
+        end
+    '';
 
     home = {
         stateVersion = "24.05";

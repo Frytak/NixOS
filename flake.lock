@@ -266,22 +266,25 @@
     "tbsm": {
       "inputs": {
         "flake-utils": "flake-utils_2",
+        "home-manager": [
+          "nixpkgs"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1735403563,
-        "narHash": "sha256-OxhtlAdVwEzNw223OcWe43NuL9NNoXktjyDSGCxsmBY=",
-        "ref": "refs/heads/master",
-        "rev": "7ee9925c9babdc30cf6d8f523aafe2409768f1a1",
-        "revCount": 83,
+        "lastModified": 1738577118,
+        "narHash": "sha256-8jl81ByMbecmH+v2RBgoF0nxt1u7CXlaJpNYQRk6ptI=",
+        "ref": "refs/heads/main",
+        "rev": "9932015cd9c2163f04c53f625e802e802399118d",
+        "revCount": 3,
         "type": "git",
-        "url": "file:///home/frytak/Work/tbsm"
+        "url": "file:///home/frytak/Work/NixFlake-TBSM"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/frytak/Work/tbsm"
+        "url": "file:///home/frytak/Work/NixFlake-TBSM"
       }
     }
   },

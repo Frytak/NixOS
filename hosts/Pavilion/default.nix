@@ -4,6 +4,7 @@
     imports = [
         ./hardware-configuration.nix
         ../../modules/system
+        inputs.tbsm.nixosModules.tbsm
     ];
 
     system.stateVersion = "23.11";
@@ -14,17 +15,16 @@
         locales.enable = true;
         fonts.enable = true;
         sound.enable = true;
-
+        bluetooth.enable = true;
         hyprland.enable = true;
     };
 
     # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
-        opengl = {
+        graphics = {
             enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
+            enable32Bit = true;
         };
 
         nvidia = {

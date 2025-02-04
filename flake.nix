@@ -19,8 +19,9 @@
         };
 
         tbsm = {
-            url = "/home/frytak/Work/tbsm";
+            url = "/home/frytak/Work/NixFlake-TBSM";
             inputs.nixpkgs.follows = "nixpkgs";
+            inputs.home-manager.follows = "nixpkgs";
         };
     };
     

@@ -15,8 +15,7 @@ in
             settings = {
                 main = {
                     term = "foot";
-                    font = "monospace:size=12";
-                    dpi-aware = "yes";
+                    font = "monospace:size=10";
                 };
 
                 scrollback = {
