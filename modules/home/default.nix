@@ -16,5 +16,6 @@
         ./fish.nix
         ./firefox.nix
         ./nvim.nix
+        ./hyprpaper.nix
     ];
 }

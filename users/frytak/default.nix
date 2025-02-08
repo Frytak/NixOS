@@ -3,48 +3,27 @@
 let
     USER = "frytak";
     HOME = "/home/" + USER;
+
+    # God bless them https://stackoverflow.com/a/54505212/16454500
+    recursiveMerge = attrList:
+    let f = attrPath:
+        lib.zipAttrsWith (n: values:
+            if lib.tail values == []
+                then lib.head values
+            else if lib.all lib.isList values
+                then lib.unique (lib.concatLists values)
+            else if lib.all lib.isAttrs values
+                then f (attrPath ++ [n]) values
+            else lib.last values
+        );
+    in f [] attrList;
 in
 
-{
+recursiveMerge [{
     imports = [
         ../../modules/home
         inputs.tbsm.homeManagerModules.tbsm
     ];
-
-    tbsm = {
-        enable = true;
-        config = ''
-            XserverArg="-quiet -nolisten tcp"
-            verboseLevel=1
-            theme=""
-        '';
-        sessions = [
-            {
-                Name = "Hyprland";
-                Comment = "Start the Hyprland Wayland Compositor";
-                Exec = "${pkgs.hyprland}/bin/Hyprland";
-                Type = "Application";
-                DesktopNames = "Hyprland";
-                Keywords = "wayland;compositor;hyprland;";
-            }
-        ];
-    };
-
-    programs.fish.shellInit = ''
-        # Launch TBSM on specific TTYs after login
-        if [ -z "$DISPLAY" ];
-            set allowed_ttys "all"
-            set current_tty $(tty)
-
-            # If "all" is in the allowed_ttys list, launch on any TTY
-            if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "all"
-                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
-            # If the current TTY is in the allowed list
-            else if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "$current_tty"
-                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
-            end
-        end
-    '';
 
     home = {
         stateVersion = "24.05";
@@ -61,7 +40,6 @@ in
         zip
 
         cliphist
-        #cachix
 
         fzf
         sshfs
@@ -81,25 +59,99 @@ in
         prismlauncher
         nautilus
         android-studio
-        lmstudio
-        atuin
     ];
 
-    services.cachix-agent = {
-        enable = true;
-        credentialsFile = "${HOME}/.cachix.token";
-        profile = USER;
-        name = "${USER}-cachix-agent";
-    };
+    modules.home = {
+        git.enable = true;
+        fish.enable = true;
+        foot.enable = true;
+        firefox.enable = true;
+        ranger.enable = true;
+        waybar.enable = true;
 
-    # Wallpaper
-    services.hyprpaper = {
-        enable = true;
-        settings = {
-            preload = [ "/etc/nixos/wallpapers/old_car.png" ];
-            wallpaper = [ ", /etc/nixos/wallpapers/old_car.png" ];
+        # Wallpaper
+        hyprpaper = {
+            enable = true;
+            wallpaper = "skeleton_army_1920x1080.png";
+        };
+
+        nvim = {
+            enable = true;
+            configSource = "local";
+            configLocalPath = "${HOME}/ProgrammingProjects/NvimConfig";
+        };
+
+        # System information tool
+        hyfetch = {
+            enable = true;
+            ascii = "bad_dragon";
+        };
+
+        # App launcher
+        tofi = {
+            enable = true;
+            theme = "frytak";
+        };
+
+        displayManagers.wayland.hyprland = {
+            enable = true;
+            swaync.enable = true;
+            grimblast.enable = true;
+        };
+
+        games = {
+            enable = true;
+            steam.enable = true;
+        };
+
+        ssh = {
+            enable = true;
+            ssh-agent.enable = true;
+            extraConfig = ''
+            Host frytak
+                HostName github.com
+                IdentityFile ~/.ssh/id_rsa
+                User git
+            '';
         };
     };
+
+    # Session manager
+    tbsm = {
+        enable = true;
+        config = ''
+            XserverArg="-quiet -nolisten tcp"
+            verboseLevel=1
+            theme=""
+        '';
+        sessions = [
+            {
+                Name = "Hyprland";
+                Comment = "Start the Hyprland Wayland Compositor";
+                Exec = "${pkgs.hyprland}/bin/Hyprland";
+                Type = "Application";
+                DesktopNames = "Hyprland";
+                Keywords = "wayland;compositor;hyprland;";
+            }
+        ];
+    };
+
+    # Launch TBSM on specific TTYs after login
+    programs.fish.shellInit = ''
+        # Launch TBSM on specific TTYs after login
+        if [ -z "$DISPLAY" ];
+            set allowed_ttys "all"
+            set current_tty $(tty)
+
+            # If "all" is in the allowed_ttys list, launch on any TTY
+            if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "all"
+                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+            # If the current TTY is in the allowed list
+            else if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "$current_tty"
+                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+            end
+        end
+    '';
 
     # Themes
     home.pointerCursor = {
@@ -116,78 +168,24 @@ in
             package = pkgs.tokyonight-gtk-theme;
             name = "Tokyonight-Dark";
         };
-
-        #theme = {
-        #    package = pkgs.flat-remix-gtk;
-        #    name = "Flat-Remix-GTK-Grey-Darkest";
-        #};
-
-        #iconTheme = {
-        #    package = pkgs.adwaita-icon-theme;
-        #    name = "Adwaita";
-        #};
     };
 
-    modules.home = lib.attrsets.recursiveUpdate
-    {
-        git.enable = true;
-        fish.enable = true;
-        foot.enable = true;
-        nvim = {
-            enable = true;
-            configSource = "local";
-            configLocalPath = "${HOME}/ProgrammingProjects/NvimConfig";
-        };
-        firefox.enable = true;
-        hyfetch = {
-            enable = true;
-            ascii = "bad_dragon";
-        };
-        tofi = {
-            enable = true;
-            theme = "frytak";
-        };
-        ranger.enable = true;
-        waybar.enable = true;
-        displayManagers.wayland.hyprland = {
-            enable = true;
-            swaync.enable = true;
-            grimblast.enable = true;
-        };
-
-        games = {
-            enable = true;
-            steam.enable = true;
-        };
-
-        ssh = {
-            enable = true;
-            extraConfig = ''Host frytak
-  HostName github.com
-  IdentityFile ~/.ssh/id_rsa
-  User git
-
-host hetzner vps-hetzner
-    hostname 5.75.188.219
-    user frytak
-    identityFile ~/.ssh/id_rsa
-    IdentitiesOnly yes
-    VisualHostKey yes
-
-            '';
-            ssh-agent.enable = true;
-        };
-    }
-
-    # System specific user configuration.
-    (if (systemName == "BBM") then
-        {
-        }
-    else if (systemName == "Pavilion") then
-        {
-        }
-    else
-        lib.warn "User `${USER}` has no configuration for system `${systemName}`."
-        { }
-    );
+    programs.atuin = {
+        enable = true;
+    };
 }
+
+# System specific user configuration.
+(if (systemName == "BBM") then
+    {
+        home.packages = with pkgs; [
+            lmstudio
+        ];
+    }
+else if (systemName == "Pavilion") then
+    {
+    }
+else
+    lib.warn "User `${USER}` has no configuration for system `${systemName}`."
+    { }
+)]

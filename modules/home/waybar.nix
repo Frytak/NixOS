@@ -157,7 +157,7 @@ in
                 }
 
                 window#waybar {
-                    background-color: rgba(26, 26, 26, 0.8);
+                    background-color: rgba(26, 26, 26, 0.4);
                 }
 
                 #workspaces button {

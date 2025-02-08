@@ -9,6 +9,9 @@
         ./sound.nix
         ./users.nix
         ./bluetooth.nix
+        ./home_manager.nix
+        ./network_manager.nix
+        ./printers.nix
     ];
 
     networking.hostName = systemName;
