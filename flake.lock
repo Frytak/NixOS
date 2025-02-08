@@ -9,11 +9,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1737626817,
-        "narHash": "sha256-wMpa+dChj8AUZSrgH+QCfJ7lih7LgbvzsZciVoiAeFU=",
+        "lastModified": 1738641794,
+        "narHash": "sha256-MNnDZJuxMTXT1vGHQFSPJx9sJ56JjpjKulNsy01Cu8A=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "782854a990d7add61a413ae71704cc0d0ac57302",
+        "rev": "727fbb76627296cdeab0f2367930fb1f663b2113",
         "type": "gitlab"
       },
       "original": {
@@ -59,28 +59,6 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1736373539,
-        "narHash": "sha256-dinzAqCjenWDxuy+MqUQq0I4zUSfaCvN9rzuCmgMZJY=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "bd65bc3cde04c16755955630b344bc9e35272c56",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-24.11",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager_2": {
-      "inputs": {
-        "nixpkgs": [
-          "tbsm",
           "nixpkgs"
         ]
       },
@@ -217,11 +195,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1737569578,
-        "narHash": "sha256-6qY0pk2QmUtBT9Mywdvif0i/CLVgpCjMUn6g9vB+f3M=",
+        "lastModified": 1738435198,
+        "narHash": "sha256-5+Hmo4nbqw8FrW85FlNm4IIrRnZ7bn0cmXlScNsNRLo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "47addd76727f42d351590c905d9d1905ca895b82",
+        "rev": "f6687779bf4c396250831aa5a32cbfeb85bb07a3",
         "type": "github"
       },
       "original": {
@@ -288,17 +266,19 @@
     "tbsm": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "home-manager": "home-manager_2",
+        "home-manager": [
+          "nixpkgs"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1737993588,
-        "narHash": "sha256-lVe6x3zeL2RMBpj5xMBORD0Mrpe7KiGJH+J+Frl7+bM=",
+        "lastModified": 1738577118,
+        "narHash": "sha256-8jl81ByMbecmH+v2RBgoF0nxt1u7CXlaJpNYQRk6ptI=",
         "owner": "Frytak",
         "repo": "NixFlake-TBSM",
-        "rev": "5ec0b7a76a0e20d2e2810f082b95ca8fe4ad6ca8",
+        "rev": "9932015cd9c2163f04c53f625e802e802399118d",
         "type": "github"
       },
       "original": {

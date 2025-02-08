@@ -21,6 +21,7 @@
         tbsm = {
             url = "github:Frytak/NixFlake-TBSM";
             inputs.nixpkgs.follows = "nixpkgs";
+            inputs.home-manager.follows = "nixpkgs";
         };
     };
     
