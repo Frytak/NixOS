@@ -50,8 +50,8 @@ in
         fzf
         sshfs
         wineWowPackages.waylandFull
-
         btop
+
         vesktop
         qbittorrent
         telegram-desktop
@@ -65,6 +65,8 @@ in
         prismlauncher
         nautilus
         android-studio
+        lmstudio
+        atuin
     ];
 
     services.cachix-agent = {

@@ -13,7 +13,11 @@
         allowedTtys = [ "all" ];
     };
 
-    services.ollama.enable = true;
+    services.ollama = {
+        enable = true;
+        acceleration = "cuda";
+    };
+    services.atuin.enable = true;
 
     system.stateVersion = "24.05";
     modules.system = {

@@ -27,7 +27,13 @@
     outputs = { nixpkgs, home-manager, ... }@inputs:
     let
         system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
+        overlays = [
+            (final: prev: {
+                btop = prev.btop.override { cudaSupport = true; };
+                lmstudio = prev.lmstudio.override { version = "0.3.8"; };
+            })
+        ];
+        pkgs = import nixpkgs { inherit system overlays; };
     in
     {
         nixosConfigurations = let
@@ -37,6 +43,9 @@
                         ./modules/system/nixos_manager.nix
                         ./hosts/${systemName}
                         home-manager.nixosModules.home-manager
+                        {
+                            nixpkgs.overlays = overlays;
+                        }
                     ];
                     specialArgs = {
                         inherit inputs;
