@@ -274,11 +274,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738577118,
-        "narHash": "sha256-8jl81ByMbecmH+v2RBgoF0nxt1u7CXlaJpNYQRk6ptI=",
+        "lastModified": 1739027354,
+        "narHash": "sha256-hSOKYcC0Oh6y6KHTX0KzMdD79L5AE367RIA9NkGWaBQ=",
         "owner": "Frytak",
         "repo": "NixFlake-TBSM",
-        "rev": "9932015cd9c2163f04c53f625e802e802399118d",
+        "rev": "498210c046049a8c716e1631d22d42975ad0c661",
         "type": "github"
       },
       "original": {

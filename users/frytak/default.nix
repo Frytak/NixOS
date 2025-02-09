@@ -124,6 +124,7 @@ recursiveMerge [{
             verboseLevel=1
             theme=""
         '';
+        defaultSession = "Hyprland";
         sessions = [
             {
                 Name = "Hyprland";
