@@ -146,10 +146,10 @@ recursiveMerge [{
 
             # If "all" is in the allowed_ttys list, launch on any TTY
             if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "all"
-                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+                exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
             # If the current TTY is in the allowed list
             else if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "$current_tty"
-                exec ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+                exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
             end
         end
     '';
