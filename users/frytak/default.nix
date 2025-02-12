@@ -59,6 +59,7 @@ recursiveMerge [{
         prismlauncher
         nautilus
         android-studio
+        inkscape
     ];
 
     modules.home = {
