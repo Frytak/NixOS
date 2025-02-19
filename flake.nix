@@ -23,6 +23,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.home-manager.follows = "nixpkgs";
         };
+
+        hyprland-qt-support = {
+            url = "github:hyprwm/hyprland-qt-support";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
     outputs = { self, nixpkgs, home-manager, ... }@inputs:

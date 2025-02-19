@@ -22,6 +22,12 @@
         hyprland.enable = true;
     };
 
+    security.polkit.enable = true;
+
+    systemd.services."getty@tty1".environment = {
+        XDG_SESSION_TYPE = "x11";
+    };
+
     # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {

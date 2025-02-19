@@ -56,7 +56,12 @@ in
     };
     
     config = lib.mkIf moduleConfig.enable {
-        home.packages = with pkgs; [ xwaylandvideobridge pamixer playerctl ]
+        home.packages = with pkgs; [
+            xwaylandvideobridge
+            pamixer
+            playerctl
+            hyprpolkitagent
+        ]
         ++ (if (moduleConfig.grimblast.enable) then ([ pkgs.grimblast ]) else ([]));
 
         wayland.windowManager.hyprland = recursiveMerge [{
@@ -70,6 +75,7 @@ in
                 exec-once = [
                     "systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP"
                     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+                    "systemctl --user start hyprpolkitagent"
                     "swaync"
                     "waybar"
                     "swww-daemon"
