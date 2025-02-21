@@ -45,6 +45,7 @@ recursiveMerge [{
         sshfs
         wineWowPackages.waylandFull
         btop
+        brightnessctl
 
         vesktop
         qbittorrent
@@ -66,10 +67,16 @@ recursiveMerge [{
     modules.home = {
         git.enable = true;
         fish.enable = true;
+        starship.enable = true;
         foot.enable = true;
         firefox.enable = true;
         ranger.enable = true;
         waybar.enable = true;
+
+        atuin = {
+            enable = true;
+            disableDefaultKeybinds = true;
+        };
 
         # Wallpaper
         hyprpaper = {
@@ -139,8 +146,13 @@ recursiveMerge [{
         ];
     };
 
-    # Launch TBSM on specific TTYs after login
     programs.fish.shellInit = ''
+        # Bind Atuin global search to SHIFT+UP_ARROW
+        bind \[1\;2A "${pkgs.atuin}/bin/atuin search -i; e{pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
+
+        # Bind Atuin local search to CTRL+UP_ARROW
+        bind \[1\;5A "${pkgs.atuin}/bin/atuin search --filter-mode directory -i; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
+
         # Launch TBSM on specific TTYs after login
         if [ -z "$DISPLAY" ];
             set allowed_ttys "all"
@@ -174,67 +186,12 @@ recursiveMerge [{
     };
 
     programs = {
-        starship = {
-            enable = true;
-            settings = {
-                format = lib.concatStrings [
-                    "[█](fg:g1)[ $username  [](bg:g2 fg:g1)](bg:g1 fg:white bold)"
-                    "[  $directory  [](bg:g3 fg:g2)](bg:g2 fg:white bold)"
-                    "[  ($git_branch ) [](bg:g4 fg:g3)](bg:g3 fg:white bold)"
-                    "[  ($rust )($c )($elixir )($golang )($gradle )($haskell )($java )($nodejs ) [](bg:g5 fg:g4)](bg:g4 fg:white bold)"
-                    "[  ($cmd_duration ) [](fg:g5)](bg:g5 fg:white bold)\n"
-                    "$character"
-                ];
-
-                cmd_duration = {
-                    format = "$duration";
-                    min_time = 0;
-                    show_milliseconds = true;
-                };
-
-                username = {
-                    format = "$user";
-                    show_always = true;
-                };
-
-                directory = {
-                    read_only = "";
-                    format = "$path$read_only";
-                };
-
-                character = {
-                    format = "$symbol";
-                    success_symbol = "[ ](bold green)";
-                    error_symbol = "[ ](bold red)";
-                };
-
-                git_branch = {
-                    format = "$symbol$branch(:$remote_branch)";
-                };
-
-                rust = {
-                    format = "$symbol($version)";
-                };
-
-                palette = "frytak";
-                palettes = {
-                    frytak = {
-                        g1 = "#ad3232";
-                        g2 = "#b53162";
-                        g3 = "#ab448f";
-                        g4 = "#8e5db2";
-                        g5 = "#6373c5";
-                    };
-                };
-            };
-        };
         eza = {
             enable = true;
             icons = "always";
             extraOptions = [ "--group-directories-first" ];
             git = true;
         };
-        atuin.enable = true;
     };
 }
 

@@ -8,7 +8,9 @@
         ./swww
         ./tofi
         ./ranger
+        ./atuin.nix
         ./ssh.nix
+        ./starship.nix
         ./git.nix
         ./waybar.nix
         ./alacritty.nix
