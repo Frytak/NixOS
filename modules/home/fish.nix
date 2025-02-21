@@ -10,7 +10,7 @@ in
     };
     
     config = lib.mkIf moduleConfig.enable {
-        home.packages = [ pkgs.fishPlugins.bass pkgs.fortune-kind ];
+        home.packages = [ pkgs.fishPlugins.bass ];
         programs.fish = {
             enable = true;
 
@@ -19,7 +19,7 @@ in
                     set bold $(${pkgs.ncurses}/bin/tput bold)
                     set normal $(${pkgs.ncurses}/bin/tput sgr0)
                     echo -n $bold
-                    fortune -a all
+                    ${pkgs.fortune-kind}/bin/fortune -a all
                     echo -n $normal
                 '';
             };
