@@ -33,7 +33,9 @@ in
 
         home.packages = with pkgs; [
             neovim
-            nodePackages.typescript-language-server
+            texlab
+            latexrun
+            texliveFull
         ];
          
         home.file.".config/nvim/".source =

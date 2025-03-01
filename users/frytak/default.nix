@@ -23,7 +23,43 @@ recursiveMerge [{
     imports = [
         ../../modules/home
         inputs.tbsm.homeManagerModules.tbsm
+        inputs.nixvim.homeManagerModules.nixvim
     ];
+
+    # TODO: Move nvim config to nixvim
+    #programs.nixvim = {
+    #	enable = true;
+    #    globals.mapleader = " ";
+    #    opts = {
+    #        number = true;
+    #        relativenumber = true;
+    #        shiftwidth = 4;
+    #    };
+    #    colorschemes.gruvbox.enable = true;
+    #    plugins = {
+    #        bufferline.enable = true;
+    #        web-devicons.enable = true;
+    #        lualine.enable = true;
+
+    #        lsp = {
+    #            enable = true;
+    #            servers = {
+    #                nil_ls.enable = true;
+    #                lua_ls.enable = true;
+    #                rust_analyzer = {
+    #    		installCargo = true;
+    #    		installRustc = true;
+    #    		enable = true;
+    #    	    };
+    #            };
+    #        };
+
+    #        cmp = {
+    #            enable = true;
+    #            autoEnableSources = true;
+    #        };
+    #    };
+    #};
 
     home = {
         stateVersion = "24.05";
@@ -62,6 +98,8 @@ recursiveMerge [{
         android-studio
         inkscape
         linux-wifi-hotspot
+        zathura # PDF viewer (also needed for nvim LaTeX)
+        mgba
     ];
 
     modules.home = {
@@ -148,10 +186,13 @@ recursiveMerge [{
 
     programs.fish.shellInit = ''
         # Bind Atuin global search to SHIFT+UP_ARROW
-        bind \[1\;2A "${pkgs.atuin}/bin/atuin search -i; e{pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
+        bind \[1\;2A "${pkgs.atuin}/bin/atuin search -i; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
 
         # Bind Atuin local search to CTRL+UP_ARROW
         bind \[1\;5A "${pkgs.atuin}/bin/atuin search --filter-mode directory -i; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
+
+        # Bind Atuin session search to CTRL+SHIFT+UP_ARROW
+        bind \[1\;6A "${pkgs.atuin}/bin/atuin search --filter-mode session -i; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
 
         # Launch TBSM on specific TTYs after login
         if [ -z "$DISPLAY" ];
