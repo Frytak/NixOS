@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 
 let
     USER = "root";
@@ -6,7 +6,10 @@ let
 in
 
 {
-    imports = [ ../../modules/home ];
+    imports = [
+        ../../modules/home
+        inputs.nixvim.homeManagerModules.nixvim
+    ];
 
     home = {
         stateVersion = "24.05";
@@ -15,13 +18,9 @@ in
     };
 
     modules.home = {
+        nvim.enable = true;
         fish.enable = true;
         git.enable = true;
         hyfetch.enable = true;
-        nvim = {
-            enable = true;
-            configSource = "local";
-            configLocalPath = "/home/frytak/ProgrammingProjects/NvimConfig";
-        };
     };
 }

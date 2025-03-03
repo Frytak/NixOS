@@ -26,41 +26,6 @@ recursiveMerge [{
         inputs.nixvim.homeManagerModules.nixvim
     ];
 
-    # TODO: Move nvim config to nixvim
-    #programs.nixvim = {
-    #	enable = true;
-    #    globals.mapleader = " ";
-    #    opts = {
-    #        number = true;
-    #        relativenumber = true;
-    #        shiftwidth = 4;
-    #    };
-    #    colorschemes.gruvbox.enable = true;
-    #    plugins = {
-    #        bufferline.enable = true;
-    #        web-devicons.enable = true;
-    #        lualine.enable = true;
-
-    #        lsp = {
-    #            enable = true;
-    #            servers = {
-    #                nil_ls.enable = true;
-    #                lua_ls.enable = true;
-    #                rust_analyzer = {
-    #    		installCargo = true;
-    #    		installRustc = true;
-    #    		enable = true;
-    #    	    };
-    #            };
-    #        };
-
-    #        cmp = {
-    #            enable = true;
-    #            autoEnableSources = true;
-    #        };
-    #    };
-    #};
-
     home = {
         stateVersion = "24.05";
         username = USER;
@@ -103,6 +68,7 @@ recursiveMerge [{
     ];
 
     modules.home = {
+        nvim.enable = true;
         git.enable = true;
         fish.enable = true;
         starship.enable = true;
@@ -120,12 +86,6 @@ recursiveMerge [{
         hyprpaper = {
             enable = true;
             wallpaper = "skeleton_army_1920x1080.png";
-        };
-
-        nvim = {
-            enable = true;
-            configSource = "local";
-            configLocalPath = "${HOME}/ProgrammingProjects/NvimConfig";
         };
 
         # System information tool

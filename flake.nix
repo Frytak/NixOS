@@ -35,16 +35,14 @@
         };
     };
     
-    outputs = { self, nixpkgs, home-manager, nixvim, ... }@inputs:
+    outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-        system = "x86_64-linux";
         overlays = [
             (final: prev: {
                 btop = prev.btop.override { cudaSupport = true; };
                 lmstudio = prev.lmstudio.override { version = "0.3.8"; };
             })
         ];
-        pkgs = import nixpkgs { inherit system overlays; };
     in
     {
         nixosConfigurations = let
