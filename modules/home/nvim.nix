@@ -77,8 +77,13 @@ in
                 { mode = "n"; key = "<leader>wj"; action = "<C-w><C-j>"; }
 
                 # Neo-tree navigation
-                { mode = "n"; key = "<leader><leader>"; action = "<cmd>Neotree float<enter>"; }
-                { mode = "n"; key = "<leader>.<leader>"; action = "<cmd>Neotree right<enter>"; }
+                { mode = "n"; key = "<leader><leader>"; action = "<cmd>Neotree current<enter>"; }
+                { mode = "n"; key = "<leader>.<leader>"; action = "<cmd>Neotree float<enter>"; }
+                { mode = "n"; key = "<leader>,<leader>"; action = "<cmd>Neotree right<enter>"; }
+
+
+                # Open diagnostics window
+                { mode = "n"; key = "<leader>t"; action = "lua vim.diagnostic.open_float()"; }
             ];
 
             plugins = {
