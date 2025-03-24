@@ -19,11 +19,8 @@ in
         programs.nixvim = {
         	enable = true;
 
-            colorschemes.onedark = {
+            colorschemes.gruvbox = {
 				enable = true;
-				settings = {
-					style = "darker";
-				};
 			};
 
             # Set the <LEADER> to space-bar
@@ -63,33 +60,33 @@ in
                 # Exit Terminal mode
                 { mode = "t"; key = "<esc>"; action = "<C-\\><C-n>"; }
 
-                # Switch tabs
+                # Tabs
+                { mode = "n"; key = "<leader>n"; action = "<cmd>tabnew<enter>"; }
                 { mode = "n"; key = "<leader>h"; action = "<cmd>tabprevious<enter>"; }
                 { mode = "n"; key = "<leader>l"; action = "<cmd>tabnext<enter>"; }
+                { mode = "n"; key = "<leader>H"; action = "<cmd>tabmove -1<enter>"; }
+                { mode = "n"; key = "<leader>L"; action = "<cmd>tabmove 1<enter>"; }
 
-                # New tab
-                { mode = "n"; key = "<leader>n"; action = "<cmd>tabnew<enter>"; }
-
-				# Switch window
+				# Windows
                 { mode = "n"; key = "<leader>wh"; action = "<C-w><C-h>"; }
                 { mode = "n"; key = "<leader>wl"; action = "<C-w><C-l>"; }
                 { mode = "n"; key = "<leader>wk"; action = "<C-w><C-k>"; }
                 { mode = "n"; key = "<leader>wj"; action = "<C-w><C-j>"; }
 
-                # Neo-tree navigation
-                { mode = "n"; key = "<leader><leader>"; action = "<cmd>Neotree current<enter>"; }
-                { mode = "n"; key = "<leader>.<leader>"; action = "<cmd>Neotree float<enter>"; }
-                { mode = "n"; key = "<leader>,<leader>"; action = "<cmd>Neotree right<enter>"; }
-
+                # Telescope navigation
+                { mode = "n"; key = "<leader>fb"; action = "<cmd>lua require(\"telescope\").extensions.file_browser.file_browser()<enter>"; }
+                { mode = "n"; key = "<leader>ff"; action = "<cmd>lua require(\"telescope.builtin\").find_files()<enter>"; }
+                { mode = "n"; key = "<leader>fg"; action = "<cmd>lua require(\"telescope.builtin\").live_grep()<enter>"; }
 
                 # Open diagnostics window
-                { mode = "n"; key = "<leader>t"; action = "lua vim.diagnostic.open_float()"; }
+                { mode = "n"; key = "<leader>t"; action = "<cmd>lua vim.diagnostic.open_float()<enter>"; }
             ];
 
             plugins = {
                 lsp = {
                     enable = true;
                     servers = {
+                        texlab.enable = true;
                         nil_ls.enable = true;
                         lua_ls.enable = true;
                         rust_analyzer = {
@@ -129,18 +126,37 @@ in
                     settings.options.mode = "tabs";
                 };
 
-                neo-tree = {
+                telescope = {
                     enable = true;
-                    enableGitStatus = true;
-                    enableModifiedMarkers = true;
-
-					window = {
-						position = "current";
-                        mappings = {
-                            "l" = "open";
-                            "h" = "close_node";
+                    extensions = {
+                        file-browser = {
+                            enable = true;
+                            settings = {
+                                hijack_netrw = true;
+                                auto_depth = true;
+                                mappings.n = {
+                                    "c" = "require('telescope._extensions.file_browser.actions').create";
+                                    "r" = "require('telescope._extensions.file_browser.actions').rename";
+                                    "m" = "require('telescope._extensions.file_browser.actions').move";
+                                    "y" = "require('telescope._extensions.file_browser.actions').copy";
+                                    "d" = "require('telescope._extensions.file_browser.actions').remove";
+                                    "o" = "require('telescope._extensions.file_browser.actions').open";
+                                    "h" = "require('telescope._extensions.file_browser.actions').goto_parent_dir";
+                                    "e" = "require('telescope._extensions.file_browser.actions').goto_home_dir";
+                                    "w" = "require('telescope._extensions.file_browser.actions').goto_cwd";
+                                    "t" = "require('telescope._extensions.file_browser.actions').change_cwd";
+                                    "f" = "require('telescope._extensions.file_browser.actions').toggle_browser";
+                                    "H" = "require('telescope._extensions.file_browser.actions').toggle_hidden";
+                                    "s" = "require('telescope._extensions.file_browser.actions').toggle_all";
+                                };
+                            };
                         };
-					};
+                    };
+                };
+
+                vimtex = {
+                    enable = true;
+                    settings.view_method = "zathura";
                 };
             };
         };

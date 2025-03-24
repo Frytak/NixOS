@@ -65,6 +65,8 @@ recursiveMerge [{
         linux-wifi-hotspot
         zathura # PDF viewer (also needed for nvim LaTeX)
         mgba
+        everest-mons
+        ripgrep
     ];
 
     modules.home = {
