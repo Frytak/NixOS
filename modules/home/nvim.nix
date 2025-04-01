@@ -86,8 +86,11 @@ in
                 lsp = {
                     enable = true;
                     servers = {
-                        texlab.enable = true;
+                        # Nix
                         nil_ls.enable = true;
+                        nixd.enable = true;
+
+                        texlab.enable = true;
                         lua_ls.enable = true;
                         rust_analyzer = {
 							installCargo = false;
@@ -119,7 +122,62 @@ in
                 };
 
                 web-devicons.enable = true;
-                lualine.enable = true;
+
+                lsp-status.enable = true;
+
+                lualine = {
+                    enable = true;
+                    settings = {
+                        component_seperator = null;
+                        sections = {
+                            lualine_a = [ "mode" ];
+                            lualine_b = [ "branch" ];
+                            lualine_c = [
+                                {
+                                    __unkeyed-1 = "searchcount";
+                                    cond = {
+                                        __raw = ''
+                                            function() return (vim.v.hlsearch == 1) end
+                                        '';
+                                    };
+
+                                    fmt = {
+                                        __raw = ''
+                                            ---@param component string
+                                            function(component)
+                                                return string.format('Found: %s', component)
+                                            end
+                                        '';
+                                    };
+                                }
+                                "diagnostics"
+                            ];
+                            lualine_x = [
+                                {
+                                    __unkeyed-1 = {
+                                        __raw = "require(\"lsp-status\").status";
+                                    };
+                                }
+                                {
+                                    __unkeyed-1 = "diff";
+                                    colored = true;
+                                    #diff_color = {
+                                    #    added = { fg = theme.diff.added.fg },
+                                    #    modified = { fg = theme.diff.modified.fg },
+                                    #    removed = { fg = theme.diff.removed.fg },
+                                    #};
+                                    #symbols = {
+                                    #    added = theme.diff.added.icon,
+                                    #    modified = theme.diff.added.icon,
+                                    #    removed = theme.diff.added.icon
+                                    #},
+                                }
+                            ];
+                            lualine_y = [ { __unkeyed-1 = "filetype"; colored = false; } ];
+                            lualine_z = [ "progress" "location" ];
+                        };
+                    };
+                };
 
                 bufferline = {
                     enable = true;
