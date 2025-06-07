@@ -19,6 +19,12 @@ in
         programs.nixvim = {
         	enable = true;
 
+            userCommands = {
+                "PedalLsp" = {
+                    command = "vim.lsp.start({name = 'mc-lsp', cmd = {'/home/frytak/Downloads/mc-lsp'}, root_dir = '.'})";
+                };
+            };
+
             colorschemes.gruvbox = {
 				enable = true;
 			};
@@ -44,6 +50,9 @@ in
                 breakindent = true;
                 formatoptions = "l";
                 lbr = true;
+
+                # Make the diagnostic gutter visible at all time
+                signcolumn = "yes";
             };
 
             keymaps = [
@@ -91,6 +100,20 @@ in
                         nixd.enable = true;
 
                         texlab.enable = true;
+                        clangd = {
+                            enable = true;
+                            extraOptions.cmd = [
+                                "clangd"
+                                "--clang-tidy"
+                                "--background-index"
+                                "--fallback-style={IndentWidth: 4, UseTab: Never}"
+                            ];
+                        };
+                        ocamllsp = {
+                            enable = true;
+                            package = pkgs.ocamlPackages.ocaml-lsp;
+                        };
+                        csharp_ls.enable = true;
                         lua_ls.enable = true;
                         rust_analyzer = {
 							installCargo = false;
@@ -216,6 +239,9 @@ in
                     enable = true;
                     settings.view_method = "zathura";
                 };
+
+                render-markdown.enable = true;
+                markdown-preview.enable = true;
             };
         };
     };

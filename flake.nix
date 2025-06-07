@@ -2,10 +2,10 @@
     description = "Configuration of Frytak's NixOS.";
     
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
         
         home-manager = {
-            url = "github:nix-community/home-manager/release-24.11";
+            url = "github:nix-community/home-manager/release-25.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -18,6 +18,12 @@
             url = "github:libadoxon/mcmojave-hyprcursor";
         };
 
+        eww = {
+            url = "./modules/eww/";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.home-manager.follows = "nixpkgs";
+        };
+
         tbsm = {
             url = "github:Frytak/NixFlake-TBSM";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +31,7 @@
         };
 
         nixvim = {
-            url = "github:nix-community/nixvim/nixos-24.11";
+            url = "github:nix-community/nixvim/nixos-25.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -33,15 +39,26 @@
             url = "github:hyprwm/hyprland-qt-support";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        youtube-music-mpris = {
+            url = "github:Frytak/YoutubeMusicMPRIS";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
     outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-        overlays = [
+        overlays =
+            let
+            moz-rev = "master";
+            moz-url = builtins.fetchTarball { url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";};
+            nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
+            in
+        [
             (final: prev: {
                 btop = prev.btop.override { cudaSupport = true; };
-                lmstudio = prev.lmstudio.override { version = "0.3.8"; };
             })
+            nightlyOverlay
         ];
     in
     {

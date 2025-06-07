@@ -43,7 +43,7 @@
         ];
 
         exec-once = [
-            "[workspace name:4 silent] firefox"
+            "[workspace name:4 silent] uwsm app -- firefox-nightly"
         ];
     };
 }

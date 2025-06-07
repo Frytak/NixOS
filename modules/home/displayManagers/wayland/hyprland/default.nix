@@ -1,4 +1,4 @@
-{ config, lib, pkgs, recursiveMerge, ... }:
+{ config, lib, pkgs, recursiveMerge, inputs, ... }:
 
 let
     moduleConfig = config.modules.home.displayManagers.wayland.hyprland;
@@ -46,18 +46,10 @@ in
             type = lib.types.bool;
             default = false;
         };
-
-        # TODO
-        swww.enable = lib.mkOption {
-            description = "Whether to turn on configuration for SWWW.";
-            type = lib.types.bool;
-            default = false;
-        };
     };
     
     config = lib.mkIf moduleConfig.enable {
         home.packages = with pkgs; [
-            xwaylandvideobridge
             pamixer
             playerctl
             hyprpolkitagent
@@ -66,21 +58,29 @@ in
 
         wayland.windowManager.hyprland = recursiveMerge [{
             enable = true;
-            systemd.enable = true;
             xwayland.enable = true;
 
+            # https://wiki.hyprland.org/Useful-Utilities/Systemd-start/#uwsm
+            systemd.enable = false;
+
+            # set the Hyprland and XDPH packages to null to use the ones from the NixOS module (https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#using-the-home-manager-module-with-nixos)
+            package = null;
+            portalPackage = null;
+
             settings = {
+                debug.disable_logs = false;
                 "$mod" = "SUPER";
 
                 exec-once = [
                     "systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP"
                     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
                     "systemctl --user start hyprpolkitagent"
-                    "swaync"
-                    "waybar"
-                    "swww-daemon"
-                    "[workspace special:7 silent] vesktop"
-                    "[workspace special:8 silent] telegram-desktop"
+                    "uwsm app -- swaync"
+                    "uwsm app -- ${inputs.youtube-music-mpris.packages.${pkgs.system}.youtube-music-mpris-server}/bin/youtube-music-mpris-server"
+                    "uwsm app -- waybar"
+                    "uwsm app -- eww daemon"
+                    "[workspace special:7 silent] uwsm app -- vesktop"
+                    "[workspace special:8 silent] uwsm app -- telegram-desktop"
                 ];
 
                 bindm = [
@@ -90,8 +90,8 @@ in
 
                 bind = [
                     # Launching apps
-                    "$mod, D, exec, tofi-run | xargs hyprctl dispatch exec --"
-                    "$mod, RETURN, exec, foot"
+                    "$mod, D, exec, uwsm app -- tofi-run | xargs hyprctl dispatch exec uwsm app --"
+                    "$mod, RETURN, exec, uwsm app -- foot"
 
                     # Moving focus
                     "$mod, h, movefocus, l"
@@ -173,12 +173,15 @@ in
                     "$mod SHIFT, 9, movetoworkspace, special:9"
                     "$mod, code:81, togglespecialworkspace, 9"
                     "$mod SHIFT, code:81, movetoworkspace, special:9"
+
+                    # Eww overlay
+                    "$mod, W, exec, ${config.home.homeDirectory}/.config/eww/dashboard.sh"
                 ]
                 ++ (if (moduleConfig.grimblast.enable) then ([
-                    "$mod, code:107, exec, grimblast copy output"
-                    "$mod SHIFT, code:107, exec, grimblast copy screen"
-                    "$mod, F, exec, grimblast copy area"
-                    "$mod SHIFT, F, exec, grimblast copy active"
+                    "$mod, code:107, exec, uwsm app -- grimblast copy output"
+                    "$mod SHIFT, code:107, exec, uwsm app -- grimblast copy screen"
+                    "$mod, F, exec, uwsm app -- grimblast copy area"
+                    "$mod SHIFT, F, exec, uwsm app -- grimblast copy active"
                 ]) else ([]));
 
                 windowrulev2 = [

@@ -20,6 +20,8 @@ in
         programs.firefox = {
             enable = true;
 
+            package = pkgs.latest.firefox-nightly-bin;
+
             profiles = {
                 frytak = {
                     name = "Frytak";
@@ -46,7 +48,7 @@ in
                         "browser.newtabpage.activity-stream.showSearch" = false;
                     };
 
-                    extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+                    extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
                         ublock-origin
                         darkreader
                         sponsorblock
@@ -57,67 +59,70 @@ in
                     ];
 
                     # All bookmarks should be on the toolbar
-                    bookmarks = [{ name = "toolbar"; toolbar = true; bookmarks = [
-                        {
-                            name = "Nix";
-                            bookmarks = [
-                                {
-                                    name = "Manual";
-                                    url = "https://nixos.org/manual/nixos/stable";
-                                }
-                                
-                                {
-                                    name = "Packages";
-                                    url = "https://search.nixos.org/packages";
-                                }
-                                
-                                {
-                                    name = "Home Manager Options";
-                                    url = "https://home-manager-options.extranix.com/";
-                                }
-                            ];
-                        }
+                    bookmarks = {
+                        force = true;
+                        settings = [{ name = "toolbar"; toolbar = true; bookmarks = [
+                            {
+                                name = "Nix";
+                                bookmarks = [
+                                    {
+                                        name = "Manual";
+                                        url = "https://nixos.org/manual/nixos/stable";
+                                    }
+                                    
+                                    {
+                                        name = "Packages";
+                                        url = "https://search.nixos.org/packages";
+                                    }
+                                    
+                                    {
+                                        name = "Home Manager Options";
+                                        url = "https://home-manager-options.extranix.com/";
+                                    }
+                                ];
+                            }
 
-                        {
-                            name = "Mail";
-                            bookmarks = [
-                                {
-                                    name = "Gmail";
-                                    url = "https://mail.google.com/mail/u/0/#inbox";
-                                }
+                            {
+                                name = "Mail";
+                                bookmarks = [
+                                    {
+                                        name = "Gmail";
+                                        url = "https://mail.google.com/mail/u/0/#inbox";
+                                    }
 
-                                {
-                                    name = "Outlook";
-                                    url = "https://outlook.live.com/mail/0/";
-                                }
-                            ];
-                        }
+                                    {
+                                        name = "Outlook";
+                                        url = "https://outlook.live.com/mail/0/";
+                                    }
+                                ];
+                            }
 
-                        {
-                            name = "Git";
-                            bookmarks = [
-                                {
-                                    name = "GitHub";
-                                    url = "https://github.com/Frytak?tab=repositories";
-                                }
+                            {
+                                name = "Git";
+                                bookmarks = [
+                                    {
+                                        name = "GitHub";
+                                        url = "https://github.com/Frytak?tab=repositories";
+                                    }
 
-                                {
-                                    name = "GitLab";
-                                    url = "https://gitlab.com/";
-                                }
-                            ];
-                        }
+                                    {
+                                        name = "GitLab";
+                                        url = "https://gitlab.com/";
+                                    }
+                                ];
+                            }
 
-                        {
-                            name = "Map";
-                            url = "https://www.google.pl/maps/@49.6589875,20.9944038,14z?entry=ttu";
-                        }
+                            {
+                                name = "Map";
+                                url = "https://www.google.pl/maps/@49.6589875,20.9944038,14z?entry=ttu";
+                            }
 
-                        {
-                            name = "YouTube";
-                            url = "https://www.youtube.com";
-                        }
-                    ];}];
+                            {
+                                name = "YouTube";
+                                url = "https://www.youtube.com";
+                            }
+                        ];}];
+                    };
                 };
             };
             

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     moduleConfig = config.modules.system.sound;
@@ -19,5 +19,27 @@ in
             jack.enable = true;
             pulse.enable = true;
         }; 
+
+        # For rtkit to work under users with the "audio" group
+        #security.pam.loginLimits = [
+        #    {
+        #        domain = "@audio";
+        #        type = "soft";
+        #        item = "memlock";
+        #        value = "unlimited";
+        #    }
+        #    {
+        #        domain = "@audio";
+        #        type = "hard";
+        #        item = "memlock";
+        #        value = "unlimited";
+        #    }
+        #    {
+        #        domain = "@audio";
+        #        type = "hard";
+        #        item = "rtprio";
+        #        value = "90";
+        #    }
+        #];
     };
 }

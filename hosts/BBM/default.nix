@@ -22,6 +22,10 @@
         hyprland.enable = true;
     };
 
+    boot.tmp.useTmpfs = true;
+
+    services.flatpak.enable = true;
+
     security.polkit.enable = true;
 
     systemd.services."getty@tty1".environment = {

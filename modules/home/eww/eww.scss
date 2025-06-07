@@ -1,0 +1,91 @@
+$bg: #282828;
+$popup-bg: #32302f;
+$primary: #458588;
+$highlight: #83a598;
+
+$gray: #928374;
+$red: #fb4934;
+$orange: #fe8019;
+
+window {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+button {
+    background-color: $primary;
+}
+
+.bg {
+    background-color: $bg;
+    border-radius: 24px;
+}
+
+.popup-bg {
+    background-color: $popup-bg;
+    border-radius: 24px;
+}
+
+
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+
+.overlay-shutdown-icon {
+    color: $red;
+}
+
+.overlay-shutdown-confirmation {
+    margin: 20px;
+}
+
+.overlay-reboot-icon {
+    color: $orange;
+}
+
+.overlay-reboot-confirmation {
+    margin: 20px;
+}
+
+
+
+.full-music {
+    margin: 20px;
+}
+
+.full-music-time {
+    color: $gray;
+}
+
+.full-music-art {
+    border-radius: 8px;
+    min-height: 140px;
+    min-width: 140px;
+    background-position: center;
+    background-size: cover;
+}
+
+.full-music-scroll {
+    margin: 8px;
+}
+
+.full-music-scroll highlight {
+    color: #111;
+    background-color: $primary;
+    background-image: none;
+}
+
+.full-music-scroll slider {
+    background-color: $primary;
+    box-shadow: 0 0 0 2px $highlight inset
+}
+
+.full-music-title {
+    font-size: 24px;
+}
+
+.full-music-artist {
+    font-size: 16px;
+}

@@ -1,0 +1,91 @@
+(deflisten now-playing :initial '{ "title": "---", "artist": "---", "artUrl": "", "status": "Paused", "length": null, "timestamp": null, "length-f": "--:--", "timestamp-f": "00:00" }'
+    `playerctl --player youtube-music --follow metadata --format '{ "title": "{{title}}", "artist": "{{artist}}", "artUrl": "{{mpris:artUrl}}", "status": "{{status}}", "length": {{mpris:length}}, "timestamp": {{position}}, "length-f": "{{duration(mpris:length)}}", "timestamp-f": "{{duration(position)}}" }'`
+)
+
+(defwindow music
+    :monitor 0
+    :geometry (geometry :x "${(1920/2) - (500/2)}px" :y "${(1080/2) - (180/2)}px" :width "500px" :height "180px")
+    :stacking "overlay"
+    :focusable "false"
+    :class "overlay"
+    (music)
+)
+
+(defwidget music []
+    (box :class "bg"
+        (box :class "full-music" :orientation "h" :space-evenly "false" :spacing 20
+            (box :class "full-music-art" :style "background-image: url('file://${now-playing.artUrl}');" )
+            (box :halign "fill" :valign "fill" :orientation "v" :vexpand true :hexpand true :space-evenly false
+                (box :vexpand true :valign "start" :orientation "v" :space-evenly "false" :spacing 4
+                    (label
+                        :text "${now-playing.title}"
+                        :tooltip "${now-playing.title}"
+                        :class "full-music-title"
+                        :limit-width -1
+                    )
+                    (label
+                        :text "${now-playing.artist}"
+                        :tooltip "${now-playing.artist}"
+                        :class "full-music-artist"
+                        :limit-width -1
+                    )
+                )
+                (box :halign "fill" :valign "end" :orientation "v" :space-evenly false :spacing 8
+                    (box :halign "fill" :valign "end" :hexpand true :vexpand true :orientation "h" :space-evenly false
+                        (label
+                            :text {now-playing.timestamp-f}
+                            :class "full-music-time"
+                            :hexpand true
+                            :vexpand true
+                            :valign "end"
+                            :halign "start"
+                        )
+                        (box :valign "center" :valign "end" :orientation "h" :space-evenly false :spacing 20
+                            (button
+                                :tooltip "Previous"
+                                :class "full-music-previous-button"
+                                :onclick "playerctl --player youtube-music previous"
+                                (image
+                                    :icon "media-seek-backward-symbolic"
+                                    :icon-size "button"
+                                )
+                            )
+                            (button
+                                :tooltip { (now-playing.status == "Stopped" || now-playing.status == "Paused") ? "Play" : "Pause" }
+                                :class "full-music-state-button"
+                                :onclick { (now-playing.status == "Stopped" || now-playing.status == "Paused") ? "playerctl --player youtube-music play" : "playerctl --player youtube-music pause" }
+                                (image
+                                    :icon { (now-playing.status == "Stopped" || now-playing.status == "Paused") ? "media-playback-start-symbolic" : "media-playback-pause-symbolic" }
+                                    :icon-size "button"
+                                )
+                            )
+                            (button
+                                :tooltip "Next"
+                                :class "full-music-next-button"
+                                :onclick "playerctl --player youtube-music next"
+                                (image
+                                    :icon "media-seek-forward-symbolic"
+                                    :icon-size "button"
+                                )
+                            )
+                        )
+                        (label
+                            :text {now-playing.length-f}
+                            :class "full-music-time"
+                            :hexpand true
+                            :vexpand true
+                            :valign "end"
+                            :halign "end"
+                        )
+                    )
+                    (scale
+                        :class "full-music-scroll"
+                        :min 0
+                        :max {now-playing.length ?: 1}
+                        :value {now-playing.timestamp ?: 0}
+                    )
+                )
+            )
+        )
+    )
+)

@@ -1,0 +1,8 @@
+(defwindow overlay
+    :monitor 0
+    :geometry (geometry :x "0%" :y "0px" :width "100%" :height "100%" :anchor "top left")
+    :stacking "overlay"
+    :focusable "false"
+    :class "overlay"
+    (box :class "overlay")
+)

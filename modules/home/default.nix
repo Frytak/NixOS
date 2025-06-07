@@ -3,9 +3,9 @@
 {
     imports = [
         ./displayManagers
+        ./eww
         ./games.nix
         ./hyfetch
-        ./swww
         ./tofi
         ./ranger
         ./atuin.nix

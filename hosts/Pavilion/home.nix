@@ -43,7 +43,7 @@
         ];
 
         exec-once = [
-            "[workspace special:S silent] firefox"
+            "[workspace special:S silent] firefox-nightly"
         ];
     };
 }

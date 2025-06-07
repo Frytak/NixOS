@@ -78,6 +78,7 @@ recursiveMerge [{
         firefox.enable = true;
         ranger.enable = true;
         waybar.enable = true;
+        eww.enable = true;
 
         atuin = {
             enable = true;
@@ -143,30 +144,41 @@ recursiveMerge [{
                 DesktopNames = "Hyprland";
                 Keywords = "wayland;compositor;hyprland;";
             }
+            {
+                Name = "Hyprland (UWSM)";
+                Comment = "Start the Hyprland Wayland Compositor";
+                Exec = "${pkgs.uwsm}/bin/uwsm start hyprland.desktop";
+                Type = "Application";
+                DesktopNames = "Hyprland (UWSM)";
+                Keywords = "wayland;compositor;hyprland;uwsm;";
+            }
         ];
     };
 
+    # ; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2
     programs.fish.shellInit = ''
         # Bind Atuin global search to SHIFT+UP_ARROW
-        bind \[1\;2A "${pkgs.atuin}/bin/atuin search -i; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
+        bind shift-up "${pkgs.atuin}/bin/atuin search -i"
 
         # Bind Atuin local search to CTRL+UP_ARROW
-        bind \[1\;5A "${pkgs.atuin}/bin/atuin search --filter-mode directory -i; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
+        bind ctrl-up "${pkgs.atuin}/bin/atuin search --filter-mode directory -i"
 
         # Bind Atuin session search to CTRL+SHIFT+UP_ARROW
-        bind \[1\;6A "${pkgs.atuin}/bin/atuin search --filter-mode session -i; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2"
+        bind ctrl-shift-up "${pkgs.atuin}/bin/atuin search --filter-mode session -i"
 
         # Launch TBSM on specific TTYs after login
         if [ -z "$DISPLAY" ];
-            set allowed_ttys "all"
+            set allowed_ttys "/dev/tty1"
             set current_tty $(tty)
 
             # If "all" is in the allowed_ttys list, launch on any TTY
             if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "all"
-                exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+                #exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+                exec ${pkgs.bashInteractiveFHS}/bin/bash -c "${pkgs.uwsm}/bin/uwsm start default" 
             # If the current TTY is in the allowed list
             else if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "$current_tty"
-                exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+                #exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
+                exec ${pkgs.bashInteractiveFHS}/bin/bash -c "${pkgs.uwsm}/bin/uwsm start default" 
             end
         end
     '';
@@ -186,6 +198,11 @@ recursiveMerge [{
             package = pkgs.tokyonight-gtk-theme;
             name = "Tokyonight-Dark";
         };
+
+        iconTheme = {
+            package = pkgs.adwaita-icon-theme;
+            name = "Adwaita";
+        };
     };
 
     programs = {
@@ -201,9 +218,6 @@ recursiveMerge [{
 # System specific user configuration.
 (if (systemName == "BBM") then
     {
-        home.packages = with pkgs; [
-            lmstudio
-        ];
     }
 else if (systemName == "Pavilion") then
     {

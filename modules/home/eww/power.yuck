@@ -1,0 +1,119 @@
+(defwindow shutdown
+    :monitor 0
+    :geometry (geometry :x "${(1920/2) + (500/2) + 20}px" :y "${(1080/2) - 80 - (20/2)}px" :width "80px" :height "80px")
+    :stacking "overlay"
+    :focusable "false"
+    (shutdown)
+)
+
+(defwidget shutdown []
+    (button :class "bg" :onclick "source \"$HOME/.config/eww/variables.sh\" && eww open --screen $(\"$FOCUSED_SCREEN\") shutdown-confirmation; touch \"$SHUTDOWN_CONFIRMATION_OPEN\""
+        (image
+            :class "overlay-shutdown-icon"
+            :icon "system-shutdown-symbolic"
+            :icon-size "dialog"
+            :tooltip "Shutdown"
+        )
+    )
+)
+
+
+
+(defwindow shutdown-confirmation
+    :monitor 0
+    :geometry (geometry :x "0%" :y "0px" :width "450px" :height "120px" :anchor "center center")
+    :stacking "overlay"
+    :focusable "false"
+    (shutdown-confirmation)
+)
+
+(defwidget shutdown-confirmation []
+    (box :class "popup-bg"
+        (box :class "overlay-shutdown-confirmation" :orientation "v" :space-evenly "false"
+            (label
+                :text "Are you sure you want to shutdown the computer?"
+                :tooltip "Are you sure you want to shutdown the computer?"
+                :limit-width -1
+            )
+            (box :space-evenly "false" :vexpand true :hexpand true
+                (button
+                    :tooltip "No"
+                    :onclick "source \"$HOME/.config/eww/variables.sh\" && eww close shutdown-confirmation; rm \"$SHUTDOWN_CONFIRMATION_OPEN\""
+                    :valign "end"
+                    :halign "start"
+                    :hexpand true
+                    :width 100
+                    (label :text "No")
+                )
+                (button
+                    :tooltip "Yes"
+                    :onclick "shutdown 0"
+                    :valign "end"
+                    :halign "end"
+                    :hexpand true
+                    :width 100
+                    (label :text "Yes")
+                )
+            )
+        )
+    )
+)
+
+(defwindow reboot
+    :monitor 0
+    :geometry (geometry :x "${(1920/2) + (500/2) + 20}px" :y "${(1080/2) + (20/2)}px" :width "80px" :height "80px")
+    :stacking "overlay"
+    :focusable "false"
+    (reboot)
+)
+
+(defwidget reboot []
+    (button :class "bg" :onclick "source \"$HOME/.config/eww/variables.sh\" && eww open --screen $(\"$FOCUSED_SCREEN\") reboot-confirmation; touch \"$REBOOT_CONFIRMATION_OPEN\""
+        (image
+            :class "overlay-reboot-icon"
+            :icon "system-reboot-symbolic"
+            :icon-size "dialog"
+            :tooltip "Reboot"
+        )
+    )
+)
+
+(defwindow reboot-confirmation
+    :monitor 0
+    :geometry (geometry :x "0%" :y "0px" :width "450px" :height "120px" :anchor "center center")
+    :stacking "overlay"
+    :focusable "false"
+    (reboot-confirmation)
+)
+
+(defwidget reboot-confirmation []
+    (box :class "popup-bg"
+        (box :class "overlay-reboot-confirmation" :orientation "v" :space-evenly "false"
+            (label
+                :text "Are you sure you want to reboot the computer?"
+                :tooltip "Are you sure you want to reboot the computer?"
+                :limit-width -1
+            )
+            (box :space-evenly "false" :vexpand true :hexpand true
+                (button
+                    :tooltip "No"
+                    :onclick "source \"$HOME/.config/eww/variables.sh\" && eww close reboot-confirmation; rm \"$REBOOT_CONFIRMATION_OPEN\""
+                    :valign "end"
+                    :halign "start"
+                    :hexpand true
+                    :width 100
+                    (label :text "No")
+                )
+                (button
+                    :tooltip "Yes"
+                    :onclick "reboot"
+                    :valign "end"
+                    :halign "end"
+                    :hexpand true
+                    :width 100
+                    (label :text "Yes")
+                )
+            )
+        )
+    )
+)
