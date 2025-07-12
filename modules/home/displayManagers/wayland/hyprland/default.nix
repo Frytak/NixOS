@@ -77,7 +77,7 @@ in
                     "systemctl --user start hyprpolkitagent"
                     "uwsm app -- swaync"
                     "uwsm app -- ${inputs.youtube-music-mpris.packages.${pkgs.system}.youtube-music-mpris-server}/bin/youtube-music-mpris-server"
-                    "uwsm app -- waybar"
+                    #"uwsm app -- waybar"
                     "uwsm app -- eww daemon"
                     "[workspace special:7 silent] uwsm app -- vesktop"
                     "[workspace special:8 silent] uwsm app -- telegram-desktop"
@@ -223,6 +223,7 @@ in
                 misc = {
                     initial_workspace_tracking = 2;
                     disable_splash_rendering = true;
+                    disable_hyprland_logo = true;
                     middle_click_paste = false;
                 };
             };

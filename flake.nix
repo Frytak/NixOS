@@ -18,12 +18,6 @@
             url = "github:libadoxon/mcmojave-hyprcursor";
         };
 
-        eww = {
-            url = "./modules/eww/";
-            inputs.nixpkgs.follows = "nixpkgs";
-            inputs.home-manager.follows = "nixpkgs";
-        };
-
         tbsm = {
             url = "github:Frytak/NixFlake-TBSM";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -44,21 +38,19 @@
             url = "github:Frytak/YoutubeMusicMPRIS";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        firefox = {
+            url = "github:nix-community/flake-firefox-nightly";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
     outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-        overlays =
-            let
-            moz-rev = "master";
-            moz-url = builtins.fetchTarball { url = "https://github.com/mozilla/nixpkgs-mozilla/archive/${moz-rev}.tar.gz";};
-            nightlyOverlay = (import "${moz-url}/firefox-overlay.nix");
-            in
-        [
+        overlays = [
             (final: prev: {
                 btop = prev.btop.override { cudaSupport = true; };
             })
-            nightlyOverlay
         ];
     in
     {

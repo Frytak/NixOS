@@ -20,9 +20,6 @@ in
         	enable = true;
 
             userCommands = {
-                "PedalLsp" = {
-                    command = "vim.lsp.start({name = 'mc-lsp', cmd = {'/home/frytak/Downloads/mc-lsp'}, root_dir = '.'})";
-                };
             };
 
             colorschemes.gruvbox = {
@@ -30,7 +27,10 @@ in
 			};
 
             # Set the <LEADER> to space-bar
-            globals.mapleader = " ";
+            globals = {
+                mapleader = " ";
+                maplocalleader = " ";
+            };
 
             opts = {
                 # Use spaces instead of TABs
@@ -74,7 +74,7 @@ in
                 { mode = "n"; key = "<leader>h"; action = "<cmd>tabprevious<enter>"; }
                 { mode = "n"; key = "<leader>l"; action = "<cmd>tabnext<enter>"; }
                 { mode = "n"; key = "<leader>H"; action = "<cmd>tabmove -1<enter>"; }
-                { mode = "n"; key = "<leader>L"; action = "<cmd>tabmove 1<enter>"; }
+                { mode = "n"; key = "<leader>L"; action = "<cmd>tabmove +1<enter>"; }
 
 				# Windows
                 { mode = "n"; key = "<leader>wh"; action = "<C-w><C-h>"; }
@@ -89,6 +89,12 @@ in
 
                 # Open diagnostics window
                 { mode = "n"; key = "<leader>t"; action = "<cmd>lua vim.diagnostic.open_float()<enter>"; }
+
+                # Go to definition
+                { mode = "n"; key = "gd"; action = "<cmd>lua vim.lsp.buf.definition()<enter>"; }
+
+                # Format
+                { mode = "n"; key = "<F3>"; action = "<cmd>lua vim.lsp.buf.format()<enter>"; }
             ];
 
             plugins = {
@@ -210,6 +216,7 @@ in
                 telescope = {
                     enable = true;
                     extensions = {
+                        fzf-native.enable = true;
                         file-browser = {
                             enable = true;
                             settings = {

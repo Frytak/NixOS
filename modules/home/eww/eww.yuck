@@ -1,4 +1,4 @@
 (include "./music.yuck")
 (include "./overlay.yuck")
 (include "./power.yuck")
-
+(include "./bar.yuck")

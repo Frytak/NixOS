@@ -1,4 +1,5 @@
 $bg: #282828;
+$bg2: #3c3836;
 $popup-bg: #32302f;
 $primary: #458588;
 $highlight: #83a598;
@@ -23,6 +24,45 @@ button {
 .popup-bg {
     background-color: $popup-bg;
     border-radius: 24px;
+}
+
+.bar {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.bar-container {
+    background-color: $bg;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $bg2;
+    border-top-style: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.time {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.bar-music {
+    padding-right: 8px;
+}
+
+.workspaces {
+    padding: 5px;
+}
+
+.workspace-button {
+    border-radius: 8px;
+    padding: 0px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.workspace-button-active {
+    background-color: $highlight;
 }
 
 
@@ -57,6 +97,14 @@ button {
 
 .full-music-time {
     color: $gray;
+}
+
+.bar-music-art {
+    border-bottom-left-radius: 8px;
+    min-height: 34px;
+    min-width: 34px;
+    background-position: center;
+    background-size: cover;
 }
 
 .full-music-art {

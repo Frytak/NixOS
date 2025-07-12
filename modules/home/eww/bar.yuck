@@ -1,0 +1,100 @@
+(deflisten time "./time.sh")
+(deflisten current-workspace "./current-workspace.sh")
+(defpoll wifi :initial "" :interval "5s" "./default-connection.sh")
+(defvar wifi-collapsed true)
+
+(defwindow bar [workspaces monitor]
+    :monitor monitor
+    :geometry (geometry
+        :x "0px"
+        :y "0px"
+        :width "100%"
+        :height "34px"
+        :anchor "center top"
+    )
+    :stacking "bg"
+    :exclusive "true"
+    (bar :workspaces workspaces)
+)
+
+(defwidget bar [workspaces]
+    (centerbox :class "bar" :space-evenly false :hexpand true :vexpand true
+        (box :space-evenly false :hexpand true :vexpand true :spacing 5
+            (box :class "bar-container workspaces" :space-evenly false :spacing 4
+                (for name in workspaces
+                    (workspace :name name)
+                )
+            )
+            (box :class "bar-container time" :space-evenly false :spacing 4
+                (systray :icon-size 20 :spacing 5)
+            )
+        )
+        (bar-music :visible {!(now-playing.title == "---" || now-playing.status == "Stopped")})
+        (box :space-evenly false :hexpand true :vexpand true :halign "end" :spacing 5
+            (bar-wifi :collapsed {wifi-collapsed} :visible {wifi != ""})
+            (bar-time)
+        )
+    )
+)
+
+(defwidget workspace [name]
+    (button :class "workspace-button ${(current-workspace?.name == name) ? "workspace-button-active" : ""}" :onclick "hyprctl dispatch workspace name:${name}"
+        (label
+            :text "${name}"
+            :tooltip "Workspace `${name}`"
+        )
+    )
+)
+
+(defwidget bar-time []
+    (box :class "bar-container time" :space-evenly false :orientation "h" :spacing 6 :tooltip time
+        (label
+            :text time
+        )
+        (label
+            :text ""
+            :style "font-size: 20px"
+        )
+    )
+)
+
+(defwidget bar-wifi [visible collapsed]
+    (eventbox :onhover "eww update wifi-collapsed=false" :onhoverlost "eww update wifi-collapsed=true"
+        (box :class "bar-container time" :space-evenly false :orientation "h" :spacing {collapsed ? 0 : 6} :tooltip wifi :visible visible
+            (revealer
+                :transition "slideleft"
+                :reveal {!collapsed}
+                :duration "500ms"
+                (label
+                    :text wifi
+                )
+            )
+            (label
+                :text "󰤢"
+                :width 24
+                :style "font-size: 20px; padding-right: 6.5px;"
+            )
+        )
+    )
+)
+
+(defwidget bar-music [visible]
+    (box :class "bar-container bar-music" :space-evenly false :orientation "h" :visible visible
+        (box :space-evenly false :orientation "h" :spacing 8
+            (box :class "bar-music-art" :style "background-image: url('file://${now-playing.artUrl}');" )
+            (label
+                :text "${now-playing.title}"
+                :tooltip "${now-playing.title}"
+                :limit-width 20
+                :style "font-size: small"
+            )
+            (label :text "-" :style "font-size: small")
+            (label
+                :text "${now-playing.artist}"
+                :tooltip "${now-playing.artist}"
+                :limit-width 16
+                :style "font-size: small"
+            )
+        )
+    )
+)

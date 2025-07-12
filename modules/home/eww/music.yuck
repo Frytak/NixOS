@@ -4,7 +4,7 @@
 
 (defwindow music
     :monitor 0
-    :geometry (geometry :x "${(1920/2) - (500/2)}px" :y "${(1080/2) - (180/2)}px" :width "500px" :height "180px")
+    :geometry (geometry :x "${(1920/2) - (500/2)}px" :y "${(1080/2) - (180/2) - 42}px" :width "500px" :height "180px")
     :stacking "overlay"
     :focusable "false"
     :class "overlay"

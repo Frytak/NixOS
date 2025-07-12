@@ -67,6 +67,7 @@ recursiveMerge [{
         mgba
         everest-mons
         ripgrep
+        davinci-resolve
     ];
 
     modules.home = {
@@ -77,7 +78,7 @@ recursiveMerge [{
         foot.enable = true;
         firefox.enable = true;
         ranger.enable = true;
-        waybar.enable = true;
+        #waybar.enable = true;
         eww.enable = true;
 
         atuin = {
@@ -88,7 +89,7 @@ recursiveMerge [{
         # Wallpaper
         hyprpaper = {
             enable = true;
-            wallpaper = "skeleton_army_1920x1080.png";
+            wallpaper = "misty_forest_1920x1080.png";
         };
 
         # System information tool

@@ -11,6 +11,8 @@
             userName = "Frytak";
             userEmail = "frytak2855@gmail.com";
 
+            lfs.enable = true;
+
             extraConfig = {
                 init.defaultBranch = "main";
                 safe.directory = [ "/etc/nixos" ];

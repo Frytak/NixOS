@@ -20,7 +20,7 @@ in
         programs.firefox = {
             enable = true;
 
-            package = pkgs.latest.firefox-nightly-bin;
+            package = inputs.firefox.packages.${pkgs.system}.firefox-nightly-bin;
 
             profiles = {
                 frytak = {

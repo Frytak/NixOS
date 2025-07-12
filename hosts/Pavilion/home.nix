@@ -43,6 +43,7 @@
         ];
 
         exec-once = [
+            ''uwsm app -- eww open-many bar:"eDP-1" --arg "eDP-1":workspaces='["1", "2", "3", "4", "5", "6"]' --arg "eDP-1":monitor="eDP-1"''
             "[workspace special:S silent] firefox-nightly"
         ];
     };
