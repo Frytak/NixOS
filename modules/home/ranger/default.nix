@@ -12,7 +12,6 @@ in
     config = lib.mkIf moduleConfig.enable {
         home.packages = with pkgs; [
             ranger
-            imagemagick
         ];
 
         home.file.".config/ranger/rc.conf".source = ./rc.conf;

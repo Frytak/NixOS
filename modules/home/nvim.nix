@@ -87,14 +87,27 @@ in
                 { mode = "n"; key = "<leader>ff"; action = "<cmd>lua require(\"telescope.builtin\").find_files()<enter>"; }
                 { mode = "n"; key = "<leader>fg"; action = "<cmd>lua require(\"telescope.builtin\").live_grep()<enter>"; }
 
+                # Ranger
+                { mode = "n"; key = "<leader>fr"; action = "<cmd>RnvimrToggle<enter>"; }
+
                 # Open diagnostics window
                 { mode = "n"; key = "<leader>t"; action = "<cmd>lua vim.diagnostic.open_float()<enter>"; }
 
                 # Go to definition
                 { mode = "n"; key = "gd"; action = "<cmd>lua vim.lsp.buf.definition()<enter>"; }
 
+                # Code actions
+                { mode = "n"; key = "<F1>"; action = "<cmd>lua vim.lsp.buf.code_action()<enter>"; }
+
+                # Rename
+                { mode = "n"; key = "<F2>"; action = "<cmd>lua vim.lsp.buf.rename()<enter>"; }
+
                 # Format
                 { mode = "n"; key = "<F3>"; action = "<cmd>lua vim.lsp.buf.format()<enter>"; }
+            ];
+
+            extraPlugins = with pkgs.vimPlugins; [
+                rnvimr
             ];
 
             plugins = {
@@ -105,6 +118,7 @@ in
                         nil_ls.enable = true;
                         nixd.enable = true;
 
+                        protols.enable = true;
                         texlab.enable = true;
                         clangd = {
                             enable = true;

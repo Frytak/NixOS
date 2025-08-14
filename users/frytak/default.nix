@@ -68,6 +68,7 @@ recursiveMerge [{
         everest-mons
         ripgrep
         davinci-resolve
+        vieb
     ];
 
     modules.home = {
