@@ -51,24 +51,20 @@ recursiveMerge [{
 
         vesktop
         qbittorrent
+        mgba
         telegram-desktop
-        figma-linux
-        logmein-hamachi
         krita
         obs-studio
         clapper
         coppwr
-        blender
         prismlauncher
         nautilus
         android-studio
         inkscape
         linux-wifi-hotspot
         zathura # PDF viewer (also needed for nvim LaTeX)
-        mgba
         everest-mons
         ripgrep
-        davinci-resolve
         vieb
     ];
 
@@ -226,6 +222,11 @@ recursiveMerge [{
 # System specific user configuration.
 (if (systemName == "BBM") then
     {
+        home.packages = with pkgs; [
+            davinci-resolve
+            figma-linux
+            blender
+        ];
     }
 else if (systemName == "Pavilion") then
     {
