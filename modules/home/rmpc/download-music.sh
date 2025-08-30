@@ -1,5 +1,5 @@
 URL="$1"
-DOWNLOAD_DIR="$HOME/Music/downloads/"
+DOWNLOAD_DIR="$HOME/Music/downloads"
 
 yt-dlp -x --audio-format flac \
     --audio-quality 0 \
