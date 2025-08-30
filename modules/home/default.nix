@@ -19,5 +19,6 @@
         ./firefox.nix
         ./nvim.nix
         ./hyprpaper.nix
+        ./rmpc
     ];
 }

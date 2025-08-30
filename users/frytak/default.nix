@@ -27,7 +27,7 @@ recursiveMerge [{
     ];
 
     home = {
-        stateVersion = "24.05";
+        stateVersion = "25.05";
         username = USER;
         homeDirectory = HOME;
         sessionVariables = {
@@ -39,6 +39,7 @@ recursiveMerge [{
     home.packages = with pkgs; [
         unar
         zip
+        rsync
 
         cliphist
 
@@ -87,6 +88,11 @@ recursiveMerge [{
             disableDefaultKeybinds = true;
         };
 
+        rmpc = {
+            enable = true;
+            enableMpd = true;
+        };
+
         # Wallpaper
         hyprpaper = {
             enable = true;
@@ -128,34 +134,34 @@ recursiveMerge [{
         };
     };
 
-    # Session manager
-    tbsm = {
-        enable = true;
-        config = ''
-            XserverArg="-quiet -nolisten tcp"
-            verboseLevel=1
-            theme=""
-        '';
-        defaultSession = "Hyprland";
-        sessions = [
-            {
-                Name = "Hyprland";
-                Comment = "Start the Hyprland Wayland Compositor";
-                Exec = "${pkgs.hyprland}/bin/Hyprland";
-                Type = "Application";
-                DesktopNames = "Hyprland";
-                Keywords = "wayland;compositor;hyprland;";
-            }
-            {
-                Name = "Hyprland (UWSM)";
-                Comment = "Start the Hyprland Wayland Compositor";
-                Exec = "${pkgs.uwsm}/bin/uwsm start hyprland.desktop";
-                Type = "Application";
-                DesktopNames = "Hyprland (UWSM)";
-                Keywords = "wayland;compositor;hyprland;uwsm;";
-            }
-        ];
-    };
+    ## Session manager
+    #tbsm = {
+    #    enable = true;
+    #    config = ''
+    #        XserverArg="-quiet -nolisten tcp"
+    #        verboseLevel=1
+    #        theme=""
+    #    '';
+    #    defaultSession = "Hyprland";
+    #    sessions = [
+    #        {
+    #            Name = "Hyprland";
+    #            Comment = "Start the Hyprland Wayland Compositor";
+    #            Exec = "${pkgs.hyprland}/bin/Hyprland";
+    #            Type = "Application";
+    #            DesktopNames = "Hyprland";
+    #            Keywords = "wayland;compositor;hyprland;";
+    #        }
+    #        {
+    #            Name = "Hyprland (UWSM)";
+    #            Comment = "Start the Hyprland Wayland Compositor";
+    #            Exec = "${pkgs.uwsm}/bin/uwsm start hyprland.desktop";
+    #            Type = "Application";
+    #            DesktopNames = "Hyprland (UWSM)";
+    #            Keywords = "wayland;compositor;hyprland;uwsm;";
+    #        }
+    #    ];
+    #};
 
     # ; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2
     programs.fish.shellInit = ''

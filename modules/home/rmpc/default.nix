@@ -1,0 +1,53 @@
+{ config, lib, pkgs, unstablePkgs, ... }:
+
+let
+    moduleConfig = config.modules.home.rmpc;
+in
+
+{
+    options.modules.home.rmpc = {
+        enable = lib.mkEnableOption "rmpc";
+        enableMpd = lib.mkEnableOption "mpd";
+
+        theme = lib.mkOption {
+            description = "Theme for RMPC";
+            type = lib.types.str;
+            default = "frytak";
+        };
+    };
+
+    config = lib.mkIf moduleConfig.enable {
+        home.packages = [
+            pkgs.mpc
+            unstablePkgs.rmpc
+        ];
+
+        # TODO: add https://github.com/natsukagami/mpd-mpris
+        services.mpd = lib.mkIf moduleConfig.enableMpd {
+            enable = true;
+            dataDir = "${config.home.homeDirectory}/Music/.mpd";
+            musicDirectory = "${config.home.homeDirectory}/Music";
+            extraConfig = ''
+                auto_update "yes"
+                audio_output {
+                    type            "alsa"
+                    name            "ALSA default"
+                    mixer_type      "software"
+                }
+            '';
+        };
+
+        home.file.".config/rmpc/config.ron".source = pkgs.replaceVars ./config.ron.template {
+            theme = moduleConfig.theme;
+            lyricsDirectory = "${config.home.homeDirectory}/Music";
+        };
+
+        home.file.".config/rmpc/themes/frytak.ron".source = ./themes/frytak.ron;
+
+        home.file."Music/download-music.sh".source = ./download-music.sh;
+
+        home.activation.createMusicDownloadsDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
+            mkdir -p ${config.home.homeDirectory}/Music/downloads
+        '';
+    };
+}

@@ -6,7 +6,7 @@
         ../../modules/system
     ];
 
-    system.stateVersion = "24.05";
+    system.stateVersion = "25.05";
 
     # Enable default system configuration
     modules.system = {
@@ -25,8 +25,6 @@
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
     ];
-
-    swapDevices = [ {device = "/swapfile"; size = 32768;} ];
 
     boot.tmp.useTmpfs = true;
 

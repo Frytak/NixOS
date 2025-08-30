@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, systemName, self, ... }@args:
+{ config, inputs, lib, pkgs, unstablePkgs, systemName, self, ... }@args:
 
 let
     moduleConfig = config.modules.system.home-manager;
@@ -18,6 +18,7 @@ in
                 inherit self;
                 inherit inputs;
                 inherit systemName;
+                inherit unstablePkgs;
             };
 
             users = let
