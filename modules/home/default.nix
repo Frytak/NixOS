@@ -4,6 +4,7 @@
     imports = [
         ./displayManagers
         ./eww
+        ./quickshell
         ./games.nix
         ./hyfetch
         ./tofi

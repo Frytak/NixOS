@@ -12,7 +12,7 @@ let
             mkdir -p $out/bin
             cp $src $out/bin/${name}.sh
             chmod +x $out/bin/${name}.sh
-            wrapProgram $out/bin/${name}.sh --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.yt-dlp pkgs.beets ]}
+            wrapProgram $out/bin/${name}.sh --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.yt-dlp (pkgs.beets.override { disableAllPlugins = true; }) ]}
         '';
     };
 in
@@ -43,9 +43,9 @@ in
             extraConfig = ''
                 auto_update "yes"
                 audio_output {
-                    type            "alsa"
-                    name            "ALSA default"
-                    mixer_type      "software"
+                    type "pipewire"
+                    name "PipeWire Output"
+                    mixer_type "software"
                 }
             '';
         };

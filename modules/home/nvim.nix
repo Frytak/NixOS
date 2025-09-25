@@ -118,6 +118,7 @@ in
                         nil_ls.enable = true;
                         nixd.enable = true;
 
+                        qmlls.enable = true;
                         protols.enable = true;
                         texlab.enable = true;
                         clangd = {

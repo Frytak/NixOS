@@ -32,7 +32,7 @@ recursiveMerge [{
         homeDirectory = HOME;
         sessionVariables = {
             EDITOR = "nvim";
-            QT_QPA_PLATFORM = "xcb";
+            QT_QPA_PLATFORM = "wayland";
         };
     };
 
@@ -76,6 +76,7 @@ recursiveMerge [{
         foot.enable = true;
         firefox.enable = true;
         ranger.enable = true;
+        quickshell.enable = true;
         #waybar.enable = true;
         eww.enable = true;
 

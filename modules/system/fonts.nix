@@ -12,6 +12,7 @@ in
     config = lib.mkIf moduleConfig.enable {
         fonts = {
             packages = with pkgs; [
+                material-symbols
                 nerd-fonts.jetbrains-mono
             ];
 
