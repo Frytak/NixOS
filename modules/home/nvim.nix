@@ -130,6 +130,7 @@ in
                                 "--fallback-style={IndentWidth: 4, UseTab: Never}"
                             ];
                         };
+                        gopls.enable = true;
                         ocamllsp = {
                             enable = true;
                             package = pkgs.ocamlPackages.ocaml-lsp;
@@ -141,9 +142,6 @@ in
 							installRustc = false;
 							enable = true;
 						};
-                        gopls = {
-                            enable = true;
-                        };
                     };
                 };
 
@@ -164,6 +162,7 @@ in
                             { name = "nvim_lsp"; }
                             { name = "path"; }
                             { name = "buffer"; }
+                            { name = "copilot"; }
                         ];
                     };
                 };
@@ -269,6 +268,9 @@ in
                 markdown-preview.enable = true;
                 rest.enable = true;
                 treesitter.enable = true;
+                copilot-lua.enable = true;
+                copilot-cmp.enable = true;
+                copilot-chat.enable = true;
             };
         };
     };
