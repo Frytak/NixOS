@@ -37,7 +37,8 @@ in
                 in f [] attrList;
                 user = user: { ${user} = (recursiveMerge [(import "${self}/hosts/${systemName}/home.nix" args) (import "${self}/users/${user}" args)]); };
             in (user "root")
-            // (user "frytak");
+            // (user "frytak")
+            // (user "student");
         };
     };
 }

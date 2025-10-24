@@ -1,7 +1,7 @@
 { lib, pkgs, systemName, inputs, ... }:
 
 let
-    USER = "frytak";
+    USER = "student";
     HOME = "/home/" + USER;
 
     # God bless them https://stackoverflow.com/a/54505212/16454500
@@ -50,20 +50,16 @@ recursiveMerge [{
         brightnessctl
 
         vesktop
-        qbittorrent
-        mgba
         telegram-desktop
         krita
         obs-studio
         clapper
         coppwr
-        prismlauncher
         nautilus
         android-studio
         inkscape
         linux-wifi-hotspot
         zathura # PDF viewer (also needed for nvim LaTeX)
-        everest-mons
         ripgrep
         vieb
         teams-for-linux
@@ -115,18 +111,13 @@ recursiveMerge [{
             grimblast.enable = true;
         };
 
-        games = {
-            enable = true;
-            steam.enable = true;
-        };
-
         ssh = {
             enable = true;
             ssh-agent.enable = true;
             extraConfig = ''
             Host frytak
                 HostName github.com
-                IdentityFile ~/.ssh/id_rsa
+                IdentityFile /home/frytak/.ssh/id_rsa
                 User git
             '';
         };
@@ -225,9 +216,7 @@ recursiveMerge [{
 (if (systemName == "BBM") then
     {
         home.packages = with pkgs; [
-            davinci-resolve
             figma-linux
-            blender
         ];
     }
 else if (systemName == "Pavilion") then

@@ -141,6 +141,9 @@ in
 							installRustc = false;
 							enable = true;
 						};
+                        gopls = {
+                            enable = true;
+                        };
                     };
                 };
 
@@ -264,6 +267,8 @@ in
 
                 render-markdown.enable = true;
                 markdown-preview.enable = true;
+                rest.enable = true;
+                treesitter.enable = true;
             };
         };
     };

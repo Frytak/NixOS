@@ -7,6 +7,7 @@
     home.packages = with pkgs; [
         xdg-utils # For apps to be able to interact with XDG
         swaynotificationcenter
+        wl-kbptr
     ];
 
     modules.home.waybar.config = {
@@ -23,6 +24,9 @@
     modules.home.displayManagers.wayland.hyprland.config.settings = {
         input = {
             sensitivity = -0.8;
+            touchpad = {
+                natural_scroll = true;
+            };
         };
 
         xwayland = {
