@@ -8,6 +8,9 @@
 
     system.stateVersion = "25.05";
 
+    boot.kernelModules = [ "v4l2loopback" ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+
     # Enable default system configuration
     modules.system = {
         boot_loader.enable = true;
@@ -34,6 +37,18 @@
 
     systemd.services."getty@tty1".environment = {
         XDG_SESSION_TYPE = "x11";
+    };
+
+    # Wake on WLAN
+    systemd.services.wowlan = {
+        description = "Enable Wake on WLAN";
+        after = [ "network.target" "NetworkManager.service" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = "${pkgs.iw}/bin/iw phy phy0 wowlan enable magic-packet";
+        };
     };
 
     # Graphic drivers

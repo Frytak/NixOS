@@ -55,6 +55,7 @@ recursiveMerge [{
         telegram-desktop
         krita
         obs-studio
+        v4l-utils
         clapper
         coppwr
         prismlauncher
@@ -66,6 +67,8 @@ recursiveMerge [{
         everest-mons
         ripgrep
         vieb
+        teams-for-linux
+        wayvnc
     ];
 
     modules.home = {
@@ -73,7 +76,7 @@ recursiveMerge [{
         git.enable = true;
         fish.enable = true;
         starship.enable = true;
-        foot.enable = true;
+        alacritty.enable = true;
         firefox.enable = true;
         ranger.enable = true;
         quickshell.enable = true;
