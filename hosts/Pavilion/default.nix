@@ -56,7 +56,15 @@
         input-remapper.enable = true;
         postgresql.enable = true;
         logmein-hamachi.enable = true;
-        openssh.enable = true;
+        # TODO: make system module
+        openssh = {
+            enable = true;
+            settings = {
+                PasswordAuthentication = false;
+                PermitRootLogin = "no";
+                PubkeyAuthentication = true;
+            };
+        };
         avahi = {
             enable = true;
             nssmdns4 = true;

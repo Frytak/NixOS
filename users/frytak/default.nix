@@ -68,7 +68,7 @@ recursiveMerge [{
         ripgrep
         vieb
         teams-for-linux
-        wayvnc
+        tigervnc
     ];
 
     modules.home = {
