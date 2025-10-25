@@ -39,6 +39,8 @@
         XDG_SESSION_TYPE = "x11";
     };
 
+    # TODO: After power is restored, hibernate
+
     # Wake on WLAN
     systemd.services.wowlan = {
         description = "Enable Wake on WLAN";
