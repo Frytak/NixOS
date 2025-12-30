@@ -24,8 +24,24 @@ in
     config = lib.mkIf moduleConfig.enable {
         programs.ssh = {
             enable = true;
+
             extraConfig = ''
             '' + moduleConfig.extraConfig;
+
+            # Default SSH config options (defaults were deprecated in 25.11, now they are set manually like so)
+            enableDefaultConfig = false;
+            matchBlocks."*" = {
+                forwardAgent = false;
+                addKeysToAgent = "no";
+                compression = false;
+                serverAliveInterval = 0;
+                serverAliveCountMax = 3;
+                hashKnownHosts = false;
+                userKnownHostsFile = "~/.ssh/known_hosts";
+                controlMaster = "no";
+                controlPath = "~/.ssh/master-%r@%n:%p";
+                controlPersist = "no";
+            };
         };
 
         services.ssh-agent.enable = moduleConfig.ssh-agent.enable;

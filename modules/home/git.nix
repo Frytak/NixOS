@@ -8,15 +8,17 @@
     config = lib.mkIf config.modules.home.git.enable {
         programs.git = {
             enable = true;
-            userName = "Frytak";
-            userEmail = "frytak2855@gmail.com";
+            settings = {
+                user = {
+                    name = "Frytak";
+                    email = "frytak2855@gmail.com";
+                };
 
-            lfs.enable = true;
-
-            extraConfig = {
                 init.defaultBranch = "main";
                 safe.directory = [ "/etc/nixos" ];
             };
+
+            lfs.enable = true;
         };
     };
 }
