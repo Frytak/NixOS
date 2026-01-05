@@ -29,6 +29,15 @@
     programs.nix-ld.libraries = with pkgs; [
     ];
 
+    environment.variables = {
+        GBM_BACKEND = "nvidia-drm";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        WLR_NO_HARDWARE_CURSORS = "1";
+        LIBVA_DRIVER_NAME = "nvidia";
+        NVD_BACKEND = "direct";
+        MOZ_DISABLE_RDD_SANDBOX = "1";
+    };
+
     boot.tmp.useTmpfs = true;
 
     services.flatpak.enable = true;
@@ -61,6 +70,7 @@
         graphics = {
             enable = true;
             enable32Bit = true;
+            extraPackages = with pkgs; [ nvidia-vaapi-driver libvdpau-va-gl ];
         };
 
         nvidia = {

@@ -12,7 +12,7 @@ in
     
     config = lib.mkIf moduleConfig.enable {
         home.packages = with pkgs; [
-            protonup
+            protonup-ng
             lutris
             bottles
         ] ++

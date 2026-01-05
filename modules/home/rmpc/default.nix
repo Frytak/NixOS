@@ -12,7 +12,7 @@ let
             mkdir -p $out/bin
             cp $src $out/bin/${name}.sh
             chmod +x $out/bin/${name}.sh
-            wrapProgram $out/bin/${name}.sh --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.yt-dlp (pkgs.beets.override { disableAllPlugins = true; }) ]}
+            wrapProgram $out/bin/${name}.sh --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.yt-dlp (pkgs.python3.pkgs.beets.override { disableAllPlugins = true; }) ]}
         '';
     };
 in

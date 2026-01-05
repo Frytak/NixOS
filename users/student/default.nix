@@ -22,8 +22,7 @@ in
 recursiveMerge [{
     imports = [
         ../../modules/home
-        inputs.tbsm.homeManagerModules.tbsm
-        inputs.nixvim.homeManagerModules.nixvim
+        inputs.nixvim.homeModules.nixvim
     ];
 
     home = {
@@ -61,7 +60,6 @@ recursiveMerge [{
         linux-wifi-hotspot
         zathura # PDF viewer (also needed for nvim LaTeX)
         ripgrep
-        vieb
         teams-for-linux
     ];
 
@@ -162,22 +160,6 @@ recursiveMerge [{
 
         # Bind Atuin session search to CTRL+SHIFT+UP_ARROW
         bind ctrl-shift-up "${pkgs.atuin}/bin/atuin search --filter-mode session -i"
-
-        # Launch TBSM on specific TTYs after login
-        if [ -z "$DISPLAY" ];
-            set allowed_ttys "/dev/tty1"
-            set current_tty $(tty)
-
-            # If "all" is in the allowed_ttys list, launch on any TTY
-            if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "all"
-                #exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
-                exec ${pkgs.bashInteractiveFHS}/bin/bash -c "${pkgs.uwsm}/bin/uwsm start default" 
-            # If the current TTY is in the allowed list
-            else if echo "$allowed_ttys" | ${pkgs.gnugrep}/bin/grep -q "$current_tty"
-                #exec ${pkgs.bashInteractiveFHS}/bin/bash ${inputs.tbsm.packages.${pkgs.system}.tbsm}/bin/tbsm </dev/tty >/dev/tty 2>&1
-                exec ${pkgs.bashInteractiveFHS}/bin/bash -c "${pkgs.uwsm}/bin/uwsm start default" 
-            end
-        end
     '';
 
     # Themes

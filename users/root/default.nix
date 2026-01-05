@@ -8,7 +8,7 @@ in
 {
     imports = [
         ../../modules/home
-        inputs.nixvim.homeManagerModules.nixvim
+        inputs.nixvim.homeModules.nixvim
     ];
 
     home = {

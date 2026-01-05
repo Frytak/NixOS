@@ -76,11 +76,10 @@ in
                     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
                     "systemctl --user start hyprpolkitagent"
                     "uwsm app -- swaync"
-                    "uwsm app -- ${inputs.youtube-music-mpris.packages.${pkgs.system}.youtube-music-mpris-server}/bin/youtube-music-mpris-server"
                     #"uwsm app -- waybar"
                     "uwsm app -- eww daemon"
                     "[workspace special:7 silent] uwsm app -- vesktop"
-                    "[workspace special:8 silent] uwsm app -- telegram-desktop"
+                    "[workspace special:8 silent] uwsm app -- Telegram"
                 ];
 
                 bindm = [
