@@ -8,7 +8,7 @@ in
 {
     imports = [
         ../../modules/home
-        inputs.nixvim.homeModules.nixvim
+        inputs.frytak-nixvim.homeModules.default
     ];
 
     home = {
@@ -18,7 +18,7 @@ in
     };
 
     modules.home = {
-        nvim.enable = true;
+        frytak-nixvim.enable = true;
         fish.enable = true;
         git.enable = true;
         hyfetch.enable = true;

@@ -4,7 +4,7 @@
     imports = [
         ./displayManagers
         ./eww
-        ./quickshell
+        ./wallpaper
         ./games.nix
         ./hyfetch
         ./tofi
@@ -18,8 +18,6 @@
         ./foot.nix
         ./fish.nix
         ./firefox.nix
-        ./nvim.nix
-        ./hyprpaper.nix
         ./rmpc
     ];
 }

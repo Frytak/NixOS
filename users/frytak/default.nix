@@ -22,7 +22,8 @@ in
 recursiveMerge [{
     imports = [
         ../../modules/home
-        inputs.nixvim.homeModules.nixvim
+        inputs.frytak-quickshell.homeModules.default
+        inputs.frytak-nixvim.homeModules.default
     ];
 
     home = {
@@ -70,16 +71,15 @@ recursiveMerge [{
     ];
 
     modules.home = {
-        nvim.enable = true;
+        frytak-nixvim.enable = true;
         git.enable = true;
         fish.enable = true;
         starship.enable = true;
         alacritty.enable = true;
         firefox.enable = true;
         ranger.enable = true;
-        quickshell.enable = true;
-        #waybar.enable = true;
-        eww.enable = true;
+
+        frytak-quickshell.enable = true;
 
         atuin = {
             enable = true;
@@ -89,12 +89,13 @@ recursiveMerge [{
         rmpc = {
             enable = true;
             enableMpd = true;
+            enableMpdMpris = true;
         };
 
         # Wallpaper
         hyprpaper = {
             enable = true;
-            wallpaper = "misty_forest_1920x1080.png";
+            wallpaper = import ./current-wallpaper.nix;
         };
 
         # System information tool
@@ -113,6 +114,10 @@ recursiveMerge [{
             enable = true;
             swaync.enable = true;
             grimblast.enable = true;
+
+            config = {
+                settings.exec-once = [ "uwsm app -- quickshell" ];
+            };
         };
 
         games = {
@@ -171,6 +176,11 @@ recursiveMerge [{
 
         # Bind Atuin session search to CTRL+SHIFT+UP_ARROW
         bind ctrl-shift-up "${pkgs.atuin}/bin/atuin search --filter-mode session -i"
+
+        # Auto-start Hyprland on TTY1
+        if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ];
+            exec uwsm start hyprland-uwsm.desktop
+        end
     '';
 
     # Themes

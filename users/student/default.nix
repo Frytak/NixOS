@@ -22,7 +22,7 @@ in
 recursiveMerge [{
     imports = [
         ../../modules/home
-        inputs.nixvim.homeModules.nixvim
+        inputs.frytak-nixvim.homeModules.default
     ];
 
     home = {
@@ -64,14 +64,13 @@ recursiveMerge [{
     ];
 
     modules.home = {
-        nvim.enable = true;
+        frytak-nixvim.enable = true;
         git.enable = true;
         fish.enable = true;
         starship.enable = true;
         foot.enable = true;
         firefox.enable = true;
         ranger.enable = true;
-        quickshell.enable = true;
         #waybar.enable = true;
         eww.enable = true;
 
@@ -160,6 +159,11 @@ recursiveMerge [{
 
         # Bind Atuin session search to CTRL+SHIFT+UP_ARROW
         bind ctrl-shift-up "${pkgs.atuin}/bin/atuin search --filter-mode session -i"
+
+        # Auto-start Hyprland on TTY1
+        if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ];
+            exec uwsm start hyprland-uwsm.desktop
+        end
     '';
 
     # Themes
