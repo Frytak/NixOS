@@ -80,9 +80,7 @@
         };
     };
 
-    environment.systemPackages = with pkgs; [ runc nvidia-docker nvidia-container-toolkit ];
-
-
+    environment.systemPackages = with pkgs; [ ];
 
     programs.adb.enable = true;
     hardware.sane.enable = true; # enables support for SANE scanners

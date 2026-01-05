@@ -22,6 +22,19 @@
         hyprland.enable = true;
     };
 
+    #services.openvpn = {
+    #    servers = {
+    #        protonvpn = {
+    #            config = "config /etc/nixos/us-free-57.protonvpn.tcp.ovpn";
+    #            autoStart = true;
+    #        };
+    #    };
+    #};
+
+    ## Route DNS through VPN
+    #networking.networkmanager.dns = "systemd-resolved";
+    #services.resolved.enable = true;
+
     # Graphic drivers
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
@@ -60,6 +73,7 @@
         openssh = {
             enable = true;
             settings = {
+                PermitTunnel = "yes";
                 PasswordAuthentication = false;
                 PermitRootLogin = "no";
                 PubkeyAuthentication = true;

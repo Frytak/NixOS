@@ -70,7 +70,7 @@ recursiveMerge [{
         git.enable = true;
         fish.enable = true;
         starship.enable = true;
-        foot.enable = true;
+        alacritty.enable = true;
         firefox.enable = true;
         ranger.enable = true;
         quickshell.enable = true;
