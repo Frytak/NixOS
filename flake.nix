@@ -19,11 +19,6 @@
             url = "github:libadoxon/mcmojave-hyprcursor";
         };
 
-        nixvim = {
-            url = "github:nix-community/nixvim/nixos-25.11";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
         hyprland-qt-support = {
             url = "github:hyprwm/hyprland-qt-support";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -33,9 +28,21 @@
             url = "github:nix-community/flake-firefox-nightly";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        frytak-quickshell = {
+            url = "path:/home/frytak/ProgrammingProjects/QuickshellConfig";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.home-manager.follows = "home-manager";
+        };
+
+        frytak-nixvim = {
+            url = "path:/home/frytak/ProgrammingProjects/NixvimConfig";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.home-manager.follows = "home-manager";
+        };
     };
     
-    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, frytak-quickshell, ... }@inputs:
     let
         overlays = [
             (final: prev: {

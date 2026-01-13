@@ -21,6 +21,7 @@ in
     options.modules.home.rmpc = {
         enable = lib.mkEnableOption "rmpc";
         enableMpd = lib.mkEnableOption "mpd";
+        enableMpdMpris = lib.mkEnableOption "mpd-mpris";
 
         theme = lib.mkOption {
             description = "Theme for RMPC";
@@ -35,7 +36,10 @@ in
             unstablePkgs.rmpc
         ];
 
-        # TODO: add https://github.com/natsukagami/mpd-mpris
+        services.mpd-mpris = lib.mkIf moduleConfig.enableMpdMpris {
+            enable = true;
+        };
+
         services.mpd = lib.mkIf moduleConfig.enableMpd {
             enable = true;
             dataDir = "${config.home.homeDirectory}/Music/.mpd";
