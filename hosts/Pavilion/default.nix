@@ -63,6 +63,8 @@
     environment.systemPackages = with pkgs; [ ];
 
 
+    services.flatpak.enable = true;
+
 
     virtualisation.docker.enable = true;
     services = {
