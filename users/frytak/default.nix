@@ -36,6 +36,34 @@ recursiveMerge [{
         };
     };
 
+    programs.vicinae = {
+        enable = true;
+        systemd = {
+            enable = true;
+            autoStart = true;
+        };
+
+        settings = {
+            font = {
+                family = "JetBrains Mono";
+            };
+            window = {
+                opacity = 0.9;
+            };
+            keybinds = {
+                "action.copy" = "control+C";
+            };
+        };
+
+        extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
+            bluetooth
+            nix
+            firefox
+            hypr-keybinds
+            wifi-commander
+        ];
+    };
+
     home.packages = with pkgs; [
         unar
         zip
@@ -50,6 +78,7 @@ recursiveMerge [{
         brightnessctl
 
         vesktop
+        discord
         qbittorrent
         mgba
         telegram-desktop
@@ -104,19 +133,18 @@ recursiveMerge [{
             ascii = "bad_dragon";
         };
 
-        # App launcher
-        tofi = {
-            enable = true;
-            theme = "frytak";
-        };
-
         displayManagers.wayland.hyprland = {
             enable = true;
             swaync.enable = true;
             grimblast.enable = true;
 
             config = {
-                settings.exec-once = [ "uwsm app -- quickshell" ];
+                settings = {
+                    exec-once = [ "uwsm app -- quickshell" ];
+                    bind = [
+                        "$mod, D, exec, uwsm app -- vicinae toggle"
+                    ];
+                };
             };
         };
 

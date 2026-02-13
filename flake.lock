@@ -183,8 +183,8 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1767281818,
-        "narHash": "sha256-iceJZO0bFAZgKItz980Mv55NeC2vZ4RZ6+f8cj1/Q9U=",
+        "lastModified": 1770848058,
+        "narHash": "sha256-aAsh+HzEOTznRIstQ2wcUDp4LP1wX9oFlqOS8mtDYI0=",
         "path": "/home/frytak/ProgrammingProjects/NixvimConfig",
         "type": "path"
       },
@@ -205,8 +205,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1767385206,
-        "narHash": "sha256-l1Om4ERdADxTkW+kLBcbHHmETbdUhPb6ufX/YTOLlX4=",
+        "lastModified": 1768685922,
+        "narHash": "sha256-BXCehgUekymnfoxye6FPTOGti2s587wyXJN5xvgblrY=",
         "path": "/home/frytak/ProgrammingProjects/QuickshellConfig",
         "type": "path"
       },
@@ -646,7 +646,8 @@
         "hyprland-qt-support": "hyprland-qt-support",
         "mcmojave-hyprcursor": "mcmojave-hyprcursor",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "vicinae-extensions": "vicinae-extensions"
       }
     },
     "systems": {
@@ -736,6 +737,68 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "systems_7": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "vicinae": {
+      "inputs": {
+        "nixpkgs": [
+          "vicinae-extensions",
+          "nixpkgs"
+        ],
+        "systems": [
+          "vicinae-extensions",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768856963,
+        "narHash": "sha256-u5bWDuwk6oieTnvm1YjNotcYK8iJSddH5+S68+X4TSc=",
+        "owner": "vicinaehq",
+        "repo": "vicinae",
+        "rev": "934bc0ad47be6dbd6498a0dac655c4613fd0ab27",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vicinaehq",
+        "repo": "vicinae",
+        "type": "github"
+      }
+    },
+    "vicinae-extensions": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_7",
+        "vicinae": "vicinae"
+      },
+      "locked": {
+        "lastModified": 1770200449,
+        "narHash": "sha256-yCLUHt8D4QRIYgcNWkw14wC5mJ80AgAdRXMR5/h8zJk=",
+        "owner": "vicinaehq",
+        "repo": "extensions",
+        "rev": "5bb4310a993f18886e8e330c8af8091614b3049c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vicinaehq",
+        "repo": "extensions",
         "type": "github"
       }
     }

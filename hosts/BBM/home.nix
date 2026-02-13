@@ -13,8 +13,8 @@
     modules.home.waybar.config = {
         settings.mainBar = {
             output = [
-                "HDMI-A-1"
                 "HDMI-A-2"
+                "HDMI-A-1"
             ];
 
             "hyprland/workspaces".persistent-workspaces = {
@@ -27,6 +27,7 @@
     modules.home.displayManagers.wayland.hyprland.config.settings = {
         input = {
             sensitivity = -0.8;
+            tablet.output = "current";
         };
 
         monitor = [
@@ -44,9 +45,7 @@
         ];
 
         exec-once = [
-            # TODO: Make this automatically recognize the workspaces assigned to monitors
-            #''uwsm app -- eww open-many bar:"HDMI-A-1" --arg "HDMI-A-1":workspaces='["1", "2", "3"]' --arg "HDMI-A-1":monitor="HDMI-A-1" bar:"HDMI-A-2" --arg "HDMI-A-2":workspaces='["4", "5", "6"]' --arg "HDMI-A-2":monitor="HDMI-A-2"''
-            "[workspace name:4 silent] uwsm app -- firefox-nightly"
+            "[workspace name:4 silent] uwsm app -- nvidia-offload firefox-nightly"
             "uwsm app -- wayvnc"
         ];
     };

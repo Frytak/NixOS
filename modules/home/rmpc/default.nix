@@ -51,6 +51,9 @@ in
                     name "PipeWire Output"
                     mixer_type "software"
                 }
+                input_cache {
+                    size "1 GB"
+                }
             '';
         };
 
