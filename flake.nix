@@ -40,6 +40,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.home-manager.follows = "home-manager";
         };
+
+        vicinae-extensions = {
+            url = "github:vicinaehq/extensions";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
     outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, frytak-quickshell, ... }@inputs:

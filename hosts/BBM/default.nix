@@ -30,6 +30,7 @@
     ];
 
     environment.variables = {
+        NIXOS_OZONE_WL = 1;
         GBM_BACKEND = "nvidia-drm";
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         WLR_NO_HARDWARE_CURSORS = "1";
@@ -78,14 +79,15 @@
             modesetting.enable = true;
             powerManagement.enable = false;
             powerManagement.finegrained = false;
-            open = false;
+            open = true;
             nvidiaSettings = true;
 
             prime = {
+                offload.enable = true;
+                offload.enableOffloadCmd = true;
+
                 nvidiaBusId = "PCI:1:0:0";
                 intelBusId = "PCI:0:2:0";
-
-                sync.enable = true;
             };
         };
     };

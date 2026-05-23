@@ -45,18 +45,29 @@ in
             dataDir = "${config.home.homeDirectory}/Music/.mpd";
             musicDirectory = "${config.home.homeDirectory}/Music";
             extraConfig = ''
+                # Bind to a Unix socket for local, privileged client access
+                bind_to_address "${config.home.homeDirectory}/Music/.mpd/socket"
+
                 auto_update "yes"
                 audio_output {
                     type "pipewire"
                     name "PipeWire Output"
                     mixer_type "software"
                 }
+                input_cache {
+                    size "1 GB"
+                }
             '';
+        };
+
+        home.sessionVariables = {
+            MPD_HOST = "${config.home.homeDirectory}/Music/.mpd/socket";
         };
 
         home.file.".config/rmpc/config.ron".source = pkgs.replaceVars ./config.ron.template {
             theme = moduleConfig.theme;
             lyricsDirectory = "${config.home.homeDirectory}/Music";
+            mpdSocket = "${config.home.homeDirectory}/Music/.mpd/socket";
         };
 
         home.file.".config/rmpc/themes/frytak.ron".source = ./themes/frytak.ron;
