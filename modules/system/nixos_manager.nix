@@ -4,12 +4,10 @@ let
   GROUP = "nixos_manager";
 in
 {
-  # 1. Create the group
   users.groups.${GROUP} = {};
 
-  # 2. Use an activation script to enforce permissions natively
   system.activationScripts.nixosManagerPerms = {
-    # Ensure this script runs AFTER users and groups are set up by the system
+    # Ensure this script runs after users and groups are set up by the system
     deps = [ "users" "groups" ];
     
     text = ''
