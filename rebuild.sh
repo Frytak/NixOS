@@ -1,3 +1,3 @@
 git add .
 git commit -m "$(date)"
-nixos-rebuild switch --flake /etc/nixos/#BBM
+sudo nixos-rebuild switch --flake /etc/nixos/#BBM
