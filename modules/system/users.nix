@@ -17,11 +17,5 @@ in
             shell = pkgs.fish;
             extraGroups = [ "nixos_manager" "wheel" "networkmanager" "docker" "jackaudio" "scanner" "lp" "adbusers" "audio" "uinput"];
         };
-
-        users.users.student = {
-            isNormalUser = true;
-            shell = pkgs.fish;
-            extraGroups = [ "nixos_manager" "wheel" "networkmanager" "docker" "jackaudio" "scanner" "lp" "adbusers" "audio" "uinput"];
-        };
     };
 }

@@ -2,11 +2,11 @@
     description = "Configuration of Frytak's NixOS.";
     
     inputs = {
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
         nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         
         home-manager = {
-            url = "github:nix-community/home-manager/release-25.11";
+            url = "github:nix-community/home-manager/release-26.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -21,11 +21,6 @@
 
         hyprland-qt-support = {
             url = "github:hyprwm/hyprland-qt-support";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        firefox = {
-            url = "github:nix-community/flake-firefox-nightly";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -45,13 +40,24 @@
             url = "github:vicinaehq/extensions";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        noctalia = {
+            url = "github:noctalia-dev/noctalia";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
-    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, frytak-quickshell, ... }@inputs:
+    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
         overlays = [
             (final: prev: {
                 btop = prev.btop.override { cudaSupport = true; };
+
+                # Packages from unstable
+                unstable = import nixpkgs-unstable {
+                    system = prev.system;
+                    config.allowUnfree = true; 
+                };
             })
         ];
     in
@@ -71,9 +77,6 @@
                         inherit self;
                         inherit inputs;
                         inherit systemName;
-
-                        # Packages from unstable
-                        unstablePkgs = nixpkgs-unstable.legacyPackages."x86_64-linux";
                     };
                 };
             };

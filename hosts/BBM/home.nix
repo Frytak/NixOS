@@ -1,5 +1,5 @@
 # Default configuration for all users of this device
-{ inputs, pkgs, ...}:
+{ config, pkgs, ...}:
 
 {
     imports = [ ../../modules/home ];
@@ -10,43 +10,38 @@
         wayvnc
     ];
 
-    modules.home.waybar.config = {
-        settings.mainBar = {
-            output = [
-                "HDMI-A-2"
-                "HDMI-A-1"
-            ];
+    modules.home.displayManagers.wayland.hyprland.extraConfig = ''
+        hl.config({
+            input = {
+                sensitivity = -0.8,
+                tablet = {
+                    output = "current",
+                },
+            },
+        })
 
-            "hyprland/workspaces".persistent-workspaces = {
-                "HDMI-A-1" = [ 1 2 3 ];
-                "HDMI-A-2" = [ 4 5 6 ];
-            };
-        };
-    };
+        hl.monitor({ output = "HDMI-A-2", mode = "1920x1080@60", position = "0x0", scale = 1, })
+        hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@60", position = "1920x0", scale = 1, })
 
-    modules.home.displayManagers.wayland.hyprland.config.settings = {
-        input = {
-            sensitivity = -0.8;
-            tablet.output = "current";
-        };
+        local monitor_workspace_rules = {
+            ["HDMI-A-1"] = { "name:1", "name:2", "name:3" },
+            ["HDMI-A-2"] = { "name:4", "name:5", "name:6" },
+        }
 
-        monitor = [
-            "HDMI-A-2, 1920x1080@60, 0x0, 1"
-            "HDMI-A-1, 1920x1080@60, 1920x0, 1"
-        ];
+        for monitor, workspaces in pairs(monitor_workspace_rules) do
+            for i, workspace in ipairs(workspaces) do
+            hl.workspace_rule({
+                workspace = workspace,
+                monitor = monitor,
+                persistent = true,
+                default = (i == 1),
+            })
+            end
+        end
 
-        workspace = [
-            "name:1, monitor:HDMI-A-1, default:true"
-            "name:2, monitor:HDMI-A-1"
-            "name:3, monitor:HDMI-A-1"
-            "name:4, monitor:HDMI-A-2, default:true"
-            "name:5, monitor:HDMI-A-2"
-            "name:6, monitor:HDMI-A-2"
-        ];
-
-        exec-once = [
-            "[workspace name:4 silent] uwsm app -- nvidia-offload firefox-nightly"
-            "uwsm app -- wayvnc"
-        ];
-    };
+        hl.on("hyprland.start", function() 
+            hl.exec_cmd("[workspace name:4 silent] uwsm app -- nvidia-offload firefox")
+            hl.exec_cmd("uwsm app -- wayvnc")
+        end)
+    '';
 }

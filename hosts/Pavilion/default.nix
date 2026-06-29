@@ -32,6 +32,9 @@
         MOZ_DISABLE_RDD_SANDBOX = "1";
     };
 
+    # TODO: Tablet drivers
+    hardware.opentabletdriver.enable = true;
+
     # Graphic drivers
     nixpkgs.config.cudaSupport = true;
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -63,6 +66,8 @@
     environment.systemPackages = with pkgs; [ ];
 
 
+    services.flatpak.enable = true;
+
 
     virtualisation.docker.enable = true;
     services = {
@@ -73,6 +78,7 @@
         openssh = {
             enable = true;
             settings = {
+                PermitTunnel = "yes";
                 PasswordAuthentication = false;
                 PermitRootLogin = "no";
                 PubkeyAuthentication = true;

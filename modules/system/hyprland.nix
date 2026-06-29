@@ -29,10 +29,19 @@ in
         xdg.portal = {
             enable = true;
             xdgOpenUsePortal = true;
-            config.common.default = "*";
+            config = {
+                common = {
+                    default = [ "gnome" ];
+                };
+
+                hyprland = {
+                    default = [ "hyprland" "gnome" ];
+                    "org.freedesktop.impl.portal.FileChooser" = [ "gnome" ];
+                };
+            };
             extraPortals = with pkgs; [
                 xdg-desktop-portal-hyprland
-                xdg-desktop-portal-wlr
+                xdg-desktop-portal-gnome
             ];
         };
     };

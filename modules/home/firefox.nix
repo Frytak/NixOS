@@ -20,7 +20,10 @@ in
         programs.firefox = {
             enable = true;
 
-            package = inputs.firefox.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
+            # While updating from 25.11 to 26.05 (new default behavior)
+            configPath = "${config.xdg.configHome}/mozilla/firefox";
+
+            #package = inputs.firefox.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
 
             profiles = {
                 frytak = {
@@ -46,6 +49,9 @@ in
 
                         # Disable search bar on a new tab
                         "browser.newtabpage.activity-stream.showSearch" = false;
+
+                        # TODO: Testing if it helps with problems rendering PDFs or websites like Google Docs or Google Sheets
+                        "gfx.webrender.compositor" = true;
                     };
 
                     extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [

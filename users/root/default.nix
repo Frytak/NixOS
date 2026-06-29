@@ -6,11 +6,6 @@ let
 in
 
 {
-    imports = [
-        ../../modules/home
-        inputs.frytak-nixvim.homeModules.default
-    ];
-
     home = {
         stateVersion = "25.05";
         username = USER;

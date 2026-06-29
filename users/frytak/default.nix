@@ -20,12 +20,6 @@ let
 in
 
 recursiveMerge [{
-    imports = [
-        ../../modules/home
-        inputs.frytak-quickshell.homeModules.default
-        inputs.frytak-nixvim.homeModules.default
-    ];
-
     home = {
         stateVersion = "25.05";
         username = USER;
@@ -33,6 +27,7 @@ recursiveMerge [{
         sessionVariables = {
             EDITOR = "nvim";
             QT_QPA_PLATFORM = "wayland";
+            GTK_USE_PORTAL = "1";
         };
     };
 
@@ -73,16 +68,19 @@ recursiveMerge [{
 
         fzf
         sshfs
-        wineWowPackages.waylandFull
+        wineWow64Packages.waylandFull
         btop
         brightnessctl
+
+        krita
+        pinta
+        kdePackages.kolourpaint
 
         vesktop
         discord
         qbittorrent
         mgba
         telegram-desktop
-        krita
         obs-studio
         v4l-utils
         clapper
@@ -97,6 +95,7 @@ recursiveMerge [{
         ripgrep
         teams-for-linux
         tigervnc
+        zulu25 # Java 25
     ];
 
     modules.home = {
@@ -108,7 +107,12 @@ recursiveMerge [{
         firefox.enable = true;
         ranger.enable = true;
 
-        frytak-quickshell.enable = true;
+        #frytak-quickshell.enable = true;
+
+        noctalia = {
+            enable = true;
+            wallpaper = import ./current-wallpaper.nix;
+        };
 
         atuin = {
             enable = true;
@@ -122,10 +126,10 @@ recursiveMerge [{
         };
 
         # Wallpaper
-        hyprpaper = {
-            enable = true;
-            wallpaper = import ./current-wallpaper.nix;
-        };
+        #hyprpaper = {
+        #    enable = true;
+        #    wallpaper = import ./current-wallpaper.nix;
+        #};
 
         # System information tool
         hyfetch = {
@@ -138,14 +142,13 @@ recursiveMerge [{
             swaync.enable = true;
             grimblast.enable = true;
 
-            config = {
-                settings = {
-                    exec-once = [ "uwsm app -- quickshell" ];
-                    bind = [
-                        "$mod, D, exec, uwsm app -- vicinae toggle"
-                    ];
-                };
-            };
+            extraConfig = ''
+                --hl.on("hyprland.start", function()
+                --    hl.exec_cmd("[workspace special:8 silent] uwsm app -- quickshell")
+                --end)
+
+                hl.bind(mod .. " + D", hl.dsp.exec_cmd("uwsm app -- vicinae toggle"))
+            '';
         };
 
         games = {
@@ -165,36 +168,6 @@ recursiveMerge [{
         };
     };
 
-    ## Session manager
-    #tbsm = {
-    #    enable = true;
-    #    config = ''
-    #        XserverArg="-quiet -nolisten tcp"
-    #        verboseLevel=1
-    #        theme=""
-    #    '';
-    #    defaultSession = "Hyprland";
-    #    sessions = [
-    #        {
-    #            Name = "Hyprland";
-    #            Comment = "Start the Hyprland Wayland Compositor";
-    #            Exec = "${pkgs.hyprland}/bin/Hyprland";
-    #            Type = "Application";
-    #            DesktopNames = "Hyprland";
-    #            Keywords = "wayland;compositor;hyprland;";
-    #        }
-    #        {
-    #            Name = "Hyprland (UWSM)";
-    #            Comment = "Start the Hyprland Wayland Compositor";
-    #            Exec = "${pkgs.uwsm}/bin/uwsm start hyprland.desktop";
-    #            Type = "Application";
-    #            DesktopNames = "Hyprland (UWSM)";
-    #            Keywords = "wayland;compositor;hyprland;uwsm;";
-    #        }
-    #    ];
-    #};
-
-    # ; ${pkgs.ncurses}/bin/tput cuu1; ${pkgs.ncurses}/bin/tput cuf 2
     programs.fish.shellInit = ''
         # Bind Atuin global search to SHIFT+UP_ARROW
         bind shift-up "${pkgs.atuin}/bin/atuin search -i"
@@ -221,6 +194,7 @@ recursiveMerge [{
 
     gtk = {
         enable = true;
+        gtk4.theme = null;
 
         theme = {
             package = pkgs.tokyonight-gtk-theme;
@@ -250,6 +224,9 @@ recursiveMerge [{
             davinci-resolve
             figma-linux
             blender
+            unstable.lmstudio
+            #unstable.ollama
+            unstable.ollama-cuda
         ];
     }
 else if (systemName == "Pavilion") then

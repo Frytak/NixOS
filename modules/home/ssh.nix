@@ -30,7 +30,8 @@ in
 
             # Default SSH config options (defaults were deprecated in 25.11, now they are set manually like so)
             enableDefaultConfig = false;
-            matchBlocks."*" = {
+
+            settings."*" = {
                 forwardAgent = false;
                 addKeysToAgent = "no";
                 compression = false;

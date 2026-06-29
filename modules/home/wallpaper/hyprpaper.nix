@@ -18,8 +18,12 @@ in
         services.hyprpaper = {
             enable = true;
             settings = {
-                preload = [ "${moduleConfig.wallpaper}" ];
-                wallpaper = [ ", ${moduleConfig.wallpaper}" ];
+                splash = false;
+                wallpaper = [
+                    {
+                        path = "${moduleConfig.wallpaper}";
+                    }
+                ];
             };
         };
     };

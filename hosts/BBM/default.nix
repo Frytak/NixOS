@@ -8,6 +8,9 @@
 
     system.stateVersion = "25.05";
 
+    # Isolate CPU 0 (TODO: COMMENT OUT LATER, only for testing AiSD sorting algorithms)
+    #boot.kernelParams = [ "isolcpus=0" "nohz_full=0" "rcu_nocbs=0" ];
+
     boot.kernelModules = [ "v4l2loopback" ];
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
@@ -24,6 +27,9 @@
         printers.enable = true;
         hyprland.enable = true;
     };
+
+    # For shell
+    services.geoclue2.enable = true;
 
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
@@ -64,7 +70,7 @@
     };
 
     # Graphic drivers
-    nixpkgs.config.cudaSupport = true;
+    #nixpkgs.config.cudaSupport = true;
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
         uinput.enable = true;
@@ -92,37 +98,32 @@
         };
     };
 
-    environment.systemPackages = with pkgs; [ runc nvidia-docker nvidia-container-toolkit ];
+    environment.systemPackages = with pkgs; [ ];
 
-
-
-    programs.adb.enable = true;
     hardware.sane.enable = true; # enables support for SANE scanners
 
-    virtualisation.docker.enable = true;
-    virtualisation.docker.daemon.settings = {
-        runtimes = {
-            nvidia = {
-                path = "/nix/store/01a3h4vvbg4c9y9xm140ldm3hjfd99py-nvidia-container-toolkit-1.17.6-tools/bin/nvidia-container-runtime";
-                runtimeArgs = [];
-            };
-        };
-    };
-    #virtualisation.docker.enableNvidia = true;
-    virtualisation.docker.extraOptions = "--default-runtime=nvidia";
-    hardware.nvidia-container-toolkit.enable = true;
-# Ensure Docker daemon configuration
-  environment.etc."docker/daemon.json".text = ''
-    {
-      "default-runtime": "nvidia",
-      "runtimes": {
-        "nvidia": {
-          "path": "/nix/store/01a3h4vvbg4c9y9xm140ldm3hjfd99py-nvidia-container-toolkit-1.17.6-tools/bin/nvidia-container-runtime",
-          "runtimeArgs": []
-        }
-      }
-    }
-  '';
+    #virtualisation.docker.enable = true;
+    #virtualisation.docker.daemon.settings = {
+    #    runtimes = {
+    #        nvidia = {
+    #            path = "/nix/store/01a3h4vvbg4c9y9xm140ldm3hjfd99py-nvidia-container-toolkit-1.17.6-tools/bin/nvidia-container-runtime";
+    #            runtimeArgs = [];
+    #        };
+    #    };
+    #};
+    #virtualisation.docker.extraOptions = "--default-runtime=nvidia";
+    #hardware.nvidia-container-toolkit.enable = true;
+    #environment.etc."docker/daemon.json".text = ''
+    #  {
+    #    "default-runtime": "nvidia",
+    #    "runtimes": {
+    #      "nvidia": {
+    #        "path": "/nix/store/01a3h4vvbg4c9y9xm140ldm3hjfd99py-nvidia-container-toolkit-1.17.6-tools/bin/nvidia-container-runtime",
+    #        "runtimeArgs": []
+    #      }
+    #    }
+    #  }
+    #'';
 
     services = {
         input-remapper.enable = true;
@@ -136,11 +137,6 @@
                 PermitRootLogin = "no";
                 PubkeyAuthentication = true;
             };
-        };
-
-        ollama = {
-            enable = true;
-            acceleration = "cuda";
         };
 
         avahi = {

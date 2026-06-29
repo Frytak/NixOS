@@ -18,6 +18,7 @@
         ./foot.nix
         ./fish.nix
         ./firefox.nix
+        ./noctalia.nix
         ./rmpc
     ];
 }

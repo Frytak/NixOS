@@ -5,6 +5,7 @@ yt-dlp -x --audio-format flac \
     --audio-quality 0 \
     --add-metadata \
     --embed-thumbnail \
+    --cookies-from-browser firefox \
     -P "$DOWNLOAD_DIR" \
     -o "%(artist)s - %(title)s.%(ext)s" \
     "$URL" \

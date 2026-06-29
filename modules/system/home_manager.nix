@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, unstablePkgs, systemName, self, ... }@args:
+{ config, inputs, lib, systemName, self, ... }:
 
 let
     moduleConfig = config.modules.system.home-manager;
@@ -14,31 +14,31 @@ in
             useGlobalPkgs = true;
             useUserPackages = true;
 
+            sharedModules = [
+                ../home
+                inputs.frytak-quickshell.homeModules.default
+                inputs.frytak-nixvim.homeModules.default
+                inputs.noctalia.homeModules.default
+            ];
+
             extraSpecialArgs = {
                 inherit self;
                 inherit inputs;
                 inherit systemName;
-                inherit unstablePkgs;
             };
 
+            # Set up home-manager host and user configurations
             users = let
-                # God bless them https://stackoverflow.com/a/54505212/16454500
-                recursiveMerge = attrList:
-                let f = attrPath:
-                    lib.zipAttrsWith (n: values:
-                        if lib.tail values == []
-                            then lib.head values
-                        else if lib.all lib.isList values
-                            then lib.unique (lib.concatLists values)
-                        else if lib.all lib.isAttrs values
-                            then f (attrPath ++ [n]) values
-                        else lib.last values
-                    );
-                in f [] attrList;
-                user = user: { ${user} = (recursiveMerge [(import "${self}/hosts/${systemName}/home.nix" args) (import "${self}/users/${user}" args)]); };
+                user = user: {
+                    ${user} = {
+                        imports = [
+                            "${self}/hosts/${systemName}/home.nix"
+                            "${self}/users/${user}"
+                        ];
+                    };
+                };
             in (user "root")
-            // (user "frytak")
-            // (user "student");
+            // (user "frytak");
         };
     };
 }

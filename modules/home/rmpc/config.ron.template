@@ -2,7 +2,7 @@
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]
 (
-    address: "127.0.0.1:6600",
+    address: "@mpdSocket@",
     password: None,
     theme: Some("@theme@"),
     cache_dir: None,
