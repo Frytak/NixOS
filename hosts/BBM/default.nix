@@ -102,7 +102,7 @@
 
     hardware.sane.enable = true; # enables support for SANE scanners
 
-    #virtualisation.docker.enable = true;
+    virtualisation.docker.enable = true;
     #virtualisation.docker.daemon.settings = {
     #    runtimes = {
     #        nvidia = {
