@@ -7,8 +7,6 @@ cd /etc/nixos || {
     exit 1
 }
 
-echo -e "${GREEN}[Rebuilding NixOS configuration]${NC}"
-
 git add .
 
 if git diff --staged --quiet; then
@@ -17,6 +15,8 @@ else
     git commit -m "Auto-commit: $(date)" > /dev/null
     echo -e "${GREEN}[Committed current configuration]${NC}"
 fi
+
+echo -e "${GREEN}[Rebuilding NixOS configuration]${NC}"
 
 if sudo nixos-rebuild switch --flake /etc/nixos/\#BBM; then
     echo -e "${GREEN}[System rebuilt successfully]${NC}"
