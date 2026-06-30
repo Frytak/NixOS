@@ -18,7 +18,7 @@ fi
 
 echo -e "${GREEN}[Rebuilding NixOS configuration]${NC}"
 
-if sudo nixos-rebuild switch --flake /etc/nixos/\#BBM; then
+if nh os switch . -H BBM; then
     echo -e "${GREEN}[System rebuilt successfully]${NC}"
 else
     echo -e "${RED}[System rebuild failed]${NC}"
