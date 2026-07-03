@@ -67,6 +67,7 @@ recursiveMerge [{
                 buildInputs = prev.clapper.buildInputs ++ [
                     prev.gst_all_1.gst-plugins-bad
                     prev.gst_all_1.gst-plugins-ugly
+                    prev.gst_all_1.gst-libav
                 ];
             };
         })
