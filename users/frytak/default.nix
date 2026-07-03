@@ -59,6 +59,19 @@ recursiveMerge [{
         ];
     };
 
+    nixpkgs.overlays = [
+        (final: prev: {
+            btop = prev.btop.override { cudaSupport = true; };
+
+            clapper = prev.clapper.override {
+                buildInputs = prev.clapper.buildInputs ++ [
+                    prev.gst_all_1.gst-plugins-bad
+                    prev.gst_all_1.gst-plugins-ugly
+                ];
+            };
+        })
+    ];
+
     home.packages = with pkgs; [
         unar
         zip
@@ -95,12 +108,7 @@ recursiveMerge [{
         teams-for-linux
         tigervnc
         zulu25 # Java 25
-
         clapper
-        gst_all_1.gst-plugins-good
-        gst_all_1.gst-plugins-bad
-        gst_all_1.gst-plugins-ugly
-        gst_all_1.gst-libav
     ];
 
     modules.home = {

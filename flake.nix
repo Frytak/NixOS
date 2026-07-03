@@ -51,8 +51,6 @@
     let
         overlays = [
             (final: prev: {
-                btop = prev.btop.override { cudaSupport = true; };
-
                 # Packages from unstable
                 unstable = import nixpkgs-unstable {
                     system = prev.system;
