@@ -83,7 +83,6 @@ recursiveMerge [{
         telegram-desktop
         obs-studio
         v4l-utils
-        clapper
         coppwr
         prismlauncher
         nautilus
@@ -96,6 +95,12 @@ recursiveMerge [{
         teams-for-linux
         tigervnc
         zulu25 # Java 25
+
+        clapper
+        gst_all_1.gst-plugins-good
+        gst_all_1.gst-plugins-bad
+        gst_all_1.gst-plugins-ugly
+        gst_all_1.gst-libav
     ];
 
     modules.home = {
