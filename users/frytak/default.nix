@@ -59,20 +59,6 @@ recursiveMerge [{
         ];
     };
 
-    nixpkgs.overlays = [
-        (final: prev: {
-            btop = prev.btop.override { cudaSupport = true; };
-
-            clapper = prev.clapper.override {
-                buildInputs = prev.clapper.buildInputs ++ [
-                    prev.gst_all_1.gst-plugins-bad
-                    prev.gst_all_1.gst-plugins-ugly
-                    prev.gst_all_1.gst-libav
-                ];
-            };
-        })
-    ];
-
     home.packages = with pkgs; [
         unar
         zip

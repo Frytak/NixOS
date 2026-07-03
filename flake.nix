@@ -51,6 +51,16 @@
     let
         overlays = [
             (final: prev: {
+                btop = prev.btop.override { cudaSupport = true; };
+
+                clapper = prev.clapper.overrideAttrs (oldAttrs: {
+                    buildInputs = (oldAttrs.buildInputs or []) ++ [
+                        prev.gst_all_1.gst-plugins-bad
+                        prev.gst_all_1.gst-plugins-ugly
+                        prev.gst_all_1.gst-libav
+                    ];
+                });
+
                 # Packages from unstable
                 unstable = import nixpkgs-unstable {
                     system = prev.system;
