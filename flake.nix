@@ -55,6 +55,7 @@
 
                 clapper = prev.clapper.overrideAttrs (oldAttrs: {
                     buildInputs = (oldAttrs.buildInputs or []) ++ [
+                        prev.gst_all_1.gst-plugins-good
                         prev.gst_all_1.gst-plugins-bad
                         prev.gst_all_1.gst-plugins-ugly
                         prev.gst_all_1.gst-libav
