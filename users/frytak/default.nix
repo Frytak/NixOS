@@ -95,7 +95,7 @@ recursiveMerge [{
         teams-for-linux
         tigervnc
         zulu25 # Java 25
-        clapper-unwrapped
+        clapper
     ];
 
     modules.home = {
