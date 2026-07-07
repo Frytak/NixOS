@@ -17,7 +17,7 @@
 
     # TODO: Delete, just testing if it works
     networking.firewall.allowedTCPPorts = [ 8080 ];
-    services.google-calendar-timetable = {
+    services.planer-pk = {
         enable = true;
         port = 8080;
         apiBaseUrl = "http://localhost:8080/api";
