@@ -4,6 +4,7 @@
     imports = [
         ./hardware-configuration.nix
         ../../modules/system
+        inputs.planer-pk.nixosModules.default
     ];
 
     system.stateVersion = "25.05";
@@ -13,6 +14,17 @@
 
     boot.kernelModules = [ "v4l2loopback" ];
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+
+    # TODO: Delete, just testing if it works
+    networking.firewall.allowedTCPPorts = [ 8080 ];
+    services.google-calendar-timetable = {
+        enable = true;
+        port = 8080;
+        apiBaseUrl = "http://localhost:8080/api";
+
+        calendarCredentialsPath = "/home/frytak/ProgrammingProjects/GoogleCalendarTimetable/credentials.json";
+        environmentFile = "/home/frytak/ProgrammingProjects/GoogleCalendarTimetable/.env"; 
+    };
 
     # Enable default system configuration
     modules.system = {

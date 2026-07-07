@@ -36,6 +36,11 @@
             inputs.home-manager.follows = "home-manager";
         };
 
+        planer-pk = {
+            url = "path:/home/frytak/ProgrammingProjects/GoogleCalendarTimetable";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         vicinae-extensions = {
             url = "github:vicinaehq/extensions";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -55,6 +60,7 @@
 
                 clapper = prev.clapper.overrideAttrs (oldAttrs: {
                     buildInputs = (oldAttrs.buildInputs or []) ++ [
+                        prev.gst_all_1.gst-plugins-good
                         prev.gst_all_1.gst-plugins-bad
                         prev.gst_all_1.gst-plugins-ugly
                         prev.gst_all_1.gst-libav
