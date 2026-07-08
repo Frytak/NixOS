@@ -150,10 +150,10 @@ recursiveMerge [{
                     hl.exec_cmd("uwsm app -- Telegram", { workspace = "special:8 silent" })
                 end)
 
-                --hl.window_rule({
-                --    match = { class = "^(discord)$" },
-                --    workspace = "special:7 silent",
-                --})
+                hl.window_rule({
+                    match = { class = "^(discord)$" },
+                    workspace = "special:7 silent",
+                })
             '';
         };
 
