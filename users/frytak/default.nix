@@ -151,12 +151,12 @@ recursiveMerge [{
                 end)
 
                 hl.window_rule({
-                    match = { initialClass = "discord" },
+                    match = { initial_class = "discord" },
                     workspace = "special:7 silent",
                 })
 
                 hl.window_rule({
-                    match = { initialClass = "org.telegram.desktop" },
+                    match = { initial_class = "org.telegram.desktop" },
                     workspace = "special:8 silent",
                 })
             '';
