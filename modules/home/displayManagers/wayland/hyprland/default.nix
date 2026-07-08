@@ -51,7 +51,7 @@ in
             extraConfig = ''
                 local mod = "SUPER"
 
-                -- --- Core Settings ---
+                -- Settings
                 hl.config({
                     general = {
                         gaps_in = 5,
@@ -80,29 +80,10 @@ in
                     },
                 })
 
-                -- --- Autostart (exec-once) ---
+                -- Autostart
                 hl.on("hyprland.start", function()
                     hl.exec_cmd("systemctl --user start hyprpolkitagent")
-                    hl.exec_cmd("uwsm app -- swaync")
-                    hl.exec_cmd("[workspace special:7 silent] uwsm app -- vesktop")
-                    hl.exec_cmd("[workspace special:8 silent] uwsm app -- Telegram")
                 end)
-
-                -- --- Window & Workspace Rules ---
-                hl.window_rule({
-                    match = { class = "^(vesktop)$" },
-                    workspace = "special:7 silent",
-                })
-
-                -- Notice how Lua lets us use loops for rules, avoiding repetition!
-                local special_workspaces = { "7", "8", "9", "S" }
-                for _, ws in ipairs(special_workspaces) do
-                    hl.workspace_rule({
-                        workspace = "special:" .. ws,
-                        gaps_in = 25,
-                        gaps_out = 50,
-                    })
-                end
 
                 -- Mouse bindings
                 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -137,14 +118,8 @@ in
                 hl.bind(mod .. " + F6", hl.dsp.exec_cmd("playerctl play-pause"))
                 hl.bind(mod .. " + F7", hl.dsp.exec_cmd("playerctl next"))
                 hl.bind(mod .. " + F5", hl.dsp.exec_cmd("playerctl previous"))
-
-                -- Swaync
-                hl.bind(mod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
                 
-                -- Eww Dashboard (Nix Interpolation works perfectly here)
-                hl.bind(mod .. " + W", hl.dsp.exec_cmd("${config.home.homeDirectory}/.config/eww/dashboard.sh"))
-
-                -- Workspaces 1-6 mapping using a Lua loop
+                -- Regular workspaces mapping
                 local ws_keys = {
                     { key = "1", code = "87" }, { key = "2", code = "88" },
                     { key = "3", code = "89" }, { key = "4", code = "83" },
@@ -161,7 +136,17 @@ in
                     hl.bind(mod .. " + SHIFT + code:" .. ws.code, hl.dsp.window.move({ workspace = "name:" .. ws.key }))
                 end
 
-                -- Special Workspaces mappings using a Lua loop
+                -- Special workspace rules
+                local special_workspaces = { "7", "8", "9", "S" }
+                for _, ws in ipairs(special_workspaces) do
+                    hl.workspace_rule({
+                        workspace = "special:" .. ws,
+                        gaps_in = 25,
+                        gaps_out = 50,
+                    })
+                end
+
+                -- Special workspaces mappings
                 local special_keys = {
                     { key = "S", code = nil },
                     { key = "7", code = "79" },
@@ -179,7 +164,7 @@ in
                     end
                 end
             '' + lib.optionalString moduleConfig.grimblast.enable ''
-                -- --- Grimblast Conditional Module ---
+                -- Grimblast
                 hl.bind(mod .. " + code:107", hl.dsp.exec_cmd("uwsm app -- grimblast copy output"))
                 hl.bind(mod .. " + SHIFT + code:107", hl.dsp.exec_cmd("uwsm app -- grimblast copy screen"))
                 hl.bind(mod .. " + F", hl.dsp.exec_cmd("uwsm app -- grimblast copy area"))

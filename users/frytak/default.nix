@@ -143,11 +143,17 @@ recursiveMerge [{
             grimblast.enable = true;
 
             extraConfig = ''
-                --hl.on("hyprland.start", function()
-                --    hl.exec_cmd("[workspace special:8 silent] uwsm app -- quickshell")
-                --end)
-
                 hl.bind(mod .. " + D", hl.dsp.exec_cmd("uwsm app -- vicinae toggle"))
+
+                hl.on("hyprland.start", function()
+                    hl.exec_cmd("uwsm app -- discord", { workspace = "special:7 silent" })
+                    hl.exec_cmd("uwsm app -- Telegram", { workspace = "special:8 silent" })
+                end)
+
+                --hl.window_rule({
+                --    match = { class = "^(discord)$" },
+                --    workspace = "special:7 silent",
+                --})
             '';
         };
 
