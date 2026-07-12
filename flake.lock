@@ -551,8 +551,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1783866093,
-        "narHash": "sha256-rLsWS1T8bf1vhIXOOjteb2VTBY0N+OJLop/ltLPhcBg=",
+        "lastModified": 1783866274,
+        "narHash": "sha256-KeSJRAwLvbalMETzTxj1DA1jZ/ZSQzB8QdYb2nhCVBU=",
         "path": "/home/frytak/ProgrammingProjects/GoogleCalendarTimetable",
         "type": "path"
       },
