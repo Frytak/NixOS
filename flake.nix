@@ -58,6 +58,8 @@
             (final: prev: {
                 btop = prev.btop.override { cudaSupport = true; };
 
+                bottles = prev.bottles.override { removeWarningPopup = true; };
+
                 clapper = prev.clapper.overrideAttrs (oldAttrs: {
                     buildInputs = (oldAttrs.buildInputs or []) ++ [
                         prev.gst_all_1.gst-plugins-good
