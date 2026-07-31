@@ -51,7 +51,8 @@ recursiveMerge [{
         };
 
         extensions = with inputs.vicinae-extensions.packages.${pkgs.stdenv.hostPlatform.system}; [
-            bluetooth
+            # TODO: uncomment when they decide to stop removing attrs randomly
+            #bluetooth
             nix
             firefox
             hypr-keybinds
