@@ -50,11 +50,17 @@
             url = "github:noctalia-dev/noctalia";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        nix-minecraft = {
+            url = "github:Infinidoge/nix-minecraft";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
     outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
         overlays = [
+            inputs.nix-minecraft.overlay
             (final: prev: {
                 btop = prev.btop.override { cudaSupport = true; };
 

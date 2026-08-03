@@ -5,6 +5,7 @@
         ./hardware-configuration.nix
         ../../modules/system
         inputs.planer-pk.nixosModules.default
+        inputs.nix-minecraft.nixosModules.minecraft-servers
     ];
 
     system.stateVersion = "25.05";
@@ -25,6 +26,57 @@
     #    calendarCredentialsPath = "/home/frytak/ProgrammingProjects/GoogleCalendarTimetable/credentials.json";
     #    environmentFile = "/home/frytak/ProgrammingProjects/GoogleCalendarTimetable/.env"; 
     #};
+
+    # Minecraft server
+    services.minecraft-servers = {
+        enable = true;
+        eula = true;
+        openFirewall = true;
+        servers.fabric = {
+            enable = true;
+
+            package = pkgs.fabricServers.fabric-26_2;
+
+            serverProperties = {
+                server-port = 43285;
+
+                motd = "Gay Fat Fuck Furry Den";
+
+                max-players = 4;
+                difficulty = 2;
+                simulation-distance = 16;
+                view-distance = 32;
+
+                level-seed = "TODO";
+                enforce-secure-profile = false;
+                enforce-whitelist = true;
+                online-mode = false;
+                spawn-protection = 0;
+                white-list = false;
+            };
+
+            #whitelist = {
+            #    Frytak = "uuid";
+            #    username1 = "uuid";
+            #    username2 = "uuid";
+            #    username3 = "uuid";
+            #};
+
+            symlinks = {
+                mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
+                    Lithium = pkgs.fetchurl {
+                        url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/f7vZ0VWU/lithium-fabric-0.25.3%2Bmc26.2.jar";
+                        sha512 = "e5f3c3431b96b281300dd118ee523379ff6a774c0e864eab8d159af32e5425c915f8664b1cd576f20275e8baf995e016c5971fea7478c8cb0433a83663f2aea8";
+                    };
+
+                    EasyAuth = pkgs.fetchurl {
+                        url = "https://cdn.modrinth.com/data/aZj58GfX/versions/3d6BOvmm/easyauth-mc26.2-3.4.4.jar";
+                        hash = "e5f3c3431b96b281300dd118ee523379ff6a774c0e864eab8d159af32e5425c915f8664b1cd576f20275e8baf995e016c5971fea7478c8cb0433a83663f2aea8";
+                    };
+                });
+            };
+        };
+    };
 
     # Enable default system configuration
     modules.system = {
