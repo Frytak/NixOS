@@ -66,7 +66,7 @@
                 mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
                     Lithium = pkgs.fetchurl {
                         url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/f7vZ0VWU/lithium-fabric-0.25.3%2Bmc26.2.jar";
-                        sha512 = builtins.hashString "sha512" "text";
+                        hash = builtins.hashString "sha512" "text";
                     };
 
                     EasyAuth = pkgs.fetchurl {
