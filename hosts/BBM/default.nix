@@ -71,7 +71,7 @@
 
                     EasyAuth = pkgs.fetchurl {
                         url = "https://cdn.modrinth.com/data/aZj58GfX/versions/3d6BOvmm/easyauth-mc26.2-3.4.4.jar";
-                        sha512 = builtins.hashString "sha512" "text";
+                        sha512 = "sha512-WoK6cgUpUPCtr5SXa8/awDw5wRHrWZiaoyBv62BN/9CMy9nS7f1I6pIuO7zSzS0xKzNpIIicoo/nV8Cyc8zpbg==";
                     };
                 });
             };
