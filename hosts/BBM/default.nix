@@ -35,8 +35,9 @@
         servers.fabric = {
             enable = true;
 
-            package = pkgs.fabricServers.fabric-26_2;
-            jvmPackage = pkgs.openjdk25_headless;
+            package = pkgs.fabricServers.fabric-26_2.override {
+                jre_headless = pkgs.openjdk25_headless;
+            };
 
             serverProperties = {
                 server-port = 43285;
