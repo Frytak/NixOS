@@ -164,6 +164,7 @@
 
     environment.systemPackages = with pkgs; [ ];
 
+    programs.adb.enable = true;
     hardware.sane.enable = true; # enables support for SANE scanners
 
     virtualisation.docker.enable = true;
