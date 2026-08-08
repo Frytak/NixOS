@@ -32,6 +32,12 @@
         MOZ_DISABLE_RDD_SANDBOX = "1";
     };
 
+    # The ELAN0718 touchpad is exposed through both I2C-HID and PS/2. The
+    # I2C-HID interface repeatedly fails with EREMOTEIO (-121), while the
+    # Elantech PS/2 interface initializes correctly. Avoid the broken
+    # duplicate so libinput/Hyprland uses the working interface.
+    boot.blacklistedKernelModules = [ "i2c_hid_acpi" ];
+
     # TODO: Tablet drivers
     hardware.opentabletdriver.enable = true;
 

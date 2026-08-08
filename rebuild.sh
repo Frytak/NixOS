@@ -18,7 +18,7 @@ fi
 
 echo -e "${GREEN}[Rebuilding NixOS configuration]${NC}"
 
-if nh os switch . -H BBM; then
+if nh os switch . -H ${1}; then
     echo -e "${GREEN}[System rebuilt successfully]${NC}"
 else
     echo -e "${RED}[System rebuild failed]${NC}"

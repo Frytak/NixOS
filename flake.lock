@@ -170,28 +170,6 @@
         "type": "path"
       }
     },
-    "frytak-quickshell": {
-      "inputs": {
-        "flake-parts": "flake-parts_3",
-        "home-manager": [
-          "home-manager"
-        ],
-        "material-design-3": "material-design-3",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785259909,
-        "narHash": "sha256-8mrog6vagjXFrmRsimA4oqQbAwuMIqy/fWPEx/WGLX8=",
-        "path": "/home/frytak/ProgrammingProjects/QuickshellConfig",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/frytak/ProgrammingProjects/QuickshellConfig",
-        "type": "path"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
