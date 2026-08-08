@@ -16,7 +16,6 @@ in
 
             sharedModules = [
                 ../home
-                inputs.frytak-quickshell.homeModules.default
                 inputs.frytak-nixvim.homeModules.default
                 inputs.noctalia.homeModules.default
             ];

@@ -24,12 +24,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        frytak-quickshell = {
-            url = "path:/home/frytak/ProgrammingProjects/QuickshellConfig";
-            inputs.nixpkgs.follows = "nixpkgs";
-            inputs.home-manager.follows = "home-manager";
-        };
-
         frytak-nixvim = {
             url = "path:/home/frytak/ProgrammingProjects/NixvimConfig";
             inputs.nixpkgs.follows = "nixpkgs";

@@ -75,7 +75,6 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
-          "frytak-nixvim",
           "nixvim",
           "nixpkgs"
         ]
@@ -146,28 +145,6 @@
         "owner": "hercules-ci",
         "repo": "flake-parts",
         "type": "github"
-      }
-    },
-    "frytak-nixvim": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixvim": "nixvim"
-      },
-      "locked": {
-        "lastModified": 1785259909,
-        "narHash": "sha256-ff2JFo9VgsIEkVDRq65YAJeic72yzCdUrzVGHiW8ipw=",
-        "path": "/home/frytak/ProgrammingProjects/NixvimConfig",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/frytak/ProgrammingProjects/NixvimConfig",
-        "type": "path"
       }
     },
     "home-manager": {
@@ -346,25 +323,6 @@
         "type": "github"
       }
     },
-    "material-design-3": {
-      "inputs": {
-        "flake-parts": "flake-parts_4",
-        "nixpkgs": [
-          "frytak-quickshell",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768330288,
-        "narHash": "sha256-2YPfGTYIcsUNjMwocYT9+pnd+G71R/L0N/PFHHgg0c0=",
-        "path": "/home/frytak/ProgrammingProjects/QuickshellConfig/config/MaterialDesign3",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/frytak/ProgrammingProjects/QuickshellConfig/config/MaterialDesign3",
-        "type": "path"
-      }
-    },
     "mcmojave-hyprcursor": {
       "inputs": {
         "hyprcursor": "hyprcursor",
@@ -515,30 +473,6 @@
         "type": "github"
       }
     },
-    "nixvim": {
-      "inputs": {
-        "flake-parts": "flake-parts_2",
-        "nixpkgs": [
-          "frytak-nixvim",
-          "nixpkgs"
-        ],
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1782919967,
-        "narHash": "sha256-pRwjfB5HQJ3m8J8bOR43pPHtHI7VUJSqwLA3P06cOY0=",
-        "owner": "nix-community",
-        "repo": "nixvim",
-        "rev": "667c8471f4a0fb24d702d1a61af8609f1a5f1ba6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "nixos-26.05",
-        "repo": "nixvim",
-        "type": "github"
-      }
-    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -580,8 +514,6 @@
     "root": {
       "inputs": {
         "firefox-addons": "firefox-addons",
-        "frytak-nixvim": "frytak-nixvim",
-        "frytak-quickshell": "frytak-quickshell",
         "home-manager": "home-manager",
         "hyprland-qt-support": "hyprland-qt-support",
         "mcmojave-hyprcursor": "mcmojave-hyprcursor",
