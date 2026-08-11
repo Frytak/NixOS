@@ -61,7 +61,7 @@
             hl.exec_cmd("uwsm app -- wayvnc")
         end)
 
-        hl.bind("M", hl.dsp.submap("kbptr"))
+        hl.bind("MOD + M", hl.dsp.submap("kbptr"))
 
         hl.define_submap("kbptr", function ()
             hl.bind("p", hl.dsp.exec_cmd("hyprctl dispatch submap reset && wl-kbptr && hyprctl dispatch submap kbptr"))
