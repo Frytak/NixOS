@@ -22,8 +22,6 @@
         hyprland.enable = true;
     };
 
-    services.mullvad-vpn.enable = true;
-
     environment.variables = {
         NIXOS_OZONE_WL = 1;
         GBM_BACKEND = "nvidia-drm";
