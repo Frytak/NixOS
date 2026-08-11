@@ -48,7 +48,7 @@ in
 
                     start = ["launcher" "wallpaper" "workspaces"];
                     center = ["clock"];
-                    end = ["media" "volume" "brightness" "batterty" "bluetooth" "network" "control-center" "session"];
+                    end = ["media" "volume" "brightness" "battery" "bluetooth" "network" "control-center" "session"];
                 };
 
                 location = {
