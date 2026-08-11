@@ -22,67 +22,68 @@
         };
     };
 
-    modules.home.displayManagers.wayland.hyprland.config = {
-        # Add submaps
-        extraConfig = ''
-            bind = $mod, m, submap, kbptr
-
-            submap = kbptr
-
-            bind = , p, exec, hyprctl dispatch submap reset && wl-kbptr && hyprctl dispatch submap kbptr
-
-            binde = CTRL, j, exec, wlrctl pointer move 0 1
-            binde = CTRL, k, exec, wlrctl pointer move 0 -1
-            binde = CTRL, l, exec, wlrctl pointer move 1 0
-            binde = CTRL, h, exec, wlrctl pointer move -1 0
-
-            binde = , j, exec, wlrctl pointer move 0 10
-            binde = , k, exec, wlrctl pointer move 0 -10
-            binde = , l, exec, wlrctl pointer move 10 0
-            binde = , h, exec, wlrctl pointer move -10 0
-
-            binde = , u, exec, wlrctl pointer click left
-            binde = , i, exec, wlrctl pointer click middle
-            binde = , o, exec, wlrctl pointer click right
-
-            binde = SHIFT, J, exec, wlrctl pointer move 0 100
-            binde = SHIFT, K, exec, wlrctl pointer move 0 -100
-            binde = SHIFT, L, exec, wlrctl pointer move 100 0
-            binde = SHIFT, H, exec, wlrctl pointer move -100 0
-
-            bind = , ESCAPE, submap, reset
-
-            submap = reset
-        '';
-
-        settings = {
+    modules.home.displayManagers.wayland.hyprland.extraConfig = ''
+        hl.config({
             input = {
-                sensitivity = -0.8;
+                sensitivity = -0.8,
                 touchpad = {
-                    natural_scroll = true;
-                };
-            };
+                    natural_scroll = true,
+                },
+                tablet = {
+                    output = "current",
+                },
+            },
 
             xwayland = {
-                force_zero_scaling = true;
-            };
+                force_zero_scaling = true,
+            },
+        })
 
-            monitor = [
-                "eDP-1, 1920x1080@60, 0x0, 1"
-            ];
+        hl.monitor({ output = "eDP-1", mode = "1920x1080@60", position = "0x0", scale = 1, })
 
-            workspace = [
-                "name:1, monitor:eDP-1, default:true"
-                "name:2, monitor:eDP-1"
-                "name:3, monitor:eDP-1"
-                "name:4, monitor:eDP-1"
-                "name:5, monitor:eDP-1"
-                "name:6, monitor:eDP-1"
-            ];
+        local monitor_workspace_rules = {
+            ["eDP-1"] = { "name:1", "name:2", "name:3", "name:4", "name:5", "name:6" },
+        }
 
-            exec-once = [
-                "[workspace special:S silent] firefox-nightly"
-            ];
-        };
-    };
+        for monitor, workspaces in pairs(monitor_workspace_rules) do
+            for i, workspace in ipairs(workspaces) do
+            hl.workspace_rule({
+                workspace = workspace,
+                monitor = monitor,
+                persistent = true,
+                default = (i == 1),
+            })
+            end
+        end
+
+        hl.on("hyprland.start", function() 
+            hl.exec_cmd("[workspace special:S silent] uwsm app -- nvidia-offload firefox")
+            hl.exec_cmd("uwsm app -- wayvnc")
+        end)
+
+        hl.define_submap("kbptr", function ()
+            hl.bind("p", hl.dsp.exec_cmd("hyprctl dispatch submap reset && wl-kbptr && hyprctl dispatch submap kbptr"))
+
+            hl.bind("CTRL + j", hl.dsp.exec_cmd("wlrctl pointer move 0 1"))
+            hl.bind("CTRL + k", hl.dsp.exec_cmd("wlrctl pointer move 0 -1"))
+            hl.bind("CTRL + l", hl.dsp.exec_cmd("wlrctl pointer move 1 0"))
+            hl.bind("CTRL + h", hl.dsp.exec_cmd("wlrctl pointer move -1 0"))
+
+            hl.bind("j", hl.dsp.exec_cmd("wlrctl pointer move 0 10"))
+            hl.bind("k", hl.dsp.exec_cmd("wlrctl pointer move 0 -10"))
+            hl.bind("l", hl.dsp.exec_cmd("wlrctl pointer move 10 0"))
+            hl.bind("h", hl.dsp.exec_cmd("wlrctl pointer move -10 0"))
+
+            hl.bind("u", hl.dsp.exec_cmd("wlrctl pointer click left"))
+            hl.bind("i", hl.dsp.exec_cmd("wlrctl pointer click middle"))
+            hl.bind("o", hl.dsp.exec_cmd("wlrctl pointer click right"))
+
+            hl.bind("SHIFT + J", hl.dsp.exec_cmd("wlrctl pointer move 0 100"))
+            hl.bind("SHIFT + K", hl.dsp.exec_cmd("wlrctl pointer move 0 -100"))
+            hl.bind("SHIFT + L", hl.dsp.exec_cmd("wlrctl pointer move 100 0"))
+            hl.bind("SHIFT + H", hl.dsp.exec_cmd("wlrctl pointer move -100 0"))
+
+            hl.bind("ESCAPE", hl.dsp.submap("reset"))
+        end)
+    '';
 }

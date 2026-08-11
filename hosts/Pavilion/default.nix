@@ -42,7 +42,7 @@
     hardware.opentabletdriver.enable = true;
 
     # Graphic drivers
-    nixpkgs.config.cudaSupport = true;
+    #nixpkgs.config.cudaSupport = true;
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware = {
         graphics = {
