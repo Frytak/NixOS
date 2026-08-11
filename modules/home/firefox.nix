@@ -61,7 +61,6 @@ in
                         youtube-shorts-block
                         return-youtube-dislikes
                         web-archives
-                        tridactyl
                     ];
 
                     # All bookmarks should be on the toolbar
