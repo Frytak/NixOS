@@ -22,6 +22,9 @@
         };
     };
 
+
+    #programs.noctalia.settings.bar.main.end = ["media" "volume" "brightness" "bluetooth" "network" "control-center" "session"];
+
     modules.home.displayManagers.wayland.hyprland.extraConfig = ''
         hl.config({
             input = {
