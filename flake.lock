@@ -160,8 +160,8 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1786445364,
-        "narHash": "sha256-HR+aAv0aghDQOJFyFsxJcQGt9qBSvKTARbTfeR/vHuQ=",
+        "lastModified": 1786829045,
+        "narHash": "sha256-jCVagJCuwmeDDhTBYQUS391CGhSH/MQeIALhkWj6DiM=",
         "path": "/home/frytak/ProgrammingProjects/NixvimConfig",
         "type": "path"
       },
