@@ -64,6 +64,7 @@ recursiveMerge [{
         unar
         zip
         rsync
+        tmux
 
         cliphist
 
