@@ -25,7 +25,7 @@
         };
 
         frytak-nixvim = {
-            url = "path:/home/frytak/ProgrammingProjects/NixvimConfig";
+            url = "github:Frytak/NixvimConfig";
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.home-manager.follows = "home-manager";
         };
