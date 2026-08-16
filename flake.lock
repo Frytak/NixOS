@@ -124,14 +124,17 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1786829045,
-        "narHash": "sha256-jCVagJCuwmeDDhTBYQUS391CGhSH/MQeIALhkWj6DiM=",
-        "path": "/home/frytak/ProgrammingProjects/NixvimConfig",
-        "type": "path"
+        "lastModified": 1786883159,
+        "narHash": "sha256-mf3qa2Uxs17F+JuWsjrBaaOFZ7cAzl7OhYS8p4Q96Ys=",
+        "owner": "Frytak",
+        "repo": "NixvimConfig",
+        "rev": "2ab139280ab04fba623f0f6eeba2868068fef262",
+        "type": "github"
       },
       "original": {
-        "path": "/home/frytak/ProgrammingProjects/NixvimConfig",
-        "type": "path"
+        "owner": "Frytak",
+        "repo": "NixvimConfig",
+        "type": "github"
       }
     },
     "home-manager": {
