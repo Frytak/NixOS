@@ -244,7 +244,10 @@ recursiveMerge [{
 
         services.wayvnc = {
             enable = true;
-            settings.address = "localhost";
+            settings = {
+                address = "localhost";
+                port = 5900;
+            };
         };
     }
 else if (systemName == "Pavilion") then
