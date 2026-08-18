@@ -9,7 +9,6 @@
         swaynotificationcenter
         wl-kbptr
         wlrctl
-        wayvnc
     ];
 
     modules.home.waybar.config = {
@@ -59,7 +58,6 @@
 
         hl.on("hyprland.start", function() 
             hl.exec_cmd("[workspace special:S silent] uwsm app -- nvidia-offload firefox")
-            hl.exec_cmd("uwsm app -- wayvnc")
         end)
 
         hl.bind("SUPER + M", hl.dsp.submap("kbptr"))

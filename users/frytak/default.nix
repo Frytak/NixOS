@@ -241,6 +241,11 @@ recursiveMerge [{
             #unstable.ollama
             unstable.ollama-cuda
         ];
+
+        home.services.wayvnc = {
+            enable = true;
+            settings.address = "localhost";
+        };
     }
 else if (systemName == "Pavilion") then
     {

@@ -7,7 +7,6 @@
     home.packages = with pkgs; [
         xdg-utils # For apps to be able to interact with XDG
         swaynotificationcenter
-        wayvnc
     ];
 
     modules.home.displayManagers.wayland.hyprland.extraConfig = ''
@@ -41,7 +40,6 @@
 
         hl.on("hyprland.start", function() 
             hl.exec_cmd("[workspace name:4 silent] uwsm app -- nvidia-offload firefox")
-            hl.exec_cmd("uwsm app -- wayvnc")
         end)
     '';
 }
