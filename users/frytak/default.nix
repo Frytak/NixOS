@@ -242,7 +242,7 @@ recursiveMerge [{
             unstable.ollama-cuda
         ];
 
-        home.services.wayvnc = {
+        services.wayvnc = {
             enable = true;
             settings.address = "localhost";
         };
