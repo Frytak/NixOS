@@ -10,11 +10,13 @@
 
     system.stateVersion = "25.05";
 
-    # Isolate CPU 0 (TODO: COMMENT OUT LATER, only for testing AiSD sorting algorithms)
-    #boot.kernelParams = [ "isolcpus=0" "nohz_full=0" "rcu_nocbs=0" ];
-
     boot.kernelModules = [ "v4l2loopback" ];
     boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+
+    # For OBS virtual camera
+    boot.extraModprobeConfig = ''
+        options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+    '';
 
     # TODO: Delete, just testing if it works
     #networking.firewall.allowedTCPPorts = [ 8080 ];
@@ -29,64 +31,6 @@
 
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.login.enableGnomeKeyring = true;
-
-    # Minecraft server
-    #services.minecraft-servers = {
-    #    enable = true;
-    #    eula = true;
-    #    openFirewall = true;
-    #    servers.fabric = {
-    #        enable = true;
-
-    #        package = pkgs.fabricServers.fabric-26_2.override {
-    #            jre_headless = pkgs.openjdk25_headless;
-    #        };
-
-    #        serverProperties = {
-    #            server-port = 43285;
-
-    #            motd = "Gay Fat Fuck Furry Den";
-
-    #            max-players = 4;
-    #            difficulty = 2;
-    #            simulation-distance = 16;
-    #            view-distance = 32;
-
-    #            level-seed = "TODO";
-    #            enforce-secure-profile = false;
-    #            enforce-whitelist = true;
-    #            online-mode = false;
-    #            spawn-protection = 0;
-    #            white-list = false;
-    #        };
-
-    #        #whitelist = {
-    #        #    Frytak = "uuid";
-    #        #    username1 = "uuid";
-    #        #    username2 = "uuid";
-    #        #    username3 = "uuid";
-    #        #};
-
-    #        symlinks = {
-    #            mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
-    #                FabricAPI = pkgs.fetchurl {
-    #                    url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/3gT0I5vt/fabric-api-0.156.0%2B26.2.jar";
-    #                    sha512 = "sha512-W7xDbQf4Ns2QuIKH4u8n8c1n4mGFss1KYssq6FDrdOXtu8e6d3LpLqkevzWyY/iBVCHj1efSg2yyiZO6HVNIFg==";
-    #                };
-
-    #                Lithium = pkgs.fetchurl {
-    #                    url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/f7vZ0VWU/lithium-fabric-0.25.3%2Bmc26.2.jar";
-    #                    sha512 = "sha512-FItjjzxiKfuvSHEgojRKCvXkEaWqZTPV25112gqMDYME9j60zKE/TQOyybTCPVWd10wdgyQi74owh70AXmKovQ==";
-    #                };
-
-    #                EasyAuth = pkgs.fetchurl {
-    #                    url = "https://cdn.modrinth.com/data/aZj58GfX/versions/3d6BOvmm/easyauth-mc26.2-3.4.4.jar";
-    #                    sha512 = "sha512-WoK6cgUpUPCtr5SXa8/awDw5wRHrWZiaoyBv62BN/9CMy9nS7f1I6pIuO7zSzS0xKzNpIIicoo/nV8Cyc8zpbg==";
-    #                };
-    #            });
-    #        };
-    #    };
-    #};
 
     # Enable default system configuration
     modules.system = {
