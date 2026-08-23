@@ -83,7 +83,6 @@ recursiveMerge [{
         qbittorrent
         mgba
         telegram-desktop
-        obs-studio
         v4l-utils
         coppwr
         prismlauncher
@@ -226,6 +225,14 @@ recursiveMerge [{
             icons = "always";
             extraOptions = [ "--group-directories-first" ];
             git = true;
+        };
+
+        obs-studio = {
+            enable = true;
+            enableVirtualCamera = true;
+            plugins = with pkgs.obs-studio-plugins; [
+                droidcam-obs
+            ];
         };
     };
 }
