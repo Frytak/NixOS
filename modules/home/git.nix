@@ -14,6 +14,11 @@
                     email = "frytak2855@gmail.com";
                 };
 
+                # Use ssh instead of https
+                url."ssh://git@github.com" = {
+                    insteadOf = "https://github.com/";
+                };
+
                 init.defaultBranch = "main";
                 safe.directory = [ "/etc/nixos" ];
             };
