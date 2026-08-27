@@ -15,7 +15,7 @@
                 };
 
                 # Use ssh instead of https
-                url."ssh://git@github.com" = {
+                url."ssh://git@github.com:" = {
                     insteadOf = "https://github.com/";
                 };
 
