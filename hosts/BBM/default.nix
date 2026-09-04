@@ -32,6 +32,8 @@
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.login.enableGnomeKeyring = true;
 
+    services.resolved.enable = true;
+
     # Enable default system configuration
     modules.system = {
         boot_loader.enable = true;
