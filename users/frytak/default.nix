@@ -101,6 +101,7 @@ recursiveMerge [{
         zulu25 # Java 25
         clapper
         unstable.codex
+        lazygit
     ];
 
     modules.home = {
