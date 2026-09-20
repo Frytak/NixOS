@@ -21,6 +21,7 @@
     systemd.services.nix-daemon.environment = {
       http_proxy = "socks5h://127.0.0.1:40000";
       https_proxy = "socks5h://127.0.0.1:40000";
+      all_proxy = "socks5h://127.0.0.1:40000";
     };
 
     services.cloudflare-warp.enable = true;
