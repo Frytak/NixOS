@@ -18,20 +18,20 @@
         options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
 
-    systemd.services.nix-daemon.environment = {
-      http_proxy = "socks5h://127.0.0.1:40000";
-      https_proxy = "socks5h://127.0.0.1:40000";
-      all_proxy = "socks5h://127.0.0.1:40000";
-    };
+    #systemd.services.nix-daemon.environment = {
+    #  http_proxy = "socks5h://127.0.0.1:40000";
+    #  https_proxy = "socks5h://127.0.0.1:40000";
+    #  all_proxy = "socks5h://127.0.0.1:40000";
+    #};
 
-    services.cloudflare-warp.enable = true;
+    #services.cloudflare-warp.enable = true;
     #networking.firewall.checkReversePath = "loose";
 
     services.resolved.enable = true;
     #services.resolved.settings.Resolve = {
     #  ResolveUnicastSingleLabel = true;
     #};
-    networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    #networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
     #networking.firewall.trustedInterfaces = [ "CloudflareWARP" ];
 
     # TODO: Delete, just testing if it works

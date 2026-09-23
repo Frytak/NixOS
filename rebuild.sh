@@ -18,7 +18,7 @@ fi
 
 echo -e "${GREEN}[Rebuilding NixOS configuration]${NC}"
 
-if http_proxy="socks5h://127.0.0.1:40000" https_proxy="socks5h://127.0.0.1:40000" nh os switch . -H ${1}; then
+if nh os switch . -H ${1}; then
     echo -e "${GREEN}[System rebuilt successfully]${NC}"
 else
     echo -e "${RED}[System rebuild failed]${NC}"
