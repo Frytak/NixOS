@@ -31,7 +31,8 @@
     #services.resolved.settings.Resolve = {
     #  ResolveUnicastSingleLabel = true;
     #};
-    #networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    networking.networkmanager.dns = "systemd-resolved";
     #networking.firewall.trustedInterfaces = [ "CloudflareWARP" ];
 
     # TODO: Delete, just testing if it works
