@@ -6,7 +6,7 @@
         ../../modules/system
     ];
 
-    system.stateVersion = "23.11";
+    system.stateVersion = "26.05";
 
     # Enable default system configuration
     modules.system = {
