@@ -134,7 +134,7 @@
     };
 
     environment.systemPackages = with pkgs; [
-        wiregauard-tools
+        wireguard-tools
         proton-vpn
     ];
 
