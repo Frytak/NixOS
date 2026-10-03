@@ -133,7 +133,10 @@
         };
     };
 
-    environment.systemPackages = with pkgs; [ ];
+    environment.systemPackages = with pkgs; [
+        wiregauard-tools
+        proton-vpn
+    ];
 
     hardware.sane.enable = true; # enables support for SANE scanners
 
