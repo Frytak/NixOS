@@ -19,13 +19,6 @@ in
         #++
         #(if moduleConfig.steam.enable then with pkgs; [ steam steam-run ] else []);
 
-        programs.steam = lib.mkIf moduleConfig.steam.enable {
-            enable = true;
-            gamescopeSession.enable = true;
-            protontricks.enable = true;
-            remotePlay.openFirewall = true;
-            dedicatedServer.openFirewall = true;
-        };
 
         home.sessionVariables = lib.mkIf moduleConfig.steam.enable {
             STEAM_EXTRA_COMPAT_TOOLS_PATH = "\${HOME}/.steam/root/compatibilitytools.d";

@@ -18,6 +18,14 @@
         options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
     '';
 
+    programs.steam = {
+        enable = true;
+        gamescopeSession.enable = true;
+        protontricks.enable = true;
+        remotePlay.openFirewall = true;
+        dedicatedServer.openFirewall = true;
+    };
+
     #systemd.services.nix-daemon.environment = {
     #  http_proxy = "socks5h://127.0.0.1:40000";
     #  https_proxy = "socks5h://127.0.0.1:40000";
