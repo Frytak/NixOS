@@ -22,6 +22,10 @@
         hyprland.enable = true;
     };
 
+    # Studies: databases
+    services.mysql.enable = true;
+    services.mysql.package = pkgs.mariadb;
+
     environment.variables = {
         NIXOS_OZONE_WL = 1;
         GBM_BACKEND = "nvidia-drm";
