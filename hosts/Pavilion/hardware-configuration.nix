@@ -23,6 +23,12 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16384; # 16 GiB
+    }
+  ];
 
   #swapDevices =
   #  [ { device = "/dev/disk/by-label/swap"; }
