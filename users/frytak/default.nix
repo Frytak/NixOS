@@ -34,6 +34,16 @@ recursiveMerge [{
     # Add `nixpkgs-unstable` to the registry. Allows using in `nix shell nixpkgs-unstable#...`
     nix.registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
 
+      programs = {
+        direnv = {
+          enable = true;
+          enableBashIntegration = true;
+          nix-direnv.enable = true;
+        };
+
+        bash.enable = true;
+      };
+
     programs.vicinae = {
         enable = true;
         systemd = {
