@@ -36,6 +36,8 @@
     #networking.firewall.checkReversePath = "loose";
 
     services.resolved.enable = true;
+    services.mysql.enable = true;
+    services.mysql.package = pkgs.mariadb;
     #services.resolved.settings.Resolve = {
     #  ResolveUnicastSingleLabel = true;
     #};
