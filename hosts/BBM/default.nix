@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, systemName, lib, ... }@args:
+{ config, pkgs, ... }:
 
 {
     imports = [
@@ -68,7 +68,13 @@
 
     security.polkit.enable = true;
 
-    # TODO: After power is restored, hibernate
+    # Suspend after 30 minutes of inactivity, then hibernate 30 minutes later.
+    services.logind.settings.Login = {
+        IdleAction = "suspend-then-hibernate";
+        IdleActionSec = "30min";
+    };
+
+    systemd.sleep.settings.Sleep.HibernateDelaySec = "30min";
 
     # Wake on WLAN
     systemd.services.wowlan = {
