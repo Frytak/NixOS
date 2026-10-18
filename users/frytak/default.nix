@@ -102,8 +102,8 @@ recursiveMerge [{
         clapper
         unstable.codex
         lazygit
-        opencode
-        opencode-desktop
+        unstable.opencode
+        unstable.opencode-desktop
     ];
 
     modules.home = {
