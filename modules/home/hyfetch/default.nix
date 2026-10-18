@@ -30,8 +30,7 @@
                         fore_back = null;
             };
 
-                #args = "--ascii ~/.config/neofetch/ascii.txt";
-                    backend = "neofetch";
+                backend = "neofetch";
                     pride_month_disable = false;
             };
         };

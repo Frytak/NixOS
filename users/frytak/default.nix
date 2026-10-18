@@ -112,8 +112,6 @@ recursiveMerge [{
         firefox.enable = true;
         ranger.enable = true;
 
-        #frytak-quickshell.enable = true;
-
         noctalia = {
             enable = true;
             wallpaper = import ./current-wallpaper.nix;
@@ -129,12 +127,6 @@ recursiveMerge [{
             enableMpd = true;
             enableMpdMpris = true;
         };
-
-        # Wallpaper
-        #hyprpaper = {
-        #    enable = true;
-        #    wallpaper = import ./current-wallpaper.nix;
-        #};
 
         # System information tool
         hyfetch = {
@@ -248,7 +240,6 @@ recursiveMerge [{
             figma-linux
             blender
             unstable.lmstudio
-            #unstable.ollama
             unstable.ollama-cuda
         ];
 

@@ -24,33 +24,9 @@
         dedicatedServer.openFirewall = true;
     };
 
-    #systemd.services.nix-daemon.environment = {
-    #  http_proxy = "socks5h://127.0.0.1:40000";
-    #  https_proxy = "socks5h://127.0.0.1:40000";
-    #  all_proxy = "socks5h://127.0.0.1:40000";
-    #};
-
-    #services.cloudflare-warp.enable = true;
-    #networking.firewall.checkReversePath = "loose";
-
     services.resolved.enable = true;
-    #services.resolved.settings.Resolve = {
-    #  ResolveUnicastSingleLabel = true;
-    #};
     networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
     networking.networkmanager.dns = "systemd-resolved";
-    #networking.firewall.trustedInterfaces = [ "CloudflareWARP" ];
-
-    # TODO: Delete, just testing if it works
-    #networking.firewall.allowedTCPPorts = [ 8080 ];
-    #services.planer-pk = {
-    #    enable = true;
-    #    port = 8080;
-    #    apiBaseUrl = "http://localhost:8080/api";
-
-    #    calendarCredentialsPath = "/home/frytak/ProgrammingProjects/GoogleCalendarTimetable/credentials.json";
-    #    environmentFile = "/home/frytak/ProgrammingProjects/GoogleCalendarTimetable/.env"; 
-    #};
 
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.login.enableGnomeKeyring = true;
@@ -116,27 +92,6 @@
     hardware.sane.enable = true; # enables support for SANE scanners
 
     virtualisation.docker.enable = true;
-    #virtualisation.docker.daemon.settings = {
-    #    runtimes = {
-    #        nvidia = {
-    #            path = "/nix/store/01a3h4vvbg4c9y9xm140ldm3hjfd99py-nvidia-container-toolkit-1.17.6-tools/bin/nvidia-container-runtime";
-    #            runtimeArgs = [];
-    #        };
-    #    };
-    #};
-    #virtualisation.docker.extraOptions = "--default-runtime=nvidia";
-    #hardware.nvidia-container-toolkit.enable = true;
-    #environment.etc."docker/daemon.json".text = ''
-    #  {
-    #    "default-runtime": "nvidia",
-    #    "runtimes": {
-    #      "nvidia": {
-    #        "path": "/nix/store/01a3h4vvbg4c9y9xm140ldm3hjfd99py-nvidia-container-toolkit-1.17.6-tools/bin/nvidia-container-runtime",
-    #        "runtimeArgs": []
-    #      }
-    #    }
-    #  }
-    #'';
 
     services.input-remapper.enable = true;
 }
