@@ -14,6 +14,7 @@
         ./fish.nix
         ./firefox.nix
         ./noctalia.nix
+        ./opencode
         ./rmpc
     ];
 }

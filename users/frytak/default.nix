@@ -99,7 +99,6 @@ recursiveMerge [{
         clapper
         unstable.codex
         lazygit
-        unstable.opencode
         unstable.opencode-desktop
     ];
 
@@ -234,6 +233,8 @@ recursiveMerge [{
 # System specific user configuration.
 (if (systemName == "BBM") then
     {
+        modules.home.opencode.enable = true;
+
         home.packages = with pkgs; [
             davinci-resolve
             figma-linux

@@ -51,6 +51,7 @@
         };
         openssh.enable = true;
         avahi.enable = true;
+        ollama.enable = true;
         databases = {
             enable = true;
             mysql.enable = true;

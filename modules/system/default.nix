@@ -15,6 +15,7 @@
         ./home_manager.nix
         ./network_manager.nix
         ./nix_settings.nix
+        ./ollama.nix
         ./openssh.nix
         ./printers.nix
     ];
