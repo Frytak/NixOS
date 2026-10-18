@@ -4,8 +4,6 @@
     imports = [
         ./hardware-configuration.nix
         ../../modules/system
-        inputs.planer-pk.nixosModules.default
-        inputs.nix-minecraft.nixosModules.minecraft-servers
     ];
 
     system.stateVersion = "25.05";

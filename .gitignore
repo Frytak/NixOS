@@ -1,0 +1,13 @@
+# Nix build results
+result
+result-*
+
+# Editor / shell noise
+*.swp
+*.swo
+*~
+.direnv/
+.envrc
+
+# Temporary files
+*.tmp
