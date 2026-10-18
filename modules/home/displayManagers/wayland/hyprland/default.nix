@@ -19,13 +19,6 @@ in
             type = lib.types.bool;
             default = false;
         };
-
-        # TODO
-        swaync.enable = lib.mkOption {
-            description = "Whether to turn on configuration for Sway Notification Manager.";
-            type = lib.types.bool;
-            default = false;
-        };
     };
     
     config = lib.mkIf moduleConfig.enable {

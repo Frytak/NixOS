@@ -136,7 +136,6 @@ recursiveMerge [{
 
         displayManagers.wayland.hyprland = {
             enable = true;
-            swaync.enable = true;
             grimblast.enable = true;
 
             extraConfig = ''
