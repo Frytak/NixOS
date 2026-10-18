@@ -21,16 +21,17 @@
         bluetooth.enable = true;
         printers.enable = true;
         hyprland.enable = true;
-    };
 
-    environment.variables = {
-        NIXOS_OZONE_WL = 1;
-        GBM_BACKEND = "nvidia-drm";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        WLR_NO_HARDWARE_CURSORS = "1";
-        LIBVA_DRIVER_NAME = "nvidia";
-        NVD_BACKEND = "direct";
-        MOZ_DISABLE_RDD_SANDBOX = "1";
+        graphics = {
+            enable = true;
+            amdgpuBusId = "PCI:5:0:0";
+        };
+        openssh = {
+            enable = true;
+            permitTunnel = true;
+        };
+        avahi.enable = true;
+        databases.enable = true;
     };
 
     # The ELAN0718 touchpad is exposed through both I2C-HID and PS/2. The
@@ -42,59 +43,12 @@
     # TODO: Tablet drivers
     hardware.opentabletdriver.enable = true;
 
-    # Graphic drivers
-    #nixpkgs.config.cudaSupport = true;
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware = {
-        graphics = {
-            enable = true;
-            enable32Bit = true;
-            extraPackages = with pkgs; [ nvidia-vaapi-driver libvdpau-va-gl ];
-        };
-
-        nvidia = {
-            package = config.boot.kernelPackages.nvidiaPackages.production;
-            modesetting.enable = true;
-            powerManagement.enable = false;
-            powerManagement.finegrained = false;
-            open = true;
-            nvidiaSettings = true;
-
-            prime = {
-                offload.enable = true;
-                offload.enableOffloadCmd = true;
-
-                nvidiaBusId = "PCI:1:0:0";
-                amdgpuBusId = "PCI:5:0:0";
-            };
-        };
-    };
-
-    environment.systemPackages = with pkgs; [ ];
-
-
     services.flatpak.enable = true;
 
-
     virtualisation.docker.enable = true;
+
     services = {
         input-remapper.enable = true;
-        postgresql.enable = true;
         logmein-hamachi.enable = true;
-        # TODO: make system module
-        openssh = {
-            enable = true;
-            settings = {
-                PermitTunnel = "yes";
-                PasswordAuthentication = false;
-                PermitRootLogin = "no";
-                PubkeyAuthentication = true;
-            };
-        };
-        avahi = {
-            enable = true;
-            nssmdns4 = true;
-            openFirewall = true;
-        };
     };
 }

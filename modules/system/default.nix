@@ -8,10 +8,14 @@
         ./locales.nix
         ./sound.nix
         ./users.nix
+        ./avahi.nix
         ./bluetooth.nix
+        ./databases.nix
+        ./graphics.nix
         ./home_manager.nix
         ./network_manager.nix
         ./nix_settings.nix
+        ./openssh.nix
         ./printers.nix
     ];
 

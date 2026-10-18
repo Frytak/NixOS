@@ -34,8 +34,6 @@
     #networking.firewall.checkReversePath = "loose";
 
     services.resolved.enable = true;
-    services.mysql.enable = true;
-    services.mysql.package = pkgs.mariadb;
     #services.resolved.settings.Resolve = {
     #  ResolveUnicastSingleLabel = true;
     #};
@@ -70,34 +68,29 @@
         bluetooth.enable = true;
         printers.enable = true;
         hyprland.enable = true;
+
+        graphics = {
+            enable = true;
+            intelBusId = "PCI:0:2:0";
+        };
+        openssh.enable = true;
+        avahi.enable = true;
+        databases = {
+            enable = true;
+            mysql.enable = true;
+        };
     };
 
     # For shell
     services.geoclue2.enable = true;
 
     programs.nix-ld.enable = true;
-    programs.nix-ld.libraries = with pkgs; [
-    ];
-
-    environment.variables = {
-        NIXOS_OZONE_WL = 1;
-        GBM_BACKEND = "nvidia-drm";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        WLR_NO_HARDWARE_CURSORS = "1";
-        LIBVA_DRIVER_NAME = "nvidia";
-        NVD_BACKEND = "direct";
-        MOZ_DISABLE_RDD_SANDBOX = "1";
-    };
 
     boot.tmp.useTmpfs = true;
 
     services.flatpak.enable = true;
 
     security.polkit.enable = true;
-
-    systemd.services."getty@tty1".environment = {
-        XDG_SESSION_TYPE = "x11";
-    };
 
     # TODO: After power is restored, hibernate
 
@@ -113,34 +106,7 @@
         };
     };
 
-    # Graphic drivers
-    #nixpkgs.config.cudaSupport = true;
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware = {
-        uinput.enable = true;
-        graphics = {
-            enable = true;
-            enable32Bit = true;
-            extraPackages = with pkgs; [ nvidia-vaapi-driver libvdpau-va-gl ];
-        };
-
-        nvidia = {
-            package = config.boot.kernelPackages.nvidiaPackages.production;
-            modesetting.enable = true;
-            powerManagement.enable = false;
-            powerManagement.finegrained = false;
-            open = true;
-            nvidiaSettings = true;
-
-            prime = {
-                offload.enable = true;
-                offload.enableOffloadCmd = true;
-
-                nvidiaBusId = "PCI:1:0:0";
-                intelBusId = "PCI:0:2:0";
-            };
-        };
-    };
+    hardware.uinput.enable = true;
 
     environment.systemPackages = with pkgs; [
         wireguard-tools
@@ -172,23 +138,5 @@
     #  }
     #'';
 
-    services = {
-        input-remapper.enable = true;
-        postgresql.enable = true;
-        # TODO: make system module
-        openssh = {
-            enable = true;
-            settings = {
-                PasswordAuthentication = false;
-                PermitRootLogin = "no";
-                PubkeyAuthentication = true;
-            };
-        };
-
-        avahi = {
-            enable = true;
-            nssmdns4 = true;
-            openFirewall = true;
-        };
-    };
+    services.input-remapper.enable = true;
 }
