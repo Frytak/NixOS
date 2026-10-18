@@ -31,9 +31,6 @@ recursiveMerge [{
         };
     };
 
-    # Add `nixpkgs-unstable` to the registry. Allows using in `nix shell nixpkgs-unstable#...`
-    nix.registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
-
     programs.vicinae = {
         enable = true;
         systemd = {

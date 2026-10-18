@@ -11,6 +11,7 @@
         ./bluetooth.nix
         ./home_manager.nix
         ./network_manager.nix
+        ./nix_settings.nix
         ./printers.nix
     ];
 
@@ -19,9 +20,6 @@
     # Remove unecessary preinstalled packages.
     environment.defaultPackages = [ ];
     services.xserver.desktopManager.xterm.enable = false;
-
-    nixpkgs.config.allowUnfree = true;
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     environment.systemPackages = with pkgs; [
         vim

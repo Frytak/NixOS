@@ -12,6 +12,7 @@
     modules.system = {
         boot_loader.enable = true;
         home-manager.enable = true;
+        nix_settings.enable = true;
         users.enable = true;
         locales.enable = true;
         fonts.enable = true;
