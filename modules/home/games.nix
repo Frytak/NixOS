@@ -15,8 +15,7 @@ in
             protonup-ng
             lutris
             bottles
-        ] ++
-        (if moduleConfig.steam.enable then with pkgs; [ steam steam-run ] else []);
+        ];
 
         home.sessionVariables = lib.mkIf moduleConfig.steam.enable {
             STEAM_EXTRA_COMPAT_TOOLS_PATH = "\${HOME}/.steam/root/compatibilitytools.d";

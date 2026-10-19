@@ -15,6 +15,7 @@ in
             enable = true;
             allowedTCPPorts = [ 2855 ];
             allowedUDPPorts = [ 2856 ];
+            checkReversePath = "loose";
         };
     };
 }

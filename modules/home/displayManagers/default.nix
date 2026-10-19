@@ -3,6 +3,5 @@
 {
     imports = [
         ./wayland
-        ./x11
     ];
 }

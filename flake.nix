@@ -15,24 +15,10 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        mcmojave-hyprcursor = {
-            url = "github:libadoxon/mcmojave-hyprcursor";
-        };
-
-        hyprland-qt-support = {
-            url = "github:hyprwm/hyprland-qt-support";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
         frytak-nixvim = {
             url = "github:Frytak/NixvimConfig";
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.home-manager.follows = "home-manager";
-        };
-
-        planer-pk = {
-            url = "path:/home/frytak/ProgrammingProjects/GoogleCalendarTimetable";
-            inputs.nixpkgs.follows = "nixpkgs";
         };
 
         vicinae-extensions = {
@@ -44,37 +30,12 @@
             url = "github:noctalia-dev/noctalia";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
-        nix-minecraft = {
-            url = "github:Infinidoge/nix-minecraft";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
     };
     
-    outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+    outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
         overlays = [
-            inputs.nix-minecraft.overlay
-            (final: prev: {
-                btop = prev.btop.override { cudaSupport = true; };
-
-                bottles = prev.bottles.override { removeWarningPopup = true; };
-
-                clapper = prev.clapper.overrideAttrs (oldAttrs: {
-                    buildInputs = (oldAttrs.buildInputs or []) ++ [
-                        prev.gst_all_1.gst-plugins-good
-                        prev.gst_all_1.gst-plugins-bad
-                        prev.gst_all_1.gst-plugins-ugly
-                        prev.gst_all_1.gst-libav
-                    ];
-                });
-
-                # Packages from unstable
-                unstable = import nixpkgs-unstable {
-                    system = prev.stdenv.hostPlatform.system;
-                    config.allowUnfree = true; 
-                };
-            })
+            (import ./overlays { inherit inputs; })
         ];
     in
     {

@@ -1,6 +1,10 @@
+#!/usr/bin/env bash
 GREEN='\x1b[1;32m'
 RED='\x1b[1;31m'
 NC='\x1b[0m'
+
+# Default to the current hostname, so the host does not have to be passed every time.
+HOST="${1:-$(hostname)}"
 
 cd /etc/nixos || {
     echo -e "${RED}[Failed to change directory to /etc/nixos]${NC}"
@@ -16,9 +20,9 @@ else
     echo -e "${GREEN}[Committed current configuration]${NC}"
 fi
 
-echo -e "${GREEN}[Rebuilding NixOS configuration]${NC}"
+echo -e "${GREEN}[Rebuilding NixOS configuration for ${HOST}]${NC}"
 
-if nh os switch . -H ${1}; then
+if nh os switch . -H "${HOST}"; then
     echo -e "${GREEN}[System rebuilt successfully]${NC}"
 else
     echo -e "${RED}[System rebuild failed]${NC}"

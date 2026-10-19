@@ -15,7 +15,6 @@ in
             useUserPackages = true;
 
             sharedModules = [
-                ../home
                 inputs.frytak-nixvim.homeModules.default
                 inputs.noctalia.homeModules.default
             ];

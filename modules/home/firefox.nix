@@ -23,8 +23,6 @@ in
             # While updating from 25.11 to 26.05 (new default behavior)
             configPath = "${config.xdg.configHome}/mozilla/firefox";
 
-            #package = inputs.firefox.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin;
-
             profiles = {
                 frytak = {
                     name = "Frytak";
@@ -130,110 +128,6 @@ in
                     };
                 };
             };
-            
-            # `Locked` prevents changing these options in the browsers direectly. It enforces changing
-            # them in this configuration file.
-            #
-            # For more information on policies visit https://mozilla.github.io/policy-templates/ 
-            #policies = {
-            #    FirefoxHome = {
-            #        Locked = true;
-            #        Search = false;
-            #        TopSites = false;
-            #        SponsoredTopSites = false;
-            #        Highlights = false;
-            #        Pocket = false;
-            #        SponsoredPocket = false;
-            #        Snippets = false;
-            #    };
-            #    
-            #    Homepage = {
-            #       Locked = true;
-            #       StartPage = "homepage";
-            #    };
-            #    
-            #    # TODO: Change to ManagedBookmarks
-            #    
-            #    SearchEngines = {
-            #        Add = [
-            #            {
-            #                Name = "Google";
-            #                URLTemplate = "https://www.google.com/search?q={searchTerms}";
-            #                Method = "GET";
-            #            }
-            #        ];
-            #        Default = "Google";
-            #    };
-            #    
-            #    # Extensions and themes to be installed
-            #    ExtensionSettings = {
-            #        "*" = {
-            #            installation_mode = "blocked";
-            #            blocked_install_message = "If you want to install an extension of any kind. Do it by specifying the extension in the Nix config file of firefox.";
-            #            default_area = "menupanel";
-            #            allowed_types = ["extension" "theme"];
-            #        };
-            #        
-            #        # Add-on for easy lookup of an extensions ID and install_url.
-            #        # https://github.com/mkaply/queryamoid/releases
-            #        "queryamoid@kaply.com" = {
-            #            installation_mode = "allowed";
-            #        };
-            #        
-            #        # Enable dark theme
-            #        "firefox-compact-dark@mozilla.org" = {
-            #            installation_mode = "force_installed";
-            #        };
-            #        
-            #        # uBlockOrigin
-            #        "uBlock0@raymondhill.net" = {
-            #            installation_mode = "force_installed";
-            #            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-            #        };
-            #        
-            #        # Grammarly
-            #        "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack" = {
-            #            installation_mode = "force_installed";
-            #            install_url = "https://addons.mozilla.org/firefox/downloads/latest/grammarly-1/latest.xpi";
-            #        };
-            #        
-            #        # Sponsor Block
-            #        "sponsorBlocker@ajay.app" = {
-            #            installation_mode = "force_installed";
-            #            install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-            #        };
-            #        
-            #        # Dark Reader
-            #        "addon@darkreader.org" = {
-            #            installation_mode = "force_installed";
-            #            install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-            #        };
-            #        
-            #        # Hide YouTube Shorts
-            #        "{88ebde3a-4581-4c6b-8019-2a05a9e3e938}" = {
-            #            installation_mode = "force_installed";
-            #            install_url = "https://addons.mozilla.org/firefox/downloads/latest/hide-youtube-shorts/latest.xpi";
-            #        };
-            #    };
-            #    
-            #    # Other settings
-            #    NoDefaultBookmarks = true;
-            #    AppAutoUpdate = false;
-            #    DisablePocket = true;
-            #    DisableSetDesktopBackground = true;
-            #    DisableTelemetry = true;
-            #    DisplayBookmarksToolbar = "newtab";
-            #    DontCheckDefaultBrowser = true;
-            #    DownloadDirectory = "$HOME/Downloads";
-            #    HardwareAcceleration = true;
-            #    OfferToSaveLogins = true;
-            #    SearchSuggestEnabled = true;
-            #};
         };
-
-        #home.packages = [
-        #    # TODO
-        #    (pkgs.wrapFirefox (pkgs.firefox-unwrapped.override { pipewireSupport = true;}) {})
-        #];
     };
 }

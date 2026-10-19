@@ -68,10 +68,6 @@ in
 
         # https://docs.noctalia.dev/v5/compositor-settings/hyprland/
         modules.home.displayManagers.wayland.hyprland.extraConfig = ''
-            --hl.on("hyprland.start", function()
-            --    hl.exec_cmd("uwsm app -- noctalia")
-            --end)
-
             hl.config({
                 decoration = {
                     shadow = {

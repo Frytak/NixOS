@@ -31,18 +31,15 @@ recursiveMerge [{
         };
     };
 
-    # Add `nixpkgs-unstable` to the registry. Allows using in `nix shell nixpkgs-unstable#...`
-    nix.registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
-
-      programs = {
+    programs = {
         direnv = {
-          enable = true;
-          enableBashIntegration = true;
-          nix-direnv.enable = true;
+            enable = true;
+            enableBashIntegration = true;
+            nix-direnv.enable = true;
         };
 
         bash.enable = true;
-      };
+    };
 
     programs.vicinae = {
         enable = true;
@@ -112,6 +109,7 @@ recursiveMerge [{
         clapper
         unstable.codex
         lazygit
+        unstable.opencode-desktop
     ];
 
     modules.home = {
@@ -122,8 +120,6 @@ recursiveMerge [{
         alacritty.enable = true;
         firefox.enable = true;
         ranger.enable = true;
-
-        #frytak-quickshell.enable = true;
 
         noctalia = {
             enable = true;
@@ -141,12 +137,6 @@ recursiveMerge [{
             enableMpdMpris = true;
         };
 
-        # Wallpaper
-        #hyprpaper = {
-        #    enable = true;
-        #    wallpaper = import ./current-wallpaper.nix;
-        #};
-
         # System information tool
         hyfetch = {
             enable = true;
@@ -155,7 +145,6 @@ recursiveMerge [{
 
         displayManagers.wayland.hyprland = {
             enable = true;
-            swaync.enable = true;
             grimblast.enable = true;
 
             extraConfig = ''
@@ -254,12 +243,13 @@ recursiveMerge [{
 # System specific user configuration.
 (if (systemName == "BBM") then
     {
+        modules.home.opencode.enable = true;
+
         home.packages = with pkgs; [
             davinci-resolve
             figma-linux
             blender
             unstable.lmstudio
-            #unstable.ollama
             unstable.ollama-cuda
         ];
 
