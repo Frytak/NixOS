@@ -110,6 +110,7 @@ recursiveMerge [{
         unstable.codex
         lazygit
         unstable.opencode-desktop
+        osu-lazer
     ];
 
     modules.home = {
