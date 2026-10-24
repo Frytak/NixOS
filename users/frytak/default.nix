@@ -38,7 +38,10 @@ recursiveMerge [{
             nix-direnv.enable = true;
         };
 
-        bash.enable = true;
+        bash = {
+            enable = true;
+            shellAliases.l = "eza --icons always --git --group-directories-first";
+        };
     };
 
     programs.vicinae = {
@@ -212,6 +215,7 @@ recursiveMerge [{
     programs = {
         eza = {
             enable = true;
+            enableBashIntegration = false;
             icons = "always";
             extraOptions = [ "--group-directories-first" ];
             git = true;
