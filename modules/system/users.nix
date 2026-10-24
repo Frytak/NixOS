@@ -10,11 +10,9 @@ in
     };
 
     config = lib.mkIf moduleConfig.enable {
-        programs.fish.enable = true;
-
         users.users.frytak = {
             isNormalUser = true;
-            shell = pkgs.fish;
+            shell = pkgs.bashInteractive;
             extraGroups = [ "nixos_manager" "wheel" "networkmanager" "docker" "jackaudio" "scanner" "lp" "adbusers" "audio" "video" "uinput"];
         };
     };

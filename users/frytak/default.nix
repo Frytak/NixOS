@@ -116,7 +116,6 @@ recursiveMerge [{
     modules.home = {
         frytak-nixvim.enable = true;
         git.enable = true;
-        fish.enable = true;
         starship.enable = true;
         alacritty.enable = true;
         firefox.enable = true;
@@ -125,11 +124,6 @@ recursiveMerge [{
         noctalia = {
             enable = true;
             wallpaper = import ./current-wallpaper.nix;
-        };
-
-        atuin = {
-            enable = true;
-            disableDefaultKeybinds = true;
         };
 
         rmpc = {
@@ -185,20 +179,11 @@ recursiveMerge [{
         };
     };
 
-    programs.fish.shellInit = ''
-        # Bind Atuin global search to SHIFT+UP_ARROW
-        bind shift-up "${pkgs.atuin}/bin/atuin search -i"
-
-        # Bind Atuin local search to CTRL+UP_ARROW
-        bind ctrl-up "${pkgs.atuin}/bin/atuin search --filter-mode directory -i"
-
-        # Bind Atuin session search to CTRL+SHIFT+UP_ARROW
-        bind ctrl-shift-up "${pkgs.atuin}/bin/atuin search --filter-mode session -i"
-
+    programs.bash.bashrcExtra = ''
         # Auto-start Hyprland on TTY1
-        if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ];
+        if [[ $- == *i* ]] && [ -z "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && [ "''${XDG_VTNR:-0}" -eq 1 ]; then
             exec uwsm start hyprland-uwsm.desktop
-        end
+        fi
     '';
 
     # Themes

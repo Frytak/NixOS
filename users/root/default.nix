@@ -12,9 +12,10 @@ in
         homeDirectory = HOME;
     };
 
+    programs.bash.enable = true;
+
     modules.home = {
         frytak-nixvim.enable = true;
-        fish.enable = true;
         git.enable = true;
         hyfetch.enable = true;
     };
