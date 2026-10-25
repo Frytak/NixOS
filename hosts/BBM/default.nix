@@ -92,8 +92,6 @@
     hardware.uinput.enable = true;
 
     environment.systemPackages = with pkgs; [
-        wireguard-tools
-        proton-vpn
     ];
 
     hardware.sane.enable = true; # enables support for SANE scanners

@@ -113,7 +113,8 @@ recursiveMerge [{
         unstable.codex
         lazygit
         unstable.opencode-desktop
-        osu-lazer
+        wireguard-tools
+        proton-vpn
     ];
 
     modules.home = {
@@ -241,6 +242,7 @@ recursiveMerge [{
             blender
             unstable.lmstudio
             unstable.ollama-cuda
+            unstable.osu-lazer
         ];
 
         services.wayvnc = {
