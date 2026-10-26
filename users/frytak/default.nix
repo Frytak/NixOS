@@ -40,7 +40,7 @@ recursiveMerge [{
 
         bash = {
             enable = true;
-            shellAliases.l = "eza --icons always --git --group-directories-first";
+            shellAliases.l = "eza -alh --icons always --git --group-directories-first";
         };
     };
 
