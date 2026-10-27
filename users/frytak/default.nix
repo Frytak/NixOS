@@ -124,6 +124,7 @@ recursiveMerge [{
         alacritty.enable = true;
         firefox.enable = true;
         ranger.enable = true;
+        opencode.enable = true;
 
         noctalia = {
             enable = true;
@@ -234,8 +235,6 @@ recursiveMerge [{
 # System specific user configuration.
 (if (systemName == "BBM") then
     {
-        modules.home.opencode.enable = true;
-
         home.packages = with pkgs; [
             davinci-resolve
             figma-linux
