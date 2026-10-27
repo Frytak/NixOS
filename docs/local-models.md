@@ -1,6 +1,6 @@
-# Local models (BBM only)
+# Local models
 
-Ollama runs as a CUDA systemd service on BBM (`modules.system.ollama`), listening on
+Ollama runs as a CUDA systemd service (`modules.system.ollama`), listening on
 `127.0.0.1:11434`. Models are stored under `/var/lib/ollama/models`. Download them
 manually with `ollama pull` — nothing is pulled automatically on rebuild.
 
