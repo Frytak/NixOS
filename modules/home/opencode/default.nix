@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
     moduleConfig = config.modules.home.opencode;
+
+    deltaSolver = inputs.delta-solver.packages.${pkgs.stdenv.hostPlatform.system}.delta-solver;
 
     ollamaUrl = "http://127.0.0.1:11434/v1";
 
@@ -57,6 +59,14 @@ in
                         };
                     };
                 };
+            };
+
+            settings.mcp.deltasolver = {
+                type = "local";
+                command = [ "${deltaSolver}/bin/delta_solver" ];
+                enabled = true;
+                environment.DELTA_TOKEN = "{file:~/.config/delta/token}";
+                timeout = 60000;
             };
         };
     };

@@ -30,6 +30,11 @@
             url = "github:noctalia-dev/noctalia";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        delta-solver = {
+            url = "git+file:///home/frytak/ProgrammingProjects/DeltaSolver";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
     
     outputs = { self, nixpkgs, home-manager, ... }@inputs:
